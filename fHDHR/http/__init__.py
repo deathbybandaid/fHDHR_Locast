@@ -39,6 +39,7 @@ class fHDHR_HTTP_Server():
         self.app.after_request(self.after_request)
 
     def before_request(self):
+        print(request.headers.get('User-Agent'))
         self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
 
     def after_request(self, response):
