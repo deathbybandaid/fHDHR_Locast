@@ -3,7 +3,8 @@
           "level":{
                     "value": "INFO",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["debug", "info", "warning", "error", "critical"]
                 }
   }
 }

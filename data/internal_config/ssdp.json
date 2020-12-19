@@ -3,27 +3,32 @@
           "enabled":{
                 "value": true,
                 "config_file": true,
-                "config_web": false
+                "config_web": false,
+                "valid_values": ["true", "false"]
               },
           "max_age":{
                 "value": 1800,
                 "config_file": true,
-                "config_web": false
+                "config_web": false,
+                "valid_values": "int"
                 },
             "proto":{
                   "value": "ipv4",
                   "config_file": true,
-                  "config_web": false
+                  "config_web": false,
+                  "valid_values": ["ipv4", "ipv6"]
                   },
               "iface":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": ["str", "none"]
                     },
                 "multicast_address":{
                       "value": "none",
                       "config_file": true,
-                      "config_web": false
+                      "config_web": false,
+                      "valid_values": ["str", "none"]
                       }
   }
 }

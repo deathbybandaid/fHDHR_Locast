@@ -3,43 +3,51 @@
           "images":{
                     "value": "pass",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["pass", "proxy"]
                 },
           "method":{
                     "value": "blocks",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["blocks", "origin"]
                 },
           "update_frequency":{
                     "value": 43200,
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": "int"
                 },
           "valid_epg_methods":{
                           "value": "None,blocks",
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "str"
                         },
           "reverse_days": {
                           "value": -1,
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "int"
                         },
           "forward_days": {
                           "value": 7,
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "int"
                         },
           "block_size": {
                           "value": 1800,
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "int"
                         }
                         ,
           "xmltv_offset": {
                           "value": "+0000",
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "str"
                         }
   }
 }

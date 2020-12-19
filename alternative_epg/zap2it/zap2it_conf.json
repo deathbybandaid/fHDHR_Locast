@@ -3,62 +3,74 @@
           "delay":{
                     "value": 5,
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "int"
                 },
           "postalcode":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "int"
                 },
           "affiliate_id":{
                     "value": "gapzap",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "country":{
                     "value": "USA",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "device":{
                     "value": "-",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "headendid":{
                     "value": "lineupId",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "isoverride":{
                     "value": true,
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "languagecode":{
                     "value": "en",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "pref":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": ["str", "none"]
                 },
           "timespan":{
                     "value": 6,
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "int"
                 },
           "timezone":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": ["str", "none"]
                 },
           "userid":{
                     "value": "-",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 }
   }
 }

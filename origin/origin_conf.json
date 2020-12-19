@@ -1,86 +1,74 @@
 {
   "main":{
           "servicename":{
-                "value": "Locast",
-                "config_file": false,
-                "config_web": false
+                "value": "Locast"
                 },
           "dictpopname":{
-                      "value": "locast",
-                      "config_file": false,
-                      "config_web": false
+                      "value": "locast"
                     },
           "reponame":{
-                          "value": "fHDHR_Locast",
-                          "config_file": false,
-                          "config_web": false
+                          "value": "fHDHR_Locast"
                         },
           "required":{
-                          "value": "locast/username,locast/password",
-                          "config_file": false,
-                          "config_web": false
+                          "value": "locast/username,locast/password"
                         }
   },
   "fhdhr":{
           "friendlyname":{
-                    "value": "fHDHR-Locast",
-                    "config_file": true,
-                    "config_web": true
+                    "value": "fHDHR-Locast"
                 },
           "tuner_count":{
-                  "value": 3,
-                  "config_file": true,
-                  "config_web": true
+                  "value": 3
                 },
           "reporting_firmware_name":{
-                                    "value": "fHDHR_Locast",
-                                    "config_file": true,
-                                    "config_web": true
+                                    "value": "fHDHR_Locast"
                                   }
   },
   "epg":{
           "method":{
-                    "value": "origin",
-                    "config_file": true,
-                    "config_web": true
+                    "value": "origin"
                 },
           "valid_epg_methods":{
-                          "value": "None,blocks,origin,zap2it,tvtv",
-                          "config_file": false,
-                          "config_web": false
+                          "value": "None,blocks,origin,zap2it,tvtv"
                         }
   },
   "locast":{
           "username":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["str", "none"]
                 },
           "password":{
                     "value": "none",
                     "config_file": true,
                     "config_web": true,
-                    "config_web_hidden": true
+                    "config_web_hidden": true,
+                    "valid_values": ["str", "none"]
                 },
           "override_zipcode":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["str", "none"]
                 },
           "override_latitude":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["str", "none"]
                 },
           "override_longitude":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["str", "none"]
                 },
           "force_best":{
                     "value": false,
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": ["true", "false"]
                 }
   }
 }

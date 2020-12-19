@@ -3,37 +3,44 @@
           "uuid":{
                 "value": "none",
                 "config_file": true,
-                "config_web": false
+                "config_web": false,
+                "valid_values": ["str", "none"]
                 },
           "cache_dir":{
                       "value": "none",
                       "config_file": true,
-                      "config_web": true
+                      "config_web": true,
+                      "valid_values": "path"
                     },
           "thread_method":{
                           "value": "multiprocessing",
                           "config_file": true,
-                          "config_web": true
+                          "config_web": true,
+                          "valid_values": ["threading", "multiprocessing"]
                         },
           "servicename":{
                 "value": "fHDHR",
                 "config_file": false,
-                "config_web": false
+                "config_web": false,
+                "valid_values": "str"
                 },
           "dictpopname":{
                       "value": "fHDHR",
                       "config_file": false,
-                      "config_web": false
+                      "config_web": false,
+                      "valid_values": "str"
                     },
           "reponame":{
                           "value": "fHDHR",
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "str"
                         },
           "required":{
                           "value": "none",
                           "config_file": false,
-                          "config_web": false
+                          "config_web": false,
+                          "valid_values": "str"
                         }
   }
 }

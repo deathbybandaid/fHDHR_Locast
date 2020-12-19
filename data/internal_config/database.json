@@ -3,37 +3,44 @@
           "type":{
                     "value": "sqlite",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": ["sqlite", "mysql", "postgres", "oracle", "mssql", "firebird", "sybase"]
                 },
           "driver":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "user":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "pass":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "host":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 },
           "port":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "int"
                 },
           "name":{
                     "value": "none",
                     "config_file": true,
-                    "config_web": false
+                    "config_web": false,
+                    "valid_values": "str"
                 }
   }
 }

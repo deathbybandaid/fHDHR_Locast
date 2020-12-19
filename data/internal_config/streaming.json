@@ -3,31 +3,36 @@
           "path":{
                     "value": "ffmpeg",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": "path"
                 },
           "bytes_per_read":{
                     "value": 1152000,
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": "int"
                 }
   },
   "vlc":{
           "path":{
                     "value": "cvlc",
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": "path"
                 },
           "bytes_per_read":{
                     "value": 1152000,
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": "int"
                 }
   },
   "direct_stream":{
           "chunksize":{
                     "value": 1048576,
                     "config_file": true,
-                    "config_web": true
+                    "config_web": true,
+                    "valid_values": "int"
                 }
   }
 }
