@@ -20,8 +20,6 @@ class Channels():
         redirect_url = request.args.get('redirect', default=None, type=str)
 
         if method == "get":
-            agent = request.headers.get('User-Agent')
-            print(agent)
             channels_info = []
             for fhdhr_id in list(self.fhdhr.device.channels.list.keys()):
                 channel_obj = self.fhdhr.device.channels.list[fhdhr_id]
