@@ -22,8 +22,13 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("Loading Flask.")
 
         self.fhdhr.app = Flask("fHDHR", template_folder=self.template_folder)
+
+        # Allow Internal API Usage
         self.fhdhr.app.testing = True
         self.fhdhr.api.client = self.fhdhr.app.test_client()
+
+        # Set Secret Key For Sessions
+        self.fhdhr.app.secret_key = self.fhdhr.config.dict["fhdhr"]["friendlyname"]
 
         self.fhdhr.logger.info("Loading HTTP Pages Endpoints.")
         self.pages = fHDHR_Pages(fhdhr)
