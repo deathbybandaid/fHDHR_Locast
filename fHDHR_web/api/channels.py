@@ -1,4 +1,4 @@
-from flask import request, redirect, Response, abort
+from flask import request, redirect, Response, abort, session
 import urllib.parse
 import json
 
@@ -15,6 +15,7 @@ class Channels():
         return self.get(*args)
 
     def get(self, *args):
+        print(session)
 
         method = request.args.get('method', default=None, type=str)
         redirect_url = request.args.get('redirect', default=None, type=str)

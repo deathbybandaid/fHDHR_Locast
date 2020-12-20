@@ -1,5 +1,5 @@
 from gevent.pywsgi import WSGIServer
-from flask import Flask, request
+from flask import Flask, request, session
 
 from .pages import fHDHR_Pages
 from .files import fHDHR_Files
@@ -57,6 +57,7 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("HTTP Server Online.")
 
     def before_request(self):
+        session["test"] = "fart"
         self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
 
     def after_request(self, response):
