@@ -1,4 +1,4 @@
-from flask import Response, request, redirect, abort, stream_with_context
+from flask import Response, request, redirect, abort, stream_with_context, session
 import urllib.parse
 import uuid
 import json
@@ -18,6 +18,7 @@ class Tuners():
         return self.get(*args)
 
     def get(self, *args):
+        print(session)
 
         client_address = request.remote_addr
 

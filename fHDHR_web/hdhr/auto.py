@@ -1,4 +1,4 @@
-from flask import request, abort, redirect
+from flask import request, abort, redirect, session
 import urllib.parse
 
 
@@ -41,5 +41,7 @@ class Auto():
             redirect_url += "&transcode=%s" % str(transcode)
 
         redirect_url += "&accessed=%s" % urllib.parse.quote(request.url)
+        session["test"] = "fart"
+        print(session)
 
         return redirect(redirect_url)
