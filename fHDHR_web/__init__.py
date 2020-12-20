@@ -62,12 +62,20 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("HTTP Server Online.")
 
     def before_request(self):
-        session["test"] = "fart"
+        session["is_mobile"] = self.detect_mobile(request)
         self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
 
     def after_request(self, response):
         self.fhdhr.logger.debug("Client %s requested %s Closing" % (request.method, request.path))
         return response
+
+    def detect_mobile(self, request):
+        agent = request.headers.get('User-Agent')
+        phones = ["iphone", "android", "blackberry"]
+        if any(phone in agent.lower() for phone in phones):
+            return True
+        else:
+            return False
 
     def add_endpoints(self, index_list, index_name):
         item_list = [x for x in dir(index_list) if self.isapath(x)]
