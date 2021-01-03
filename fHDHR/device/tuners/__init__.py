@@ -2,6 +2,7 @@
 from fHDHR.exceptions import TunerError
 
 from .tuner import Tuner
+from .tuners_shared import Tuners_Shared
 
 
 class Tuners():
@@ -9,6 +10,8 @@ class Tuners():
     def __init__(self, fhdhr, epg, channels):
         self.fhdhr = fhdhr
         self.channels = channels
+
+        self.tuners_shared = Tuners_Shared(fhdhr)
 
         self.epg = epg
         self.max_tuners = int(self.fhdhr.config.dict["fhdhr"]["tuner_count"])
@@ -88,24 +91,3 @@ class Tuners():
             if self.tuners[str(tunernum)].tuner_lock.locked():
                 inuse_tuners += 1
         return inuse_tuners
-
-    def get_stream_info(self, stream_args):
-
-        stream_args["channelUri"] = self.channels.get_channel_stream(str(stream_args["channel"]))
-        if not stream_args["channelUri"]:
-            raise TunerError("806 - Tune Failed")
-
-        if stream_args["channelUri"].startswith("udp://"):
-            stream_args["true_content_type"] = "video/mpeg"
-            stream_args["content_type"] = "video/mpeg"
-        else:
-
-            channelUri_headers = self.fhdhr.web.session.head(stream_args["channelUri"]).headers
-            stream_args["true_content_type"] = channelUri_headers['Content-Type']
-
-            if stream_args["true_content_type"].startswith(tuple(["application/", "text/"])):
-                stream_args["content_type"] = "video/mpeg"
-            else:
-                stream_args["content_type"] = stream_args["true_content_type"]
-
-        return stream_args

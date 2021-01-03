@@ -9,6 +9,7 @@ from .stream import Stream
 
 
 class Tuner():
+
     def __init__(self, fhdhr, inum, epg):
         self.fhdhr = fhdhr
 

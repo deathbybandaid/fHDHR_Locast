@@ -82,13 +82,12 @@ class Tuners():
                 abort(response)
             tuner = self.fhdhr.device.tuners.tuners[str(tunernum)]
 
-            try:
-                stream_args = self.fhdhr.device.tuners.get_stream_info(stream_args)
-            except TunerError as e:
+            stream_args = self.fhdhr.device.tuners.tuners_shared.get_stream_info(stream_args)
+            if not stream_args["channelUri"]:
                 self.fhdhr.logger.info("A %s stream request for channel %s was rejected due to %s"
-                                       % (stream_args["method"], str(stream_args["channel"]), str(e)))
+                                       % (stream_args["method"], str(stream_args["channel"]), str("806 - Tune Failed")))
                 response = Response("Service Unavailable", status=503)
-                response.headers["X-fHDHR-Error"] = str(e)
+                response.headers["X-fHDHR-Error"] = "806 - Tune Failed"
                 self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
                 tuner.close()
                 abort(response)
