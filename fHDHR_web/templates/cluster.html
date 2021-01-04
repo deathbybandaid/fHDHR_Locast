@@ -14,38 +14,40 @@
       </div>
       <br>
 
-      <table class="center" style="width:50%">
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Joined</th>
-          <th>Options</th>
-        </tr>
+      <div class="container">
+        <table class="table-medium center action-col">
+          <tbody>
 
-      {% for location in locations_list %}
-        <tr>
-          <td>{{ location["name"] }}</td>
-          <td>{{ location["location"] }}</td>
-          <td>{{ location["joined"] }}</td>
+  	        <tr>
+              <th>Name</th>
+  	          <th>Location</th>
+  	          <th>Joined</th>
+  	          <th>Options</th>
+            </tr>
 
-          <td>
-            <div>
+  	        {% for location in locations_list %}
+  	            <tr>
+  	              <td>{{ location["name"] }}</td>
+                  <td>{{ location["location"] }}</td>
+  	              <td>{{ location["joined"] }}</td>
 
-              {% if location["joined"] in ["True", "False"] %}
-                <button onclick="OpenLink('{{ location["location"] }}')">Visit</a></button>
-              {% endif %}
+                  <td>
+                    {% if location["joined"] in ["True", "False"] %}
+                      <button onclick="OpenLink('{{ location["location"] }}')">Visit</a></button>
+                    {% endif %}
 
-              {% if location["joined"] == "True" %}
-                <button onclick="OpenLink('/api/cluster?method=del&location={{ location["url_query"] }}&redirect=%2Fcluster')">Remove</a></button>
-              {% elif location["joined"] == "False" %}
-                <button onclick="OpenLink('/api/cluster?method=add&location={{ location["url_query"] }}&redirect=%2Fcluster')">Add</a></button>
-              {% endif %}
+                    {% if location["joined"] == "True" %}
+                      <button onclick="OpenLink('/api/cluster?method=del&location={{ location["url_query"] }}&redirect=%2Fcluster')">Remove</a></button>
+                    {% elif location["joined"] == "False" %}
+                      <button onclick="OpenLink('/api/cluster?method=add&location={{ location["url_query"] }}&redirect=%2Fcluster')">Add</a></button>
+                    {% endif %}
+                  </td>
+                </tr>
+            {% endfor %}
 
-            </div>
-          </td>
-        </tr>
-      {% endfor %}
-
+          </tbody>
+        </table>
+      </div>
     {% endif %}
 
 {% endblock %}
