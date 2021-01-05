@@ -56,6 +56,7 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
         fhdhr.logger.info("Waiting 3 seconds to send startup tasks trigger.")
         time.sleep(3)
         fhdhr.api.client.get("/api/startup_tasks", headers=fhdhr.api.headers)
+        fhdhr.api.get()
 
         # wait forever
         while True:
