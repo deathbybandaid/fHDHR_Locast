@@ -8,8 +8,8 @@ class Startup_Tasks():
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr
 
-        self.epg_update_url = "%s/api/epg?method=update" % (self.fhdhr.api.base)
-        self.channel_update_url = "%s/api/channels?method=scan" % (self.fhdhr.api.base)
+        self.epg_update_url = "/api/epg?method=update"
+        self.channel_update_url = "/api/channels?method=scan"
 
     def __call__(self, *args):
         return self.get(*args)

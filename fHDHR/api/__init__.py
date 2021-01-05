@@ -28,10 +28,19 @@ class fHDHR_API_URLs():
         self.discovery_address = self.config.dict["fhdhr"]["discovery_address"]
         self.port = self.config.dict["fhdhr"]["port"]
 
-    def get(self):
-        # <class 'fHDHR.api.Fillin_Client'>
-        # <class 'flask.testing.FlaskClient'>
-        print(type(self.client).__name__)
+    def get(self, *args):
+        req_method = type(self.client).__name__
+        if req_method == "FlaskClient":
+            self.client.get(*args)
+        else:
+            self.client.get(*args)
+
+    def post(self, *args):
+        req_method = type(self.client).__name__
+        if req_method == "FlaskClient":
+            self.client.post(*args)
+        else:
+            self.client.post(*args)
 
     @property
     def base(self):

@@ -17,8 +17,8 @@ class Tuner():
         self.tuner_lock = threading.Lock()
         self.set_off_status()
 
-        self.chanscan_url = "%s/api/channels?method=scan" % (self.fhdhr.api.base)
-        self.close_url = "%s/api/tuners?method=close&tuner=%s" % (self.fhdhr.api.base, str(self.number))
+        self.chanscan_url = "%s/api/channels?method=scan"
+        self.close_url = "/api/tuners?method=close&tuner=%s" % str(self.number)
 
     def channel_scan(self, grabbed=False):
         if self.tuner_lock.locked() and not grabbed:
