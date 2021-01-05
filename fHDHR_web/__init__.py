@@ -66,6 +66,7 @@ class fHDHR_HTTP_Server():
         session["is_internal_api"] = self.detect_internal_api(request)
         if session["is_internal_api"]:
             self.fhdhr.logger.debug("Client is using internal API call.")
+            print("Client is using internal API call.")
 
         session["is_mobile"] = self.detect_mobile(request)
         if session["is_mobile"]:
