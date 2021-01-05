@@ -68,6 +68,10 @@ class fHDHR_HTTP_Server():
 
     def before_request(self):
 
+        session["is_internal_api"] = self.detect_internal_api(request)
+        if session["is_internal_api"]:
+            self.fhdhr.logger.debug("Client is using internal API call.")
+
         session["is_mobile"] = self.detect_mobile(request)
         if session["is_mobile"]:
             self.fhdhr.logger.debug("Client is a mobile device.")
@@ -78,11 +82,30 @@ class fHDHR_HTTP_Server():
 
         session["deviceauth"] = self.detect_plexmediaserver(request)
 
+        session["tuner_used"] = None
+
         self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
 
     def after_request(self, response):
+
+        # Close Tuner if it was in use, and did not close already
+        if session["tuner_used"] is not None:
+            tuner = self.fhdhr.device.tuners.tuners[str(session["tuner_used"])]
+            if tuner.tuner_lock.locked():
+                self.fhdhr.logger.info("Shutting down Tuner #" + str(self.number) + " after Request.")
+                tuner.close()
+
         self.fhdhr.logger.debug("Client %s requested %s Closing" % (request.method, request.path))
         return response
+
+    def detect_internal_api(self, request):
+        user_agent = request.headers.get('User-Agent')
+        if not user_agent:
+            return False
+        elif str(user_agent).lower().startswith("fhdhr"):
+            return True
+        else:
+            return False
 
     def detect_deviceauth(self, request):
         return request.args.get('DeviceAuth', default=None, type=str)
