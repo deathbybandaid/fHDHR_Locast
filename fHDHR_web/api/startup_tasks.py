@@ -25,10 +25,10 @@ class Startup_Tasks():
             updatechannels = True
 
         if updatechannels:
-            self.fhdhr.api.client.get(self.channel_update_url, headers=self.fhdhr.api.headers)
+            self.fhdhr.api.get(self.channel_update_url)
 
         # Hit EPG Update API
         for epg_method in self.fhdhr.device.epg.epg_methods:
-            self.fhdhr.api.client.get("%s&source=%s" % (self.epg_update_url, epg_method), headers=self.fhdhr.api.headers)
+            self.fhdhr.api.get("%s&source=%s" % (self.epg_update_url, epg_method))
 
         return "Success"

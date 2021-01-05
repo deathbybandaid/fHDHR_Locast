@@ -38,10 +38,10 @@ class Tuner():
             chanscan.start()
 
     def runscan(self):
-        self.fhdhr.api.client.get(self.chanscan_url)
+        self.fhdhr.api.get(self.chanscan_url)
         self.fhdhr.logger.info("Requested Channel Scan Complete.")
         self.close()
-        self.fhdhr.api.client.get(self.close_url)
+        self.fhdhr.api.get(self.close_url)
 
     def add_downloaded_size(self, bytes_count):
         if "downloaded" in list(self.status.keys()):
