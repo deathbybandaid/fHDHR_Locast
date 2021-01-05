@@ -34,6 +34,7 @@ def get_configuration(args, script_dir, origin, fHDHR_web):
 def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
 
     fhdhr = fHDHR_OBJ(settings, logger, db, origin, alternative_epg)
+    fhdhr.api.get()
     fhdhrweb = fHDHR_web.fHDHR_HTTP_Server(fhdhr)
 
     try:
