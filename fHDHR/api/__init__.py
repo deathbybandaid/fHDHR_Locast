@@ -28,6 +28,9 @@ class fHDHR_API_URLs():
         self.discovery_address = self.config.dict["fhdhr"]["discovery_address"]
         self.port = self.config.dict["fhdhr"]["port"]
 
+    def get(self):
+        print(type(self.client))
+
     @property
     def base(self):
         if self.discovery_address:
