@@ -78,6 +78,8 @@ class fHDHR_HTTP_Server():
 
         session["deviceauth"] = self.detect_plexmediaserver(request)
 
+        print(session)
+
         self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
 
     def after_request(self, response):
