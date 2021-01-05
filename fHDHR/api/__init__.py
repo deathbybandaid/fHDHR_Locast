@@ -31,7 +31,7 @@ class fHDHR_API_URLs():
     def get(self):
         # <class 'fHDHR.api.Fillin_Client'>
         # <class 'flask.testing.FlaskClient'>
-        print(self.client.__name__)
+        print(type(self.client).__name__)
 
     @property
     def base(self):
