@@ -29,7 +29,9 @@ class fHDHR_API_URLs():
         self.port = self.config.dict["fhdhr"]["port"]
 
     def get(self):
-        print(type(self.client))
+        # <class 'fHDHR.api.Fillin_Client'>
+        # <class 'flask.testing.FlaskClient'>
+        print(self.client.__name__)
 
     @property
     def base(self):
