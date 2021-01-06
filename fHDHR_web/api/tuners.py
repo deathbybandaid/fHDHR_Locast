@@ -1,4 +1,4 @@
-from flask import Response, request, redirect, abort, stream_with_context, session
+from flask import Response, request, redirect, abort, request_with_context, session
 import urllib.parse
 import uuid
 import json
@@ -105,7 +105,7 @@ class Tuners():
             tuner.set_status(stream_args)
             session["tuner_used"] = tunernum
 
-            return Response(stream_with_context(tuner.get_stream(stream_args, tuner)), mimetype=stream_args["content_type"])
+            return Response(request_with_context(tuner.get_stream(stream_args, tuner)), mimetype=stream_args["content_type"])
 
         elif method == "close":
 
