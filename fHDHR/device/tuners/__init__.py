@@ -115,6 +115,4 @@ class Tuners():
             else:
                 stream_args["content_type"] = stream_args["true_content_type"]
 
-        print(stream_args)
-
         return stream_args
