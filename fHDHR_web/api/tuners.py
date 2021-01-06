@@ -105,8 +105,6 @@ class Tuners():
             tuner.set_status(stream_args)
             session["tuner_used"] = tunernum
 
-            return stream_args["stream_info"]["url"]
-
             return Response(stream_with_context(tuner.get_stream(stream_args, tuner)), mimetype=stream_args["content_type"])
 
         elif method == "close":
