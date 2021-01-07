@@ -50,6 +50,11 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
         # Perform some actions now that HTTP Server is running
         fhdhr.api.get("/api/startup_tasks")
 
+        # wait forever
+        while fhdhrweb.thread.is_alive():
+            restart_code = "restart"
+        return restart_code
+
     except KeyboardInterrupt:
         return ERR_CODE_NO_RESTART
 
@@ -81,7 +86,10 @@ def main(script_dir, fHDHR_web, origin, alternative_epg):
 
     try:
         args = build_args_parser()
-        return start(args, script_dir, fHDHR_web, origin, alternative_epg)
+        while True:
+            returned_code = start(args, script_dir, fHDHR_web, origin, alternative_epg)
+            if returned_code not in ["restart"]:
+                return returned_code
     except KeyboardInterrupt:
         print("\n\nInterrupted")
         return ERR_CODE
