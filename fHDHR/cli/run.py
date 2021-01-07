@@ -50,10 +50,6 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
         # Perform some actions now that HTTP Server is running
         fhdhr.api.get("/api/startup_tasks")
 
-        # wait forever
-        while fhdhrweb.thread.is_alive():
-            True
-
     except KeyboardInterrupt:
         return ERR_CODE_NO_RESTART
 
