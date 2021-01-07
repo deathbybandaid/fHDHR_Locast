@@ -70,8 +70,6 @@ class fHDHR_HTTP_Server():
 
         self.fhdhr.threads["flask"] = threading.Thread(target=self.run)
 
-        print(self.route_list)
-
     def start(self):
         self.fhdhr.logger.info("Flask HTTP Thread Starting")
         self.fhdhr.threads["flask"].start()
@@ -174,7 +172,7 @@ class fHDHR_HTTP_Server():
             self.fhdhr.logger.debug("Adding endpoint %s available at %s with %s methods." % (endpoint_name, ",".join(endpoints), ",".join(endpoint_methods)))
 
             if endpoint_name not in list(self.route_list[index_name].keys()):
-                self.route_list[index_name][endpoint_name]
+                self.route_list[index_name][endpoint_name] = {}
             self.route_list[index_name][endpoint_name]["name"] = endpoint_name
             self.route_list[index_name][endpoint_name]["endpoints"] = endpoints
             self.route_list[index_name][endpoint_name]["endpoint_methods"] = endpoint_methods
