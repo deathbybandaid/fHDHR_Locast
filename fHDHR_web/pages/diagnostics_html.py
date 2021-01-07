@@ -37,7 +37,6 @@ class Diagnostics_HTML():
                     button_dict[route_group].append({
                                         "label": session["route_list"][route_group][route_item]["pretty_name"],
                                         "link": button_link,
-                                        "category": route_group
                                         })
 
         return render_template('diagnostics.html', session=session, request=request, fhdhr=self.fhdhr, button_dict=button_dict, list=list)

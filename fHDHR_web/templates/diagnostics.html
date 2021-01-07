@@ -12,7 +12,6 @@
       <table class="table-settings center action-col text-edit-cols">
         <thead>
           <tr>
-            <th>Category</th>
             <th>Link</th>
           </tr>
         </thead>
@@ -21,10 +20,7 @@
           {% for button_item in button_dict[route_group] %}
 
             <tr>
-              <td>{{ button_item["category"] }}</td>
-
               <td><button onclick="OpenLink('{{ button_item["link"] }}')">{{ button_item["label"] }}</a></button></td>
-
             </tr>
 
           {% endfor %}
