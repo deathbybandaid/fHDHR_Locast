@@ -74,7 +74,10 @@ class fHDHR_HTTP_Server():
 
     def stop(self):
         self.fhdhr.logger.info("Flask HTTP Thread Stopping")
-        self.http.stop()
+        try:
+            self.http.stop()
+        except AttributeError:
+            return "Restarting"
 
     def before_first_request(self):
         self.fhdhr.logger.info("HTTP Server Online.")
@@ -117,7 +120,7 @@ class fHDHR_HTTP_Server():
         if not session["restart"]:
             return response
         else:
-            self.stop()
+            return self.stop()
 
     def detect_internal_api(self, request):
         user_agent = request.headers.get('User-Agent')
