@@ -24,6 +24,7 @@
         {% if page_dict["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= page_dict["endpoint_access_level"] %}
           <button class="pull-left" onclick="OpenLink('{{ page_dict["endpoints"][0] }}')">{{ page_dict["pretty_name"] }}</a></button>
         {% endif %}
+      {% endfor %}
 
       <a class="pull-right" style="padding: 5px;" href="/api/xmltv?method=get&source={{ fhdhr.device.epg.def_method }}">xmltv</a>
       <a class="pull-right" style="padding: 5px;" href="/api/m3u?method=get&channel=all">m3u</a>
