@@ -4,7 +4,12 @@
 
     <h4 style="text-align: center;">fHDHR Settings</h4>
 
-    <h4 style="text-align: center;">Settings will require a manual restart.</h4>
+    <h4 style="text-align: center;">Some Settings will require a manual restart.</h4>
+
+    <div style="text-align: center;">
+      <button onclick="OpenLink('/api/settings?method=restart&instance_id={{ session["instance_id"] }}&redirect=%2Fsettings')">Restart fHDHR</a></button><p> Note: This may take some time.</p>
+    </div>
+    <br>
 
     {% for config_section in list(web_settings_dict.keys()) %}
 

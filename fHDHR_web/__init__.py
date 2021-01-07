@@ -1,6 +1,7 @@
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, session
 import threading
+import uuid
 
 from .pages import fHDHR_Pages
 from .files import fHDHR_Files
@@ -24,6 +25,7 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("Loading Flask.")
 
         self.fhdhr.app = Flask("fHDHR", template_folder=self.template_folder)
+        self.instance_id = str(uuid.uuid4())
 
         # Allow Internal API Usage
         self.fhdhr.app.testing = True
@@ -78,6 +80,9 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("HTTP Server Online.")
 
     def before_request(self):
+
+        session["session_id"] = str(uuid.uuid4())
+        session["instance_id"] = self.instance_id
 
         session["is_internal_api"] = self.detect_internal_api(request)
         if session["is_internal_api"]:
