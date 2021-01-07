@@ -12,12 +12,12 @@
           <th>Link</th>
        </tr>
 
-      <tr>
-        {% for button_item in button_list %}
+      {% for button_item in button_list %}
+        <tr>
           <td>{{ button_item["label"] }}</td>
           <td><button onclick="OpenLink('{{ button_item["link"] }}')">{{ button_item["label"] }}</a></button></td>
-        {% endfor %}
-      </tr>
+        </tr>
+      {% endfor %}
       </tbody>
     </table>
   </div>
