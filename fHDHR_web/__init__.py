@@ -62,7 +62,7 @@ class fHDHR_HTTP_Server():
 
         self.fhdhr.logger.info("Loading HTTP Origin Endpoints.")
         self.origin_endpoints = self.fhdhr.originwrapper.origin.origin_web.fHDHR_Origin_Web(fhdhr)
-        self.add_endpoints(self.origin_endpoints, "origin")
+        self.add_endpoints(self.origin_endpoints, "origin_endpoints")
 
         self.fhdhr.app.before_request(self.before_request)
         self.fhdhr.app.after_request(self.after_request)
