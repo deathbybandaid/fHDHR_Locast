@@ -74,10 +74,7 @@ class fHDHR_HTTP_Server():
 
     def stop(self):
         self.fhdhr.logger.info("Flask HTTP Thread Stopping")
-        try:
-            self.http.stop()
-        except AttributeError:
-            return "Restarting"
+        self.http.stop()
 
     def before_first_request(self):
         self.fhdhr.logger.info("HTTP Server Online.")
@@ -189,6 +186,8 @@ class fHDHR_HTTP_Server():
         self.http = WSGIServer(self.fhdhr.api.address_tuple,
                                self.fhdhr.app.wsgi_app,
                                log=self.fhdhr.logger)
-
-        self.http.serve_forever()
-        self.stop()
+        try:
+            self.http.serve_forever()
+            self.stop()
+        except AttributeError:
+            self.fhdhr.logger.info("HTTP Server Offline")
