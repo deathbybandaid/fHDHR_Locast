@@ -6,7 +6,7 @@ from fHDHR.tools import channel_sort
 class Channels_Editor_HTML():
     endpoints = ["/channels_editor", "/channels_editor.html"]
     endpoint_name = "page_channels_editor_html"
-    endpoint_access_level = 4
+    endpoint_access_level = 2
     pretty_name = "Channels Editor"
 
     def __init__(self, fhdhr):
