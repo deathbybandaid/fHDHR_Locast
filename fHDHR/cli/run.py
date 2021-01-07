@@ -58,6 +58,7 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
         fhdhr.api.get("/api/startup_tasks")
 
         # wait forever
+        print(fhdhr_web.is_alive())
         while True:
             time.sleep(3600)
 
