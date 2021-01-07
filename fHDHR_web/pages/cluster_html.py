@@ -5,6 +5,8 @@ import urllib.parse
 class Cluster_HTML():
     endpoints = ["/cluster", "/cluster.html"]
     endpoint_name = "page_cluster_html"
+    endpoint_access_level = 0
+    pretty_name = "Cluster/SSDP"
 
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr

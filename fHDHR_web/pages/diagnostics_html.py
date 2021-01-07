@@ -4,6 +4,8 @@ from flask import request, render_template, session
 class Diagnostics_HTML():
     endpoints = ["/diagnostics", "/diagnostics.html"]
     endpoint_name = "page_diagnostics_html"
+    endpoint_access_level = 1
+    pretty_name = "Diagnostics"
 
     def __init__(self, fhdhr):
         self.fhdhr = fhdhr

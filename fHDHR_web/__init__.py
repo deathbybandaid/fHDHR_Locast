@@ -165,10 +165,22 @@ class fHDHR_HTTP_Server():
                 endpoints = [endpoints]
             handler = eval("self." + str(index_name) + "." + str(item))
             endpoint_name = eval("self." + str(index_name) + "." + str(item) + ".endpoint_name")
+
             try:
                 endpoint_methods = eval("self." + str(index_name) + "." + str(item) + ".endpoint_methods")
             except AttributeError:
                 endpoint_methods = ['GET']
+
+            try:
+                endpoint_access_level = eval("self." + str(index_name) + "." + str(item) + ".endpoint_access_level")
+            except AttributeError:
+                endpoint_access_level = 0
+
+            try:
+                pretty_name = eval("self." + str(index_name) + "." + str(item) + ".pretty_name")
+            except AttributeError:
+                pretty_name = endpoint_name
+
             self.fhdhr.logger.debug("Adding endpoint %s available at %s with %s methods." % (endpoint_name, ",".join(endpoints), ",".join(endpoint_methods)))
 
             if endpoint_name not in list(self.route_list[index_name].keys()):
@@ -176,6 +188,8 @@ class fHDHR_HTTP_Server():
             self.route_list[index_name][endpoint_name]["name"] = endpoint_name
             self.route_list[index_name][endpoint_name]["endpoints"] = endpoints
             self.route_list[index_name][endpoint_name]["endpoint_methods"] = endpoint_methods
+            self.route_list[index_name][endpoint_name]["endpoint_access_level"] = endpoint_access_level
+            self.route_list[index_name][endpoint_name]["pretty_name"] = pretty_name
 
             for endpoint in endpoints:
                 self.add_endpoint(endpoint=endpoint,
