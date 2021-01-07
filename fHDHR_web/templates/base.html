@@ -17,8 +17,8 @@
       <p></p>
       <div>
 
-      <button class="pull-left" onclick="OpenLink('/index')">fHDHR</a></button>
-      <button class="pull-left" onclick="OpenLink('/origin')">{{ fhdhr.config.dict["main"]["servicename"] }}</a></button>\
+      <button class="pull-left" onclick="OpenLink('/index')">fHDHR</button>
+      <button class="pull-left" onclick="OpenLink('/origin')">{{ fhdhr.config.dict["main"]["servicename"] }}</button>
 
       {% for page_dict in session["route_list"]["pages"] %}
         {% if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["pages"][page_dict]["endpoint_access_level"] %}
