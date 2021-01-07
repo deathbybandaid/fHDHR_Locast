@@ -51,7 +51,7 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
         fhdhr.api.get("/api/startup_tasks")
 
         # wait forever
-        while fhdhrweb.thread.is_alive():
+        while fhdhr.threads["flask"].is_alive():
             restart_code = "restart"
         return restart_code
 
