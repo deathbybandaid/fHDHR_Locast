@@ -33,7 +33,7 @@
         <input type="hidden" name="config_name" value="access_level">
 
         {% if fhdhr.config.dict["web_ui"]["access_level"] == 2 %}
-          <input type="hidden" name="config_value" value=1>
+          <input type="hidden" name="config_value" value=0>
         {% elif fhdhr.config.dict["web_ui"]["access_level"] == 1 %}
           <input type="hidden" name="config_value" value=2>
         {% else %}
