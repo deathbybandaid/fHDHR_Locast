@@ -34,6 +34,8 @@ class fHDHR_HTTP_Server():
         # Set Secret Key For Sessions
         self.fhdhr.app.secret_key = self.fhdhr.config.dict["fhdhr"]["friendlyname"]
 
+        self.route_list = {}
+
         self.fhdhr.logger.info("Loading HTTP Pages Endpoints.")
         self.pages = fHDHR_Pages(fhdhr)
         self.add_endpoints(self.pages, "pages")
@@ -60,13 +62,15 @@ class fHDHR_HTTP_Server():
 
         self.fhdhr.logger.info("Loading HTTP Origin Endpoints.")
         self.origin_endpoints = self.fhdhr.originwrapper.origin.origin_web.fHDHR_Origin_Web(fhdhr)
-        self.add_endpoints(self.origin_endpoints, "origin_endpoints")
+        self.add_endpoints(self.origin_endpoints, "origin")
 
         self.fhdhr.app.before_request(self.before_request)
         self.fhdhr.app.after_request(self.after_request)
         self.fhdhr.app.before_first_request(self.before_first_request)
 
         self.fhdhr.threads["flask"] = threading.Thread(target=self.run)
+
+        print(self.route_list)
 
     def start(self):
         self.fhdhr.logger.info("Flask HTTP Thread Starting")
@@ -83,6 +87,7 @@ class fHDHR_HTTP_Server():
 
         session["session_id"] = str(uuid.uuid4())
         session["instance_id"] = self.instance_id
+        session["route_list"] = self.route_list
 
         session["is_internal_api"] = self.detect_internal_api(request)
         if session["is_internal_api"]:
@@ -151,6 +156,10 @@ class fHDHR_HTTP_Server():
             return False
 
     def add_endpoints(self, index_list, index_name):
+
+        if index_name not in list(self.route_list.keys()):
+            self.route_list[index_name] = {}
+
         item_list = [x for x in dir(index_list) if self.isapath(x)]
         for item in item_list:
             endpoints = eval("self." + str(index_name) + "." + str(item) + ".endpoints")
@@ -163,6 +172,13 @@ class fHDHR_HTTP_Server():
             except AttributeError:
                 endpoint_methods = ['GET']
             self.fhdhr.logger.debug("Adding endpoint %s available at %s with %s methods." % (endpoint_name, ",".join(endpoints), ",".join(endpoint_methods)))
+
+            if endpoint_name not in list(self.route_list[index_name].keys()):
+                self.route_list[index_name][endpoint_name]
+            self.route_list[index_name][endpoint_name]["name"] = endpoint_name
+            self.route_list[index_name][endpoint_name]["endpoints"] = endpoints
+            self.route_list[index_name][endpoint_name]["endpoint_methods"] = endpoint_methods
+
             for endpoint in endpoints:
                 self.add_endpoint(endpoint=endpoint,
                                   endpoint_name=endpoint_name,
