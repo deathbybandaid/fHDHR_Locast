@@ -1,5 +1,6 @@
 from gevent.pywsgi import WSGIServer
 from flask import Flask, request, session
+import threading
 
 from .pages import fHDHR_Pages
 from .files import fHDHR_Files
@@ -62,6 +63,16 @@ class fHDHR_HTTP_Server():
         self.fhdhr.app.before_request(self.before_request)
         self.fhdhr.app.after_request(self.after_request)
         self.fhdhr.app.before_first_request(self.before_first_request)
+
+        self.thread = threading.Thread(target=self.run)
+
+    def start(self):
+        self.fhdhr.logger.info("Flask HTTP Thread Starting")
+        self.thread.start()
+
+    def stop(self):
+        self.fhdhr.logger.info("Flask HTTP Thread Stopping")
+        self.http.stop()
 
     def before_first_request(self):
         self.fhdhr.logger.info("HTTP Server Online.")
@@ -166,7 +177,5 @@ class fHDHR_HTTP_Server():
                                self.fhdhr.app.wsgi_app,
                                log=self.fhdhr.logger)
 
-        try:
-            self.http.serve_forever()
-        except KeyboardInterrupt:
-            self.http.stop()
+        self.http.serve_forever()
+        self.stop()

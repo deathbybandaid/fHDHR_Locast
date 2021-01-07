@@ -38,19 +38,13 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
 
     try:
 
-        fhdhr.logger.info("HTTP Server Starting")
-        fhdhr_web = threading.Thread(target=fhdhrweb.run)
-        fhdhr_web.start()
+        fhdhrweb.start()
 
         if settings.dict["fhdhr"]["discovery_address"]:
-            fhdhr.logger.info("SSDP Server Starting")
-            fhdhr_ssdp = threading.Thread(target=fhdhr.device.ssdp.run)
-            fhdhr_ssdp.start()
+            fhdhr.device.ssdp.start()
 
         if settings.dict["epg"]["method"]:
-            fhdhr.logger.info("EPG Update Thread Starting")
-            fhdhr_epg = threading.Thread(target=fhdhr.device.epg.run)
-            fhdhr_epg.start()
+            fhdhr.device.epg.start()
 
         # Perform some actions now that HTTP Server is running
         fhdhr.logger.info("Waiting 3 seconds to send startup tasks trigger.")
@@ -58,7 +52,7 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
         fhdhr.api.get("/api/startup_tasks")
 
         # wait forever
-        print(fhdhr_web.is_alive())
+        print(fhdhrweb.thread.is_alive())
         while True:
             time.sleep(3600)
 

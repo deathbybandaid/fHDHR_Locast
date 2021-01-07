@@ -1,6 +1,7 @@
 import os
 import time
 import datetime
+import threading
 
 from fHDHR.tools import channel_sort
 
@@ -38,6 +39,8 @@ class EPG():
                 self.sleeptime[epg_method] = self.fhdhr.config.dict["epg"]["update_frequency"]
 
         self.epg_update_url = "/api/epg?method=update"
+
+        self.thread = threading.Thread(target=self.run)
 
     def clear_epg_cache(self, method=None):
 
@@ -294,6 +297,13 @@ class EPG():
         self.fhdhr.db.set_fhdhr_value("update_time", method, time.time())
         self.fhdhr.logger.info("Wrote %s EPG cache. %s Programs for %s Channels" % (epgtypename, total_programs, total_channels))
 
+    def start(self):
+        self.fhdhr.logger.info("EPG Update Thread Starting")
+        self.thread.start()
+
+    def stop(self):
+        self.fhdhr.logger.info("EPG Update Thread Stopping")
+
     def run(self):
         time.sleep(1800)
         try:
@@ -310,3 +320,5 @@ class EPG():
                 time.sleep(1800)
         except KeyboardInterrupt:
             pass
+
+        self.stop()
