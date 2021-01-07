@@ -17,10 +17,11 @@ class Diagnostics_HTML():
 
         base_url = request.url_root[:-1]
 
-        button_list = []
+        button_dict = {}
 
         for route_group in list(session["route_list"].keys()):
-            if route_group not in ["pages", "brython"]:
+            if route_group not in ["pages", "brython", "files"]:
+                button_dict[route_group] = []
                 for route_item in list(session["route_list"][route_group].keys()):
                     button_link = session["route_list"][route_group][route_item]["endpoints"][0]
                     parameter_index = 0
@@ -33,9 +34,10 @@ class Diagnostics_HTML():
                         button_link += "%s=%s" % (parameter, parameter_val)
                     button_link = button_link.replace("<devicekey>", self.fhdhr.config.dict["main"]["uuid"])
                     button_link = button_link.replace("<base_url>", base_url)
-                    button_list.append({
+                    button_dict[route_group].append({
                                         "label": session["route_list"][route_group][route_item]["pretty_name"],
                                         "link": button_link,
+                                        "category": route_group
                                         })
 
-        return render_template('diagnostics.html', session=session, request=request, fhdhr=self.fhdhr, button_list=button_list)
+        return render_template('diagnostics.html', session=session, request=request, fhdhr=self.fhdhr, button_dict=button_dict, list=list)

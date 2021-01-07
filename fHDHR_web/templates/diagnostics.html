@@ -4,21 +4,34 @@
 
   <h4 style="text-align: center;">fHDHR Diagnostic Links</h4>
 
-  <div class="container">
-    <table class="table-medium center">
-      <tbody>
-       <tr>
-          <th>Category</th>
-          <th>Link</th>
-       </tr>
+  {% for route_group in list(button_dict.keys()) %}
 
-      {% for button_item in button_list %}
-        <tr>
-          <td>{{ button_item["label"] }}</td>
-          <td><button onclick="OpenLink('{{ button_item["link"] }}')">{{ button_item["label"] }}</a></button></td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <h4 style="text-align: center;">{{ route_group }}</h4>
+
+    <div class="container">
+      <table class="table-settings center action-col text-edit-cols">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for button_item in button_dict[route_group] %}
+
+            <tr>
+              <td>{{ button_item["category"] }}</td>
+
+              <td><button onclick="OpenLink('{{ button_item["link"] }}')">{{ button_item["label"] }}</a></button></td>
+
+            </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  {% endfor %}
+
 {% endblock %}
