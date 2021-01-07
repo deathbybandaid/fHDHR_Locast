@@ -16,7 +16,7 @@ class SSDPServer():
 
         self.detect_method = fHDHR_Detect(fhdhr)
 
-        self.thread = threading.Thread(target=self.run)
+        self.fhdhr.threads["ssdp"] = threading.Thread(target=self.run)
 
         if (self.fhdhr.config.dict["fhdhr"]["discovery_address"] and
            self.fhdhr.config.dict["ssdp"]["enabled"]):
@@ -37,7 +37,7 @@ class SSDPServer():
 
     def start(self):
         self.fhdhr.logger.info("SSDP Server Starting")
-        self.thread.start()
+        self.fhdhr.threads["ssdp"].start()
 
     def stop(self):
         self.fhdhr.logger.info("SSDP Server Stopping")

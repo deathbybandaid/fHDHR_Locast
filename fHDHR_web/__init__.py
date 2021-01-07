@@ -64,11 +64,11 @@ class fHDHR_HTTP_Server():
         self.fhdhr.app.after_request(self.after_request)
         self.fhdhr.app.before_first_request(self.before_first_request)
 
-        self.thread = threading.Thread(target=self.run)
+        self.fhdhr.threads["flask"] = threading.Thread(target=self.run)
 
     def start(self):
         self.fhdhr.logger.info("Flask HTTP Thread Starting")
-        self.thread.start()
+        self.fhdhr.threads["flask"].start()
 
     def stop(self):
         self.fhdhr.logger.info("Flask HTTP Thread Stopping")

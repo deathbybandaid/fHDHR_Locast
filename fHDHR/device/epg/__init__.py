@@ -40,7 +40,7 @@ class EPG():
 
         self.epg_update_url = "/api/epg?method=update"
 
-        self.thread = threading.Thread(target=self.run)
+        self.fhdhr.threads["epg"] = threading.Thread(target=self.run)
 
     def clear_epg_cache(self, method=None):
 
@@ -299,7 +299,7 @@ class EPG():
 
     def start(self):
         self.fhdhr.logger.info("EPG Update Thread Starting")
-        self.thread.start()
+        self.fhdhr.threads["epg"].start()
 
     def stop(self):
         self.fhdhr.logger.info("EPG Update Thread Stopping")
