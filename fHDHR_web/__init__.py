@@ -95,6 +95,8 @@ class fHDHR_HTTP_Server():
 
         session["tuner_used"] = None
 
+        session["restart"] = False
+
         self.fhdhr.logger.debug("Client %s requested %s Opening" % (request.method, request.path))
 
     def after_request(self, response):
@@ -107,7 +109,10 @@ class fHDHR_HTTP_Server():
         #        tuner.close()
 
         self.fhdhr.logger.debug("Client %s requested %s Closing" % (request.method, request.path))
-        return response
+        if not session["restart"]:
+            return response
+        else:
+            self.stop()
 
     def detect_internal_api(self, request):
         user_agent = request.headers.get('User-Agent')
@@ -172,8 +177,10 @@ class fHDHR_HTTP_Server():
         self.fhdhr.app.add_url_rule(endpoint, endpoint_name, handler, methods=methods)
 
     def run(self):
-        self.fhdhr.threads["WSGIServer"] = WSGIServer(self.fhdhr.api.address_tuple,
-                                                      self.fhdhr.app.wsgi_app,
-                                                      log=self.fhdhr.logger)
-        self.fhdhr.threads["WSGIServer"].serve_forever()
+
+        self.http = WSGIServer(self.fhdhr.api.address_tuple,
+                               self.fhdhr.app.wsgi_app,
+                               log=self.fhdhr.logger)
+
+        self.http.serve_forever()
         self.stop()

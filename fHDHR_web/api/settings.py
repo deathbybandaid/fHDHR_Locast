@@ -1,4 +1,4 @@
-from flask import request, redirect
+from flask import request, redirect, session
 import urllib.parse
 
 
@@ -35,7 +35,7 @@ class Settings():
             self.fhdhr.config.write(config_section, config_name, config_value)
 
         elif method == "restart":
-            self.fhdhr.threads["WSGIServer"].stop()
+            session["restart"] = True
 
         if redirect_url:
             return redirect(redirect_url + "?retmessage=" + urllib.parse.quote("%s Success" % method))
