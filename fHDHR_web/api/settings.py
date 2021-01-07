@@ -35,7 +35,7 @@ class Settings():
             self.fhdhr.config.write(config_section, config_name, config_value)
 
         elif method == "restart":
-            self.fhdhr.threads["flask"].stop()
+            self.fhdhr.threads["WSGIServer"].stop()
 
         if redirect_url:
             return redirect(redirect_url + "?retmessage=" + urllib.parse.quote("%s Success" % method))
