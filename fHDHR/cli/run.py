@@ -1,8 +1,6 @@
 import os
 import sys
 import argparse
-import time
-import threading
 
 from fHDHR import fHDHR_VERSION, fHDHR_OBJ
 import fHDHR.exceptions
@@ -38,23 +36,23 @@ def run(settings, logger, db, script_dir, fHDHR_web, origin, alternative_epg):
 
     try:
 
+        # Start Flask Thread
         fhdhrweb.start()
 
+        # Start SSDP Thread
         if settings.dict["fhdhr"]["discovery_address"]:
             fhdhr.device.ssdp.start()
 
+        # Start EPG Thread
         if settings.dict["epg"]["method"]:
             fhdhr.device.epg.start()
 
         # Perform some actions now that HTTP Server is running
-        fhdhr.logger.info("Waiting 3 seconds to send startup tasks trigger.")
-        time.sleep(3)
         fhdhr.api.get("/api/startup_tasks")
 
         # wait forever
-        print(fhdhrweb.thread.is_alive())
-        while True:
-            time.sleep(3600)
+        while fhdhrweb.thread.is_alive():
+            True
 
     except KeyboardInterrupt:
         return ERR_CODE_NO_RESTART

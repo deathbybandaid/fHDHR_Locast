@@ -306,19 +306,16 @@ class EPG():
 
     def run(self):
         time.sleep(1800)
-        try:
-            while True:
-                for epg_method in self.epg_methods:
-                    last_update_time = self.fhdhr.db.get_fhdhr_value("update_time", epg_method)
-                    updatetheepg = False
-                    if not last_update_time:
-                        updatetheepg = True
-                    elif time.time() >= (last_update_time + self.sleeptime[epg_method]):
-                        updatetheepg = True
-                    if updatetheepg:
-                        self.fhdhr.api.get("%s&source=%s" % (self.epg_update_url, epg_method))
-                time.sleep(1800)
-        except KeyboardInterrupt:
-            pass
+        while True:
+            for epg_method in self.epg_methods:
+                last_update_time = self.fhdhr.db.get_fhdhr_value("update_time", epg_method)
+                updatetheepg = False
+                if not last_update_time:
+                    updatetheepg = True
+                elif time.time() >= (last_update_time + self.sleeptime[epg_method]):
+                    updatetheepg = True
+                if updatetheepg:
+                    self.fhdhr.api.get("%s&source=%s" % (self.epg_update_url, epg_method))
+            time.sleep(1800)
 
         self.stop()
