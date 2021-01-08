@@ -1,6 +1,7 @@
 from flask import Response, request, redirect
 import urllib.parse
 import json
+from io import StringIO
 
 
 class API_Tools():
@@ -48,6 +49,12 @@ class API_Tools():
             return Response(status=200,
                             response=return_json,
                             mimetype='application/json')
+
+        elif method == "css_generator":
+
+            style_file = StringIO()
+
+            return Response(status=200, response=style_file.getvalue(), mimetype="text/css")
 
         else:
             return "%s Invalid Method" % method
