@@ -11,11 +11,6 @@
 
   <br><br><br>
 
-  <form method="post" action="/api/tools?method=css_generator">
-    <input type="text" name="url" value="">
-    <br><input type="submit" value="Generate CSS">
-  </form>
-
   <div class="container">
     <table class="table-settings center action-col text-edit-cols">
     <thead>
@@ -27,20 +22,20 @@
     </thead>
       <tbody>
 
-        {% for css_item in css_items %}
-          <tr>
-            <td>{{ css_item["name"] }}</td>
-            <td>{{ css_item["type"] }}</td>
-            <td>
-              <form style="margin:auto">
-                <input type="hidden" name="section" value="{{ css_item["section"] }}">
-                <input type="hidden" name="section" value="{{ css_item["setting"] }}">
-                <input type="text" size="25" name="value" value="{{ css_item["value"] }}">
-                <br><input type="submit" value="Generate CSS">
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
+        <form style="margin:auto">
+          {% for css_item in css_items %}
+            <tr>
+              <td>{{ css_item["name"] }}</td>
+              <td>{{ css_item["type"] }}</td>
+              <td>
+                  <input type="hidden" name="section" value="{{ css_item["section"] }}">
+                  <input type="hidden" name="section" value="{{ css_item["setting"] }}">
+                  <input type="text" size="25" name="value" value="{{ css_item["value"] }}">
+              </td>
+            </tr>
+          {% endfor %}
+          <br><input type="submit" value="Generate CSS">
+        </form>
       </tbody>
     </table>
   </div>
