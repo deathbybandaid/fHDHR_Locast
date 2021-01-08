@@ -20,7 +20,7 @@ class tvtvEPG():
             data = postalcode_req.json()
             postalcode = data["postal"]
         except Exception as e:
-            raise EPGSetupError("Unable to automatically optain postalcode: " + str(e))
+            raise EPGSetupError("Unable to automatically optain postalcode: %s" % e)
             postalcode = None
         return postalcode
 
@@ -109,8 +109,8 @@ class tvtvEPG():
 
     def get_cached(self, dates_to_pull):
         for datesdict in dates_to_pull:
-            starttime = str(datesdict["start"]) + "T00%3A00%3A00.000Z"
-            stoptime = str(datesdict["stop"]) + "T00%3A00%3A00.000Z"
+            starttime = "%sT00%3A00%3A00.000Z" % datesdict["start"]
+            stoptime = "%sT00%3A00%3A00.000Z" % datesdict["stop"]
             url = "https://www.tvtv.us/tvm/t/tv/v4/lineups/%s/listings/grid?start=%s&end=%s" % (self.lineup_id, starttime, stoptime)
             self.get_cached_item(str(datesdict["start"]), url)
         cache_list = self.fhdhr.db.get_cacheitem_value("cache_list", "epg_cache", "tvtv") or []
@@ -119,10 +119,10 @@ class tvtvEPG():
     def get_cached_item(self, cache_key, url):
         cacheitem = self.fhdhr.db.get_cacheitem_value(cache_key, "epg_cache", "tvtv")
         if cacheitem:
-            self.fhdhr.logger.info('FROM CACHE:  ' + str(cache_key))
+            self.fhdhr.logger.info("FROM CACHE:  %s" % cache_key)
             return cacheitem
         else:
-            self.fhdhr.logger.info('Fetching:  ' + url)
+            self.fhdhr.logger.info("Fetching:  %s" % url)
             try:
                 resp = self.fhdhr.web.session.get(url)
             except self.fhdhr.web.exceptions.HTTPError:
@@ -144,12 +144,12 @@ class tvtvEPG():
             if cachedate < todaysdate:
                 cache_to_kill.append(cacheitem)
                 self.fhdhr.db.delete_cacheitem_value(cacheitem, "epg_cache", "tvtv")
-                self.fhdhr.logger.info('Removing stale cache:  ' + str(cacheitem))
+                self.fhdhr.logger.info('Removing stale cache:  %s' % cacheitem)
         self.fhdhr.db.set_cacheitem_value("cache_list", "epg_cache", [x for x in cache_list if x not in cache_to_kill], "tvtv")
 
     def clear_cache(self):
         cache_list = self.fhdhr.db.get_cacheitem_value("cache_list", "epg_cache", "tvtv") or []
         for cacheitem in cache_list:
             self.fhdhr.db.delete_cacheitem_value(cacheitem, "epg_cache", "tvtv")
-            self.fhdhr.logger.info('Removing cache:  ' + str(cacheitem))
+            self.fhdhr.logger.info('Removing cache:  %s' % cacheitem)
         self.fhdhr.db.delete_cacheitem_value("cache_list", "epg_cache", "tvtv")
