@@ -52,6 +52,8 @@ class API_Tools():
 
         elif method == "css_generator":
 
+            print(request.form)
+
             style_file = StringIO()
 
             return Response(status=200, response=style_file.getvalue(), mimetype="text/css")
