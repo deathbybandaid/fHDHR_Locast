@@ -98,7 +98,8 @@ class OriginEPG():
 
     def get_cached(self, dates_to_pull, dma):
         for x_date in dates_to_pull:
-            url = "https://api.locastnet.org/api/watch/epg/%s?startTime=%sT00%3A00%3A00-00%3A00" % (dma, x_date)
+            url = ('https://api.locastnet.org/api/watch/epg/' +
+                   str(dma) + "?startTime=" + str(x_date) + "T00%3A00%3A00-00%3A00")
             self.get_cached_item(str(x_date), url)
         cache_list = self.fhdhr.db.get_cacheitem_value("cache_list", "epg_cache", "origin") or []
         return [self.fhdhr.db.get_cacheitem_value(x, "epg_cache", "origin") for x in cache_list]
