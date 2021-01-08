@@ -15,4 +15,14 @@ class Tools_HTML():
 
     def get(self, *args):
 
-        return render_template('tools.html', session=session, request=request, fhdhr=self.fhdhr)
+        css_items = [
+                    {
+                     "name": "Background Image",
+                     "section": "body",
+                     "setting": "background-image",
+                     "type": "url",
+                     "value": None
+                    }
+                    ]
+
+        return render_template('tools.html', session=session, request=request, fhdhr=self.fhdhr, list=list, css_items=css_items)
