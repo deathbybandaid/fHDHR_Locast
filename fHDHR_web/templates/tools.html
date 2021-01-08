@@ -22,7 +22,7 @@
     </thead>
       <tbody>
 
-        <form style="margin:auto">
+        <form style="margin:auto" method="post" action="/api/tools?method=css_generator">
           {% for css_item in css_items %}
             <tr>
               <td>{{ css_item["name"] }}</td>
