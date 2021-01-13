@@ -4,10 +4,10 @@
     <title>{{ fhdhr.config.dict["fhdhr"]["friendlyname"] }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
+
   </head>
 
-  <body onload="brython({debug: 1, indexedDB: false})">
-
+  <body>
     <h1 class="center" style="text-align:center">
       <span style="text-decoration: underline;"><strong><em>{{ fhdhr.config.dict["fhdhr"]["friendlyname"] }}</em></strong>
       </span>
@@ -15,10 +15,8 @@
     </h1>
     {% set retmessage = request.args.get('retmessage', default=None) %}
     {% if retmessage %}
-      <div class="pull-left" >
-        <p class="retmessage" ></p>
-        <p class="retmessage" style="font-size:1em">{{ retmessage }}</p>
-      </div>
+      <p></p>
+      <p class="pull-left" style="font-size:1em">{{ retmessage }}</p>
     {% endif %}
     <br><br>
     <p></p>
