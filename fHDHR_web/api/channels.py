@@ -148,6 +148,7 @@ class Channels():
             return "Invalid Method"
 
         if redirect_url:
+            return redirect(redirect_url + "?retmessage=" + urllib.parse.quote("%s Success" % method))
             return redirect("%s?retmessage=%s" % (redirect_url, urllib.parse.quote("%s Success" % method)))
         else:
             if method == "scan":
