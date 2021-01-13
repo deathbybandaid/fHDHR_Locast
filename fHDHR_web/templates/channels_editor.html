@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <body onload="brython({debug: 1, indexedDB: false})">
   <script type="text/javascript" src="/brython.js"></script>
   <script type="text/javascript" src="/brython_stdlib.js"></script>
   <script type="text/python" id="enable0">
@@ -38,8 +37,8 @@
                 element.value = 0
 
         items = document.select(".channels")
-	      chanlist = []
-	      chandict = {}
+        chanlist = []
+        chandict = {}
 
         for element in items:
           if element.name == "id":
