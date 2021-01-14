@@ -1,9 +1,8 @@
-from browser import document, bind  # alert, window, html
+from browser import document, bind, ajax  # alert, window, html
 from browser.local_storage import storage
 from browser.widgets.menu import Menu
 import json
 
-storage['route_list'] = json.loads(document['route_list'].value)
 storage['servicename'] = document['servicename'].value
 storage['access_level'] = document['access_level'].value
 
@@ -15,9 +14,14 @@ def main_menu_setup():
     menu.add_item("fHDHR")
     menu.add_item(storage['servicename'])
 
+    route_list = json.loads(ajax.get("/api/routes"))
+    print(route_list)
+
+    """
     for page_dict in storage['route_list']["pages"]:
         if storage['route_list']["pages"][page_dict]["name"] != "page_index_html" and storage['access_level'] >= storage['route_list']["pages"][page_dict]["endpoint_access_level"]:
             menu.add_item(storage['route_list']["pages"][page_dict]["pretty_name"])
+            """
 
     """
     <button onclick="location.href='/index'" type="button">fHDHR</button>
