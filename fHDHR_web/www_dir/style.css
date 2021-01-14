@@ -207,5 +207,11 @@ td {border: 1px solid black;}
   display: block;
 }
 
+.dropdown-content button {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
