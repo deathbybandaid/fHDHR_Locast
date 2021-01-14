@@ -6,8 +6,24 @@ import json
 def main_menu_setup():
     zone = document["main_menu"]
     session = document.select(".session")[0].value
-    print(session)
+    fhdhr = document.select(".fhdhr")[0].value
+    print(fhdhr.config.dict["main"]["servicename"])
     menu = Menu(zone)
+
+    # menu.add_item("fHDHR")
+    # menu.add_item("fHDHR")
+
+    """
+    <button onclick="location.href='/index'" type="button">fHDHR</button>
+    <button onclick="location.href='/origin'" type="button">{{ fhdhr.config.dict["main"]["servicename"] }}</button>
+
+    {% for page_dict in session["route_list"]["pages"] %}
+    {% if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["pages"][page_dict]["endpoint_access_level"] %}
+      <button onclick="location.href='{{ session["route_list"]["pages"][page_dict]["endpoints"][0] }}'" type="button">{{ session["route_list"]["pages"][page_dict]["pretty_name"] }}</button>
+    {% endif %}
+    {% endfor %}
+    """
+
     file_menu = menu.add_menu("File")
 
     save_menu = file_menu.add_menu("Save")
