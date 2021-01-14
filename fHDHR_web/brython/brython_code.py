@@ -1,10 +1,14 @@
-from browser import document, bind, ajax  # alert, window, html
+from browser import document, bind  # alert, window, html
 from browser.local_storage import storage
 from browser.widgets.menu import Menu
 import json
 
+
 storage['servicename'] = document['servicename'].value
 storage['access_level'] = document['access_level'].value
+if "route_list" not in list(storage.keys()):
+    # storage['route_list'] = document['access_level'].value
+    print("Here")
 
 
 def main_menu_setup():
@@ -13,9 +17,6 @@ def main_menu_setup():
 
     menu.add_item("fHDHR")
     menu.add_item(storage['servicename'])
-
-    route_list = json.loads(ajax.get("/api/routes"))
-    print(route_list)
 
     """
     for page_dict in storage['route_list']["pages"]:
