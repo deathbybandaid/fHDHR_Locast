@@ -3,7 +3,7 @@ from browser.local_storage import storage
 from browser.widgets.menu import Menu
 import json
 
-storage['route_list'] = json.dumps(document['route_list'].value)
+storage['session'] = json.loads(document['session'].value)
 storage['servicename'] = document['servicename'].value
 storage['access_level'] = document['access_level'].value
 
