@@ -1,10 +1,11 @@
 from browser import document, bind  # alert, window, html
+from browser.local_storage import storage
 from browser.widgets.menu import Menu
 import json
 
-route_list = document.select(".route_list")[0].value
-servicename = document.select(".servicename")[0].value
-access_level = document.select(".access_level")[0].value
+storage['route_list'] = json.dumps(document['route_list'].value)
+storage['servicename'] = document['servicename'].value
+storage['access_level'] = document['access_level'].value
 
 
 def main_menu_setup():
@@ -12,11 +13,11 @@ def main_menu_setup():
     menu = Menu(zone)
 
     menu.add_item("fHDHR")
-    menu.add_item(servicename)
+    menu.add_item(storage['servicename'])
 
-    for page_dict in route_list["pages"]:
-        if route_list["pages"][page_dict]["name"] != "page_index_html" and access_level >= route_list["pages"][page_dict]["endpoint_access_level"]:
-            menu.add_item(route_list["pages"][page_dict]["pretty_name"])
+    for page_dict in storage['route_list']["pages"]:
+        if storage['route_list']["pages"][page_dict]["name"] != "page_index_html" and storage['access_level'] >= storage['route_list']["pages"][page_dict]["endpoint_access_level"]:
+            menu.add_item(storage['route_list']["pages"][page_dict]["pretty_name"])
 
     """
     <button onclick="location.href='/index'" type="button">fHDHR</button>

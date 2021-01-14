@@ -27,9 +27,9 @@
     <p></p>
 
     <div id="main_menu"></div>
-    <input type="hidden" class="route_list" name="route_list" value={{ session["route_list"] }}>
-    <input type="hidden" class="servicename" name="servicename" value={{ fhdhr.config.dict["main"]["servicename"] }}>
-    <input type="hidden" class="access_level" name="access_level" value={{ fhdhr.config.dict["web_ui"]["access_level"] }}>
+    <input type="hidden" id="route_list" value={{ session["route_list"] }}>
+    <input type="hidden" id="servicename" value={{ fhdhr.config.dict["main"]["servicename"] }}>
+    <input type="hidden" id="access_level" value={{ fhdhr.config.dict["web_ui"]["access_level"] }}>
 
     <div>
       <button onclick="location.href='/index'" type="button">fHDHR</button>
