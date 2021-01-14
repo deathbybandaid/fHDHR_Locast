@@ -6,8 +6,8 @@ import json
 def main_menu_setup():
     zone = document["main_menu"]
     session = document.select(".session")[0].value
-    fhdhr = document.select(".fhdhr")[0].value
-    print(fhdhr.config.dict["main"]["servicename"])
+    servicename = document.select(".servicename")[0].value
+    print(servicename)
     menu = Menu(zone)
 
     # menu.add_item("fHDHR")
