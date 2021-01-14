@@ -3,27 +3,28 @@ from browser.widgets.menu import Menu
 import json
 
 
-zone = document["main_menu"]
-session = document["session"].value
-print(session)
-menu = Menu(zone)
-file_menu = menu.add_menu("File")
+def main_menu_setup():
+    zone = document["main_menu"]
+    session = document.select(".session").value
+    print(session)
+    menu = Menu(zone)
+    file_menu = menu.add_menu("File")
 
-save_menu = file_menu.add_menu("Save")
-choice1 = save_menu.add_menu("choice 1")
-choice1.add_item("sub-choice 1")
-choice1.add_item("sub-choice 2")
-save_menu.add_item("choice 2")
+    save_menu = file_menu.add_menu("Save")
+    choice1 = save_menu.add_menu("choice 1")
+    choice1.add_item("sub-choice 1")
+    choice1.add_item("sub-choice 2")
+    save_menu.add_item("choice 2")
 
-file_menu.add_item("Open")
-save_menu = file_menu.add_menu("Properties")
-save_menu.add_item("size")
-save_menu.add_item("security")
+    file_menu.add_item("Open")
+    save_menu = file_menu.add_menu("Properties")
+    save_menu.add_item("size")
+    save_menu.add_item("security")
 
-file_menu.add_item("Print")
+    file_menu.add_item("Print")
 
-edit_menu = menu.add_menu("Edition")
-edit_menu.add_item("Search")
+    edit_menu = menu.add_menu("Edition")
+    edit_menu.add_item("Search")
 
 
 def chan_edit_data(items, channel_id):
@@ -125,3 +126,6 @@ def chan_edit_favorite(event):
     else:
         document["favorite_button"].value = "0"
         document["favorite_button"].text = "Unfavorite All"
+
+
+main_menu_setup()
