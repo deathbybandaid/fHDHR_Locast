@@ -8,11 +8,10 @@ servicename = document.select(".servicename")[0].value
 
 def main_menu_setup():
     zone = document["main_menu"]
-    print(servicename)
     menu = Menu(zone)
 
-    # menu.add_item("fHDHR")
-    # menu.add_item("fHDHR")
+    menu.add_item("fHDHR")
+    menu.add_item(servicename)
 
     """
     <button onclick="location.href='/index'" type="button">fHDHR</button>
@@ -25,6 +24,7 @@ def main_menu_setup():
     {% endfor %}
     """
 
+    """
     file_menu = menu.add_menu("File")
 
     save_menu = file_menu.add_menu("Save")
@@ -42,6 +42,7 @@ def main_menu_setup():
 
     edit_menu = menu.add_menu("Edition")
     edit_menu.add_item("Search")
+    """
 
 
 def chan_edit_data(items, channel_id):
