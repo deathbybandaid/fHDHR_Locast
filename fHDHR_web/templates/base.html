@@ -26,21 +26,20 @@
     <br><br>
     <p></p>
 
-    <div>
-      <div class="navbar">
-        <a href="/index">fHDHR</a>
-        <a href="/origin">{{ fhdhr.config.dict["main"]["servicename"] }}</a>
+    <div class="navbar">
+      <a href="/index">fHDHR</a>
+      <a href="/origin">{{ fhdhr.config.dict["main"]["servicename"] }}</a>
+      <div class="dropdown">
+        <button class="dropbtn">Channels<i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-content">
+          <a href="/channels">Channels Editor</a>
+          <a href="/channels_editor">Channels Editor</a>
+        </div>
         {% for page_dict in session["route_list"]["pages"] %}
           {% if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["pages"][page_dict]["endpoint_access_level"] %}
             <a href="{{ session["route_list"]["pages"][page_dict]["endpoints"][0] }}">{{ session["route_list"]["pages"][page_dict]["pretty_name"] }}</a>
           {% endif %}
         {% endfor %}
-        <div class="dropdown">
-          <button class="dropbtn">Channels<i class="fa fa-caret-down" onclick="location.href='/channels'"></i></button>
-          <div class="dropdown-content">
-            <a href="/channels_editor">Channels Editor</a>
-          </div>
-        </div>
       </div>
 
       <a class="pull-right" style="padding: 5px;" href="/api/xmltv?method=get&source={{ fhdhr.device.epg.def_method }}">xmltv</a>
