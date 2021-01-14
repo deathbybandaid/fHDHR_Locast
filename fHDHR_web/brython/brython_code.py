@@ -4,6 +4,7 @@ import json
 
 
 zone = document["main_menu"]
+session = document["main_menu"].value
 print(session)
 menu = Menu(zone)
 file_menu = menu.add_menu("File")
