@@ -16,6 +16,7 @@
     <h1 class="center" style="text-align:center">
       <span style="text-decoration: underline;"><strong><em>{{ fhdhr.config.dict["fhdhr"]["friendlyname"] }}</em></strong>
       </span>
+      <img class="pull-left" src="/favicon.ico" alt="fHDHR Logo" width="100" height="100">
     </h1>
     {% set retmessage = request.args.get('retmessage', default=None) %}
     {% if retmessage %}
@@ -26,16 +27,21 @@
     <p></p>
 
     <div>
-      <div class="dropdown">
-        <button class="dropbtn" style="background-image:url('/favicon.ico')"></button>
-        <div class="dropdown-content">
-          <button onclick="location.href='/index'" type="button">fHDHR</button>
-          <button onclick="location.href='/origin'" type="button">{{ fhdhr.config.dict["main"]["servicename"] }}</button>
-          {% for page_dict in session["route_list"]["pages"] %}
-            {% if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["pages"][page_dict]["endpoint_access_level"] %}
-              <button onclick="location.href='{{ session["route_list"]["pages"][page_dict]["endpoints"][0] }}'" type="button">{{ session["route_list"]["pages"][page_dict]["pretty_name"] }}</button>
-            {% endif %}
-          {% endfor %}
+      <div class="navbar">
+        <a href="/index">fHDHR</a>
+        <a href="/origin">{{ fhdhr.config.dict["main"]["servicename"] }}</a>
+        {% for page_dict in session["route_list"]["pages"] %}
+          {% if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["pages"][page_dict]["endpoint_access_level"] %}
+            <a href="{{ session["route_list"]["pages"][page_dict]["endpoints"][0] }}">{{ session["route_list"]["pages"][page_dict]["pretty_name"] }}</a>
+          {% endif %}
+        {% endfor %}
+        <div class="dropdown">
+          <button class="dropbtn">Dropdown<i class="fa fa-caret-down"></i></button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
         </div>
       </div>
 
