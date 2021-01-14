@@ -28,16 +28,12 @@
 
     <div>
       <div class="dropdown">
-        <a href="#">test</a>
-        <button class="dropbtn">Dropdown</button>
+        <button class="dropbtn">|||</button>
         <div class="dropdown-content">
-          <a href="#">fHDHR</a>
-          <a href="#">{{ fhdhr.config.dict["main"]["servicename"] }}</a>
+          <a href="/index">fHDHR</a>
+          <a href="/origin">{{ fhdhr.config.dict["main"]["servicename"] }}</a>
         </div>
       </div>
-
-      <button onclick="location.href='/index'" type="button">fHDHR</button>
-      <button onclick="location.href='/origin'" type="button">{{ fhdhr.config.dict["main"]["servicename"] }}</button>
 
       {% for page_dict in session["route_list"]["pages"] %}
         {% if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["pages"][page_dict]["endpoint_access_level"] %}
