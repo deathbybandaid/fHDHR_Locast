@@ -5,7 +5,7 @@ import json
 
 def main_menu_setup():
     zone = document["main_menu"]
-    session = document.select(".session").value
+    session = document.select(".session")[0].value
     print(session)
     menu = Menu(zone)
     file_menu = menu.add_menu("File")
