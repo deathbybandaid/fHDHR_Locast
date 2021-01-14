@@ -14,6 +14,8 @@ def main_menu_setup():
     menu.add_item("fHDHR")
     menu.add_item(servicename)
 
+    print(session["route_list"]["pages"])
+
     for page_dict in session["route_list"]["pages"]:
         if session["route_list"]["pages"][page_dict]["name"] != "page_index_html" and access_level >= session["route_list"]["pages"][page_dict]["endpoint_access_level"]:
             menu.add_item(session["route_list"]["pages"][page_dict]["pretty_name"])
