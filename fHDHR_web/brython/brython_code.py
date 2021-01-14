@@ -15,8 +15,8 @@ def main_menu_setup():
     zone = document["main_menu"]
     menu = Menu(zone)
 
-    menu.add_item("fHDHR")
-    menu.add_item(storage['servicename'])
+    menu.add_link("fHDHR", '/index')
+    menu.add_link(storage['servicename'], '/origin')
 
     """
     for page_dict in storage['route_list']["pages"]:
