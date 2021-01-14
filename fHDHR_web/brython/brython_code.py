@@ -2,11 +2,12 @@ from browser import document, bind  # alert, window, html
 from browser.widgets.menu import Menu
 import json
 
+session = document.select(".session")[0].value
+servicename = document.select(".servicename")[0].value
+
 
 def main_menu_setup():
     zone = document["main_menu"]
-    session = document.select(".session")[0].value
-    servicename = document.select(".servicename")[0].value
     print(servicename)
     menu = Menu(zone)
 
