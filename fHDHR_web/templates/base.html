@@ -16,7 +16,6 @@
     <h1 class="center" style="text-align:center">
       <span style="text-decoration: underline;"><strong><em>{{ fhdhr.config.dict["fhdhr"]["friendlyname"] }}</em></strong>
       </span>
-      <img class="pull-left" src="/favicon.ico" alt="fHDHR Logo" width="100" height="100">
     </h1>
     {% set retmessage = request.args.get('retmessage', default=None) %}
     {% if retmessage %}
@@ -28,7 +27,7 @@
 
     <div>
       <div class="dropdown">
-        <button class="dropbtn" style="background-image:url('/favicon.ico')"></button>
+        <button class="dropbtn" style="background-image:url('/favicon.ico'); width:100; height:100></button>
         <div class="dropdown-content">
           <button onclick="location.href='/index'" type="button">fHDHR</button>
           <button onclick="location.href='/origin'" type="button">{{ fhdhr.config.dict["main"]["servicename"] }}</button>
