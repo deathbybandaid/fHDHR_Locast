@@ -2,7 +2,7 @@ from browser import document, bind  # alert, window, html
 from browser.widgets.menu import Menu
 import json
 
-session = document.select(".session")[0].value
+route_list = document.select(".route_list")[0].value
 servicename = document.select(".servicename")[0].value
 access_level = document.select(".access_level")[0].value
 
@@ -14,7 +14,7 @@ def main_menu_setup():
     menu.add_item("fHDHR")
     menu.add_item(servicename)
 
-    print(session.keys())
+    print(route_list)
 
     """
     for page_dict in session["route_list"]["pages"]:
