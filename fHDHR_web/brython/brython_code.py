@@ -3,7 +3,8 @@ from browser.widgets.menu import Menu
 import json
 
 
-zone = document["zone"]
+zone = document["main_menu"]
+print(session)
 menu = Menu(zone)
 file_menu = menu.add_menu("File")
 
