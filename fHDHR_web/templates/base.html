@@ -29,8 +29,7 @@
     <input type="hidden" id="servicename" value={{ fhdhr.config.dict["main"]["servicename"] }}>
     <input type="hidden" id="access_level" value={{ fhdhr.config.dict["web_ui"]["access_level"] }}>
 
-    <div>
-      <a style="padding: 5px;" id="main_menu"></a>
+    <div id="main_menu">
 
       <a class="pull-right" style="padding: 5px;" href="/api/xmltv?method=get&source={{ fhdhr.device.epg.def_method }}">xmltv</a>
       <a class="pull-right" style="padding: 5px;" href="/api/m3u?method=get&channel=all">m3u</a>
