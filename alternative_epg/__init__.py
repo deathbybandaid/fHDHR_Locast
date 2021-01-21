@@ -2,6 +2,7 @@ import os
 
 alt_epg_top_dir = os.path.dirname(__file__)
 for entry in os.scandir(alt_epg_top_dir):
+    print(entry)
     if entry.is_dir():
         alt_epg_name = entry.name
         alt_epg_dir_contents = [x for x in os.scandir("%s/%s" % (alt_epg_top_dir, alt_epg_name))]
