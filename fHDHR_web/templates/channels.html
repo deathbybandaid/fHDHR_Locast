@@ -4,29 +4,31 @@
 
   <h4 style="text-align: center;">{{ fhdhr.config.dict["fhdhr"]["friendlyname"] }} Channels</h4>
 
-  <div style="text-align: center;">
-    <button onclick="location.href='/api/tuners?method=scan&redirect=/channels'" type="button">Force Channel Update</button>
-    <p> Note: This may take some time.</p>
-  </div>
-  <br>
-
   <div class="container">
-  <table class="table-small center">
-      <tbody>
-        {% for key in list(channels_dict.keys()) %}
-          <tr>
-            <td>{{ key }}</td>
+    <table class="table-scroll center small-first-col">
+      <thead>
+        <tr>
+          {% for key in list(channels_dict.keys()) %}
+            <th>{{ key }}</th>
+          {% endfor %}
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody class="body-half-screen">
+        <tr>
+          {% for key in list(channels_dict.keys()) %}
             <td>{{ channels_dict[key] }}</td>
-          </tr>
-        {% endfor %}
+          {% endfor %}
+          <td>
+            <button onclick="location.href='/channels_editor'" type="button">Edit Channels</button>
+            <button onclick="location.href='/api/tuners?method=scan&redirect=/channels'" type="button">Force Channel Update</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <br>
-  <div style="text-align: center;">
-    <button onclick="location.href='/channels_editor'" type="button">Edit Channels</button>
-  </div>
   <br>
 
   <div class="container">
