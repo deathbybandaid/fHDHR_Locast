@@ -64,6 +64,7 @@ for entry in os.scandir(plugins_top_dir):
             elif curr_dict["TYPE"] == "alt_stream":
                 imp_string = "from .%s import *" % entry.name
                 exec(imp_string)
+            print(type(eval(entry.name)))
 
 if not len([x for x in list(plugin_dict.keys()) if plugin_dict[x]["TYPE"] == "origin"]):
     print("No Origin Plugin found.")
