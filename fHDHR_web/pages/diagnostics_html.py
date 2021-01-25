@@ -46,4 +46,4 @@ class Diagnostics_HTML():
                             curr_button_dict["button"] = False
                         button_dict[route_group].append(curr_button_dict)
 
-        return render_template('diagnostics.html', session=session, request=request, fhdhr=self.fhdhr, button_dict=button_dict, list=list)
+        return render_template('diagnostics.html', request=request, session=session, fhdhr=self.fhdhr, button_dict=button_dict, list=list)

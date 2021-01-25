@@ -31,19 +31,24 @@ class Tuners():
 
         redirect_url = request.args.get('redirect', default=None, type=str)
 
-        if method in self.fhdhr.config.dict["streaming"]["valid_methods"]:
+        origin_methods = self.fhdhr.origins.valid_origins
+        origin = request.args.get('origin', default=origin_methods[0], type=str)
+        if origin not in origin_methods:
+            return "%s Invalid channels origin" % origin
+
+        if method in list(self.fhdhr.config.dict["streaming"]["valid_methods"].keys()):
 
             channel_number = request.args.get('channel', None, type=str)
             if not channel_number:
                 return "Missing Channel"
 
-            if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number")]:
+            if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
                 response = Response("Not Found", status=404)
                 response.headers["X-fHDHR-Error"] = "801 - Unknown Channel"
                 self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
                 abort(response)
 
-            channel_dict = self.fhdhr.device.channels.get_channel_dict("number", channel_number)
+            channel_dict = self.fhdhr.device.channels.get_channel_dict("number", channel_number, origin)
             if not channel_dict["enabled"]:
                 response = Response("Service Unavailable", status=503)
                 response.headers["X-fHDHR-Error"] = str("806 - Tune Failed")
@@ -62,6 +67,7 @@ class Tuners():
 
             stream_args = {
                             "channel": channel_number,
+                            "origin": origin,
                             "method": method,
                             "duration": duration,
                             "origin_quality": self.fhdhr.config.dict["streaming"]["origin_quality"],
@@ -73,9 +79,9 @@ class Tuners():
 
             try:
                 if not tuner_number:
-                    tunernum = self.fhdhr.device.tuners.first_available(channel_number)
+                    tunernum = self.fhdhr.device.tuners.first_available(origin, channel_number)
                 else:
-                    tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number, channel_number)
+                    tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number, origin, channel_number)
             except TunerError as e:
                 self.fhdhr.logger.info("A %s stream request for channel %s was rejected due to %s"
                                        % (stream_args["method"], str(stream_args["channel"]), str(e)))
@@ -89,8 +95,8 @@ class Tuners():
             try:
                 stream_args = self.fhdhr.device.tuners.get_stream_info(stream_args)
             except TunerError as e:
-                self.fhdhr.logger.info("A %s stream request for channel %s was rejected due to %s"
-                                       % (stream_args["method"], str(stream_args["channel"]), str(e)))
+                self.fhdhr.logger.info("A %s stream request for %s channel %s was rejected due to %s"
+                                       % (origin, stream_args["method"], str(stream_args["channel"]), str(e)))
                 response = Response("Service Unavailable", status=503)
                 response.headers["X-fHDHR-Error"] = str(e)
                 self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
@@ -116,11 +122,11 @@ class Tuners():
         elif method == "scan":
 
             if not tuner_number:
-                tunernum = self.fhdhr.device.tuners.first_available(None)
+                tunernum = self.fhdhr.device.tuners.first_available(origin, None)
             else:
-                tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number, None)
+                tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number, origin, None)
             tuner = self.fhdhr.device.tuners.tuners[str(tunernum)]
-            tuner.channel_scan(grabbed=True)
+            tuner.channel_scan(origin=origin, grabbed=True)
 
         elif method == "status":
 

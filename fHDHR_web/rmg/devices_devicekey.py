@@ -21,6 +21,8 @@ class RMG_Devices_DeviceKey():
 
         base_url = request.url_root[:-1]
 
+        origin = self.fhdhr.origins.valid_origins[0]
+
         out = xml.etree.ElementTree.Element('MediaContainer')
         if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
             out.set('size', "1")
@@ -67,7 +69,7 @@ class RMG_Devices_DeviceKey():
                            index=tuner_number,
                            status="scanning",
                            progress="99",
-                           channelsFound=str(len(self.fhdhr.device.channels.list)),
+                           channelsFound=str(len(list(self.fhdhr.device.channels.list[origin].keys()))),
                            )
 
                 # TODO networksScanned

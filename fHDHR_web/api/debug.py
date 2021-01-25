@@ -19,9 +19,11 @@ class Debug_JSON():
 
         debugjson = {
                     "base_url": base_url,
-                    "total channels": len(self.fhdhr.device.channels.list),
                     "tuner status": self.fhdhr.device.tuners.status(),
                     }
+        debugjson["total channels"] = {}
+        for origin in list(self.fhdhr.device.channels.list.keys()):
+            debugjson["total channels"][origin] = len(list(self.fhdhr.device.channels.list[origin].keys()))
         cluster_json = json.dumps(debugjson, indent=4)
 
         return Response(status=200,

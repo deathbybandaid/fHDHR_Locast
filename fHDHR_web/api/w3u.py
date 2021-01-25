@@ -26,6 +26,11 @@ class W3U():
 
         if method == "get":
 
+            origin_methods = self.fhdhr.origins.valid_origins
+            origin = request.args.get('origin', default=origin_methods[0], type=str)
+            if origin not in origin_methods:
+                return "%s Invalid channels origin" % origin
+
             channel_info_m3u = {
                                 "name": self.fhdhr.config.dict["fhdhr"]["friendlyname"],
                                 "image": '%s/favicon.ico' % base_url,
@@ -37,12 +42,12 @@ class W3U():
 
             if channel == "all":
                 fileName = "channels.w3u"
-                for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels()]:
-                    channel_obj = self.fhdhr.device.channels.list[fhdhr_id]
+                for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
+                    channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)
                     if channel_obj.enabled:
                         channel_items.append(channel_obj)
-            elif str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number")]:
-                channel_obj = self.fhdhr.device.channels.get_channel_obj("number", channel)
+            elif str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
+                channel_obj = self.fhdhr.device.channels.get_channel_obj("number", channel, origin)
                 fileName = "%s.w3u" % channel_obj.number
                 if channel_obj.enabled:
                     channel_items.append(channel_obj)

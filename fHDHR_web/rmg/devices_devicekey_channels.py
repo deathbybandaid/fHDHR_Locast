@@ -19,11 +19,13 @@ class RMG_Devices_DeviceKey_Channels():
     def get(self, devicekey, *args):
         """Returns the current channels."""
 
+        origin = self.fhdhr.origins.valid_origins[0]
+
         out = xml.etree.ElementTree.Element('MediaContainer')
         if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
-            out.set('size', str(len(self.fhdhr.device.channels.list)))
-            for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels()]:
-                channel_obj = self.fhdhr.device.channels.list[fhdhr_id]
+            out.set('size', str(len(list(self.fhdhr.device.channels.list[origin].keys()))))
+            for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
+                channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)
                 if channel_obj.enabled:
                     sub_el(out, 'Channel',
                            drm="0",

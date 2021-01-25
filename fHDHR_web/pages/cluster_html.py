@@ -49,4 +49,4 @@ class Cluster_HTML():
                                 }
                 locations_list.append(location_dict)
 
-        return render_template('cluster.html', session=session, request=request, fhdhr=self.fhdhr, locations_list=locations_list)
+        return render_template('cluster.html', request=request, session=session, fhdhr=self.fhdhr, locations_list=locations_list)

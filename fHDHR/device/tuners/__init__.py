@@ -7,10 +7,9 @@ from .tuner import Tuner
 
 class Tuners():
 
-    def __init__(self, fhdhr, epg, channels, plugins):
+    def __init__(self, fhdhr, epg, channels):
         self.fhdhr = fhdhr
         self.channels = channels
-        self.plugins = plugins
 
         self.epg = epg
         self.max_tuners = int(self.fhdhr.config.dict["fhdhr"]["tuner_count"])
@@ -20,7 +19,15 @@ class Tuners():
         self.fhdhr.logger.info("Creating %s tuners." % str(self.max_tuners))
 
         for i in range(0, self.max_tuners):
-            self.tuners[str(i)] = Tuner(fhdhr, i, epg, plugins)
+            self.tuners[str(i)] = Tuner(fhdhr, i, epg)
+
+        self.alt_stream_handlers = {}
+
+    def alt_stream_methods_selfadd(self):
+        for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
+            if self.fhdhr.plugins.plugins[plugin_name].type == "alt_stream":
+                method = self.fhdhr.plugins.plugins[plugin_name].name
+                self.alt_stream_handlers[method] = self.fhdhr.plugins.plugins[plugin_name]
 
     def get_available_tuner(self):
         return next(tunernum for tunernum in list(self.tuners.keys()) if not self.tuners[tunernum].tuner_lock.locked()) or None
@@ -33,29 +40,29 @@ class Tuners():
         if tunernum:
             self.tuners[str(tunernum)].close()
 
-    def tuner_scan(self):
+    def tuner_scan(self, origin="all"):
         """Temporarily use a tuner for a scan"""
         if not self.available_tuner_count():
             raise TunerError("805 - All Tuners In Use")
 
         tunernumber = self.get_available_tuner()
-        self.tuners[str(tunernumber)].channel_scan()
+        self.tuners[str(tunernumber)].channel_scan(origin)
 
         if not tunernumber:
             raise TunerError("805 - All Tuners In Use")
 
-    def tuner_grab(self, tuner_number, channel_number):
+    def tuner_grab(self, tuner_number, origin, channel_number):
 
         if str(tuner_number) not in list(self.tuners.keys()):
             self.fhdhr.logger.error("Tuner %s does not exist." % str(tuner_number))
             raise TunerError("806 - Tune Failed")
 
         # TunerError will raise if unavailable
-        self.tuners[str(tuner_number)].grab(channel_number)
+        self.tuners[str(tuner_number)].grab(origin, channel_number)
 
         return tuner_number
 
-    def first_available(self, channel_number, dograb=True):
+    def first_available(self, origin, channel_number, dograb=True):
 
         if not self.available_tuner_count():
             raise TunerError("805 - All Tuners In Use")
@@ -65,7 +72,7 @@ class Tuners():
         if not tunernumber:
             raise TunerError("805 - All Tuners In Use")
         else:
-            self.tuners[str(tunernumber)].grab(channel_number)
+            self.tuners[str(tunernumber)].grab(origin, channel_number)
             return tunernumber
 
     def tuner_close(self, tunernum):
@@ -93,7 +100,7 @@ class Tuners():
 
     def get_stream_info(self, stream_args):
 
-        stream_info = self.channels.get_channel_stream(stream_args)
+        stream_info = self.channels.get_channel_stream(stream_args, stream_args["origin"])
         if not stream_info:
             raise TunerError("806 - Tune Failed")
 
