@@ -241,7 +241,5 @@ class PluginsHandler():
         self.logger = logger
         self.db = db
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
-            for print_item in [plugin_name, plugin_path, plugin_conf, plugin_manifest]:
-                print(print_item)
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item

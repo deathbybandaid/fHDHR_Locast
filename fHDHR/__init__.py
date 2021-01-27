@@ -33,9 +33,6 @@ class fHDHR_OBJ():
         self.fhdhr = fHDHR_INT_OBJ(settings, logger, db, plugins)
 
         self.fhdhr.origins = fHDHR.origins.Origins(self.fhdhr)
-        for plugin_name in list(self.plugins.plugins.keys()):
-            if self.plugins.plugins[plugin_name].manifest["tagged_origin"]:
-                self.plugins.plugins[plugin_name].plugin_utils.origin = self.fhdhr.origins.origins_dict[self.plugins.plugins[plugin_name].manifest["tagged_origin"].lower()]
 
         self.device = fHDHR_Device(self.fhdhr, self.fhdhr.origins)
 

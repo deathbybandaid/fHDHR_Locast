@@ -20,6 +20,9 @@ class Origins():
 
         self.origins_dict = {}
         self.origin_selfadd()
+        for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
+            if self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_origin"]:
+                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.origin = self.origins_dict[self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_origin"].lower()]
 
     @property
     def valid_origins(self):
