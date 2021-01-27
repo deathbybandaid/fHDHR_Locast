@@ -242,4 +242,5 @@ class PluginsHandler():
         self.db = db
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
+            print(plugin_item.plugin_dict_name)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
