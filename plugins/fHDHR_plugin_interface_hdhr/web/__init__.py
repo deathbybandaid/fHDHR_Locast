@@ -17,6 +17,7 @@ class Plugin_OBJ():
     def __init__(self, fhdhr, plugin_utils):
         self.fhdhr = fhdhr
         self.plugin_utils = plugin_utils
+        print(plugin_utils.namespace)
 
         self.lineup_post = Lineup_Post(fhdhr)
 

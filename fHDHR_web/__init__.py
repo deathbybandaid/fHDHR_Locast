@@ -63,7 +63,7 @@ class fHDHR_HTTP_Server():
             method = self.fhdhr.plugins.plugins[plugin_name].plugin_utils.namespace
             self.fhdhr.logger.info("Loading %s Plugin HTTP Endpoints." % method)
             self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(fhdhr, self.fhdhr.plugins.plugins[plugin_name].plugin_utils)
-            # self.add_endpoints(method)
+            self.add_endpoints(method)
 
         self.fhdhr.app.before_request(self.before_request)
         self.fhdhr.app.after_request(self.after_request)
