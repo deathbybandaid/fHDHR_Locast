@@ -57,6 +57,7 @@ class fHDHR_HTTP_Server():
         for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
             if self.fhdhr.plugins.plugins[plugin_name].type == "web":
                 method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
+                print(method)
                 plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
                 self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(self.fhdhr, plugin_utils)
 
