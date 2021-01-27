@@ -198,41 +198,40 @@ class PluginsHandler():
 
                         if plugin_manifest["type"] == "origin" and len([plugin_name for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins if plugin_manifest["type"] == "origin"]):
                             plugin_import_print_string += " ImportWarning: Only one Origin Allowed."
+
+                        if not any(plugin_manifest[plugin_item] for plugin_item in ["name", "version", "type"]):
+                            plugin_import_print_string += " ImportWarning: Missing PLUGIN_* Value."
                         else:
 
-                            if not any(plugin_manifest[plugin_item] for plugin_item in ["name", "version", "type"]):
-                                plugin_import_print_string += " ImportWarning: Missing PLUGIN_* Value."
+                            # Single Plugin
+                            if os.path.isfile(os.path.join(abspath, '__init__.py')):
+                                plugin_manifest["tagged_origin"] = None
+                                self.found_plugins.append((os.path.basename(filename), abspath, plugin_conf, plugin_manifest))
+
                             else:
 
-                                # Single Plugin
-                                if os.path.isfile(os.path.join(abspath, '__init__.py')):
-                                    plugin_manifest["tagged_origin"] = None
-                                    self.found_plugins.append((os.path.basename(filename), abspath, plugin_conf, plugin_manifest))
+                                # Multi-Plugin
+                                for subfilename in os.listdir(abspath):
+                                    subabspath = os.path.join(abspath, subfilename)
 
-                                else:
+                                    if os.path.isdir(subabspath):
 
-                                    # Multi-Plugin
-                                    for subfilename in os.listdir(abspath):
-                                        subabspath = os.path.join(abspath, subfilename)
+                                        subconffilepath = os.path.join(subabspath, 'plugin.json')
+                                        if os.path.isfile(subconffilepath):
+                                            subplugin_manifest = json.load(open(subconffilepath, 'r'))
 
-                                        if os.path.isdir(subabspath):
+                                            for subplugin_man_item in ["name", "version", "type"]:
+                                                if subplugin_man_item not in list(subplugin_manifest.keys()):
+                                                    subplugin_manifest[subplugin_man_item] = plugin_manifest[subplugin_man_item]
+                                        else:
+                                            subplugin_manifest = plugin_manifest
 
-                                            subconffilepath = os.path.join(subabspath, 'plugin.json')
-                                            if os.path.isfile(subconffilepath):
-                                                subplugin_manifest = json.load(open(subconffilepath, 'r'))
+                                        subplugin_manifest["tagged_origin"] = None
+                                        if plugin_manifest["type"] == "origin" and subplugin_manifest["type"] != "origin":
+                                            subplugin_manifest["tagged_origin"] = plugin_manifest["name"]
 
-                                                for subplugin_man_item in ["name", "version", "type"]:
-                                                    if subplugin_man_item not in list(subplugin_manifest.keys()):
-                                                        subplugin_manifest[subplugin_man_item] = plugin_manifest[subplugin_man_item]
-                                            else:
-                                                subplugin_manifest = plugin_manifest
-
-                                            subplugin_manifest["tagged_origin"] = None
-                                            if plugin_manifest["type"] == "origin" and subplugin_manifest["type"] != "origin":
-                                                subplugin_manifest["tagged_origin"] = plugin_manifest["name"]
-
-                                            if os.path.isfile(os.path.join(subabspath, '__init__.py')):
-                                                self.found_plugins.append((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
+                                        if os.path.isfile(os.path.join(subabspath, '__init__.py')):
+                                            self.found_plugins.append((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
 
                         print(plugin_import_print_string)
         self.load_plugin_configs()
