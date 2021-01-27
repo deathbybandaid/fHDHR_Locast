@@ -247,15 +247,4 @@ class PluginsHandler():
             if self.fhdhr.plugins.plugins[plugin_name].type == "web":
                 if self.fhdhr.plugins.plugins[plugin_name].name == "HDHR":
                     plugin_utils = self.plugins[plugin_name].plugin_utils
-                    plugin_item.Plugin_OBJ(self.fhdhr, plugin_utils)
-
-        def selfadd_web_plugins(self):
-            for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
-                if self.fhdhr.plugins.plugins[plugin_name].type == "web":
-                    method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
-                    plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
-                    print(self.fhdhr.plugins.plugins[plugin_name].plugin_name)
-                    try:
-                        self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(self.fhdhr, plugin_utils)
-                    except Exception as e:
-                        print(e)
+                    plugin_item.Plugin_OBJ(None, plugin_utils)
