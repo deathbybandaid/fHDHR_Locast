@@ -21,9 +21,11 @@ class Lineup_XML():
 
         show = request.args.get('show', default="all", type=str)
 
+        origin = self.fhdhr.origins.valid_origins[0]
+
         channelslist = {}
-        for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels()]:
-            channel_obj = self.fhdhr.device.channels.list[fhdhr_id]
+        for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
+            channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)
             if channel_obj.enabled or show == "found":
                 lineup_dict = channel_obj.lineup_dict
                 lineup_dict["URL"] = "%s%s" % (base_url, lineup_dict["URL"])

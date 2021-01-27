@@ -20,9 +20,13 @@ class Lineup_Status_JSON():
             if tuner_status[tuner_number]["status"] == "Scanning":
                 tuners_scanning += 1
 
+        channel_count = 0
+        for origin in list(self.fhdhr.device.channels.list.keys()):
+            channel_count += len(list(self.fhdhr.device.channels.list[origin].keys()))
+
         if tuners_scanning:
             jsonlineup = self.scan_in_progress()
-        elif not len(self.fhdhr.device.channels.list):
+        elif not channel_count:
             jsonlineup = self.scan_in_progress()
         else:
             jsonlineup = self.not_scanning()
@@ -33,10 +37,15 @@ class Lineup_Status_JSON():
                         mimetype='application/json')
 
     def scan_in_progress(self):
+
+        channel_count = 0
+        for origin in list(self.fhdhr.device.channels.list.keys()):
+            channel_count += len(list(self.fhdhr.device.channels.list[origin].keys()))
+
         jsonlineup = {
                       "ScanInProgress": "true",
                       "Progress": 99,
-                      "Found": len(self.fhdhr.device.channels.list)
+                      "Found": channel_count
                       }
         return jsonlineup
 

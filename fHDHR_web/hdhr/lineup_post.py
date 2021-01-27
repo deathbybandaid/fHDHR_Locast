@@ -39,18 +39,20 @@ class Lineup_Post():
                 channel_method = request.args['favorite'][0]
                 channel_number = request.args['favorite'][1:]
 
-                if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number")]:
+                origin = self.fhdhr.origins.valid_origins[0]
+
+                if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
                     response = Response("Not Found", status=404)
                     response.headers["X-fHDHR-Error"] = "801 - Unknown Channel"
                     self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
                     abort(response)
 
                 if channel_method == "+":
-                    self.fhdhr.device.channels.set_channel_enablement("number", channel_number, channel_method)
+                    self.fhdhr.device.channels.set_channel_enablement("number", channel_number, channel_method, origin)
                 elif channel_method == "-":
-                    self.fhdhr.device.channels.set_channel_enablement("number", channel_number, channel_method)
+                    self.fhdhr.device.channels.set_channel_enablement("number", channel_number, channel_method, origin)
                 elif channel_method == "x":
-                    self.fhdhr.device.channels.set_channel_enablement("number", channel_number, "toggle")
+                    self.fhdhr.device.channels.set_channel_enablement("number", channel_number, "toggle", origin)
 
             else:
                 self.fhdhr.logger.warning("Unknown favorite command %s" % request.args['favorite'])
