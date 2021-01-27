@@ -27,6 +27,9 @@ class Guide_HTML():
         if source not in epg_methods:
             source = self.fhdhr.device.epg.def_method
 
+        if not source:
+            return render_template('guide.html', request=request, session=session, fhdhr=self.fhdhr, chan_guide_list=chan_guide_list, epg_methods=epg_methods, source=source, list=list)
+
         whatson = self.fhdhr.device.epg.whats_on_allchans(source)
 
         # Sort the channels
