@@ -98,7 +98,7 @@ class Plugin():
         self.manifest = plugin_manifest
 
         if self.multi_plugin:
-            self.plugin_dict_name = "%s/%s" % (plugin_name, self.modname)
+            self.plugin_dict_name = "%s.%s" % (plugin_name, self.modname)
         else:
             self.plugin_dict_name = plugin_name
 
@@ -243,5 +243,3 @@ class PluginsHandler():
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
-
-        print(list(self.plugins.keys()))
