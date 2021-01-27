@@ -6,7 +6,6 @@ import uuid
 from .pages import fHDHR_Pages
 from .files import fHDHR_Files
 from .brython import fHDHR_Brython
-from .rmg import fHDHR_RMG
 from .api import fHDHR_API
 
 
@@ -39,7 +38,6 @@ class fHDHR_HTTP_Server():
         self.endpoints_obj["pages"] = fHDHR_Pages(fhdhr)
         self.endpoints_obj["files"] = fHDHR_Files(fhdhr)
         self.endpoints_obj["brython"] = fHDHR_Brython(fhdhr)
-        self.endpoints_obj["rmg"] = fHDHR_RMG(fhdhr)
         self.endpoints_obj["api"] = fHDHR_API(fhdhr)
 
         self.selfadd_web_plugins()

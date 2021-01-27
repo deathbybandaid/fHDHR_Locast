@@ -1,4 +1,5 @@
 
+
 from .rmg_ident_xml import RMG_Ident_XML
 from .device_xml import RMG_Device_XML
 from .devices_discover import RMG_Devices_Discover
@@ -12,10 +13,11 @@ from .devices_devicekey_prefs import RMG_Devices_DeviceKey_Prefs
 from .devices_devicekey_media import RMG_Devices_DeviceKey_Media
 
 
-class fHDHR_RMG():
+class Plugin_OBJ():
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, plugin_utils):
         self.fhdhr = fhdhr
+        self.plugin_utils = plugin_utils
 
         self.rmg_ident_xml = RMG_Ident_XML(fhdhr)
         self.device_xml = RMG_Device_XML(fhdhr)
