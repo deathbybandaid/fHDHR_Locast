@@ -6,6 +6,7 @@ import uuid
 from .pages import fHDHR_Pages
 from .files import fHDHR_Files
 from .brython import fHDHR_Brython
+from .hdhr import fHDHR_HDHR
 from .rmg import fHDHR_RMG
 from .api import fHDHR_API
 
@@ -50,6 +51,10 @@ class fHDHR_HTTP_Server():
         self.fhdhr.logger.info("Loading HTTP Brython Endpoints.")
         self.endpoints_obj["brython"] = fHDHR_Brython(fhdhr)
         self.add_endpoints("brython")
+
+        self.fhdhr.logger.info("Loading HTTP HDHR Endpoints.")
+        self.hdhr = fHDHR_HDHR(fhdhr)
+        self.add_endpoints(self.hdhr, "hdhr")
 
         self.fhdhr.logger.info("Loading HTTP RMG Endpoints.")
         self.endpoints_obj["rmg"] = fHDHR_RMG(fhdhr)
