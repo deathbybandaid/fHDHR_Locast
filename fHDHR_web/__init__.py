@@ -21,8 +21,6 @@ class fHDHR_HTTP_Server():
 
         self.template_folder = fhdhr.config.internal["paths"]["www_templates_dir"]
 
-        self.web_plugins = [x for x in list(self.fhdhr.plugins.plugins.keys()) if self.fhdhr.plugins.plugins[x].type == "web"]
-
         self.fhdhr.logger.info("Loading Flask.")
 
         self.fhdhr.app = Flask("fHDHR", template_folder=self.template_folder)
@@ -38,38 +36,29 @@ class fHDHR_HTTP_Server():
         self.route_list = {}
 
         self.endpoints_obj = {}
-
-        self.fhdhr.logger.info("Loading HTTP Pages Endpoints.")
         self.endpoints_obj["pages"] = fHDHR_Pages(fhdhr)
-        self.add_endpoints("pages")
-
-        self.fhdhr.logger.info("Loading HTTP Files Endpoints.")
         self.endpoints_obj["files"] = fHDHR_Files(fhdhr)
-        self.add_endpoints("files")
-
-        self.fhdhr.logger.info("Loading HTTP Brython Endpoints.")
         self.endpoints_obj["brython"] = fHDHR_Brython(fhdhr)
-        self.add_endpoints("brython")
-
-        self.fhdhr.logger.info("Loading HTTP RMG Endpoints.")
         self.endpoints_obj["rmg"] = fHDHR_RMG(fhdhr)
-        self.add_endpoints("rmg")
-
-        self.fhdhr.logger.info("Loading HTTP API Endpoints.")
         self.endpoints_obj["api"] = fHDHR_API(fhdhr)
-        self.add_endpoints("api")
 
-        for plugin_name in self.web_plugins:
-            method = self.fhdhr.plugins.plugins[plugin_name].plugin_utils.namespace
-            self.fhdhr.logger.info("Loading %s Plugin HTTP Endpoints." % method)
-            self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(fhdhr, self.fhdhr.plugins.plugins[plugin_name].plugin_utils)
-            self.add_endpoints(method)
+        self.selfadd_web_plugins()
+        for endpoint_type in list(self.endpoints_obj.keys()):
+            self.fhdhr.logger.info("Loading HTTP %s Endpoints." % endpoint_type)
+            self.add_endpoints(endpoint_type)
 
         self.fhdhr.app.before_request(self.before_request)
         self.fhdhr.app.after_request(self.after_request)
         self.fhdhr.app.before_first_request(self.before_first_request)
 
         self.fhdhr.threads["flask"] = threading.Thread(target=self.run)
+
+    def selfadd_web_plugins(self):
+        for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
+            if self.fhdhr.plugins.plugins[plugin_name].type == "web":
+                method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
+                plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
+                self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(plugin_utils)
 
     def start(self):
         self.fhdhr.logger.info("Flask HTTP Thread Starting")
