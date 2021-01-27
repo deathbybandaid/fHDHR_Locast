@@ -243,8 +243,10 @@ class PluginsHandler():
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
-            print(self.plugins[plugin_item.plugin_dict_name].plugin_name)
-            if self.plugins[plugin_item.plugin_dict_name].type == "web":
-                if self.plugins[plugin_item.plugin_dict_name].name == "HDHR":
-                    plugin_utils = self.plugins[plugin_item.plugin_dict_name].plugin_utils
+
+        for plugin_fart in list(self.plugins.keys()):
+            print(self.plugins[plugin_fart].plugin_name)
+            if self.plugins[plugin_fart].type == "web":
+                if self.plugins[plugin_fart].name == "HDHR":
+                    plugin_utils = self.plugins[plugin_fart].plugin_utils
                     plugin_item.Plugin_OBJ(None, plugin_utils)

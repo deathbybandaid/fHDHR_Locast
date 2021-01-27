@@ -58,7 +58,6 @@ class fHDHR_HTTP_Server():
             if self.fhdhr.plugins.plugins[plugin_name].type == "web":
                 method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
                 plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
-                print(self.fhdhr.plugins.plugins[plugin_name].plugin_name)
                 try:
                     self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(self.fhdhr, plugin_utils)
                 except Exception as e:
