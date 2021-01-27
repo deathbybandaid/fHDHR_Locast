@@ -232,6 +232,7 @@ class PluginsHandler():
                                                 subplugin_manifest["tagged_origin"] = plugin_manifest["name"]
 
                                             if os.path.isfile(os.path.join(subabspath, '__init__.py')):
+                                                print((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
                                                 self.found_plugins.append((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
 
                         print(plugin_import_print_string)
