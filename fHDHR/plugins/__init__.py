@@ -245,8 +245,6 @@ class PluginsHandler():
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
 
         for plugin_fart in list(self.plugins.keys()):
-            print(self.plugins[plugin_fart].plugin_name)
-            if self.plugins[plugin_fart].type == "web":
-                if self.plugins[plugin_fart].name == "HDHR":
-                    plugin_utils = self.plugins[plugin_fart].plugin_utils
-                    plugin_item.Plugin_OBJ(None, plugin_utils)
+            if self.plugins[plugin_fart].name == "fHDHR_plugin_interface_hdhr":
+                plugin_utils = self.plugins[plugin_fart].plugin_utils
+                plugin_item.Plugin_OBJ(None, plugin_utils)
