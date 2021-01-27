@@ -98,7 +98,7 @@ class Plugin():
         self.manifest = plugin_manifest
 
         if self.multi_plugin:
-            self.plugin_dict_name = "%s_%s" % (plugin_name, self.modname)
+            self.plugin_dict_name = "%s/%s" % (plugin_name, self.modname)
         else:
             self.plugin_dict_name = plugin_name
 
