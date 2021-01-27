@@ -4,7 +4,7 @@ from .locast_api_tools import Locast_API_Tools
 from .locast_html import Locast_HTML
 
 
-def setup():
+def setup(plugin):
     print("locast")
 
 

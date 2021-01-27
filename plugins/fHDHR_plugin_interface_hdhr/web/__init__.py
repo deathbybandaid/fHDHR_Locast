@@ -12,7 +12,7 @@ from .auto import Auto
 from .tuner import Tuner
 
 
-def setup():
+def setup(plugin):
     print("hdhr")
 
 
