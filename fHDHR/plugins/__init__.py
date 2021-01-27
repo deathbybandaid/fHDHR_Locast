@@ -166,6 +166,7 @@ class PluginsHandler():
 
     def list_plugins(self):
         for directory in self.config.internal["paths"]["plugins_dir"]:
+
             base = os.path.abspath(directory)
             for filename in os.listdir(base):
                 abspath = os.path.join(base, filename)
@@ -210,7 +211,7 @@ class PluginsHandler():
 
                                 else:
 
-                                    # Multi-Plugin, likely an Origin
+                                    # Multi-Plugin
                                     for subfilename in os.listdir(abspath):
                                         subabspath = os.path.join(abspath, subfilename)
 
@@ -240,5 +241,7 @@ class PluginsHandler():
         self.logger = logger
         self.db = db
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
+            for print_item in [plugin_name, plugin_path, plugin_conf, plugin_manifest]:
+                print(print_item)
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
