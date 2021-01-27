@@ -68,6 +68,7 @@ class Config():
             "path": path,
             "plugin": plugin_dict_name
             }
+        print(self.dict["plugin_web_paths"])
 
     def register_valid_origin_method(self, method_item):
         self.dict["origins"]["valid_methods"][method_item.lower()] = {
