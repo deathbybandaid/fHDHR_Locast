@@ -4,10 +4,6 @@ from .locast_api_tools import Locast_API_Tools
 from .locast_html import Locast_HTML
 
 
-def setup(plugin):
-    print("locast")
-
-
 class Plugin_OBJ():
 
     def __init__(self, fhdhr, plugin_utils):

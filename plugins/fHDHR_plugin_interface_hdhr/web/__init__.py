@@ -12,10 +12,6 @@ from .auto import Auto
 from .tuner import Tuner
 
 
-def setup(plugin):
-    print("hdhr")
-
-
 class Plugin_OBJ():
 
     def __init__(self, fhdhr, plugin_utils):
