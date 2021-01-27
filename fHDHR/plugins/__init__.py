@@ -93,6 +93,7 @@ class Plugin():
         self.modname = os.path.basename(plugin_path)
         self.path = plugin_path
         self.module_type = imp.PKG_DIRECTORY
+        print(self.module_type)
         self.multi_plugin = (self.plugin_name != self.modname)
         self.default_conf = plugin_conf
         self.manifest = plugin_manifest
@@ -243,7 +244,3 @@ class PluginsHandler():
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
-
-        for test_plugin in list(self.plugins.keys()):
-            if self.plugins[test_plugin].has_setup():
-                self.plugins[test_plugin]._module.setup(self.plugins[test_plugin])
