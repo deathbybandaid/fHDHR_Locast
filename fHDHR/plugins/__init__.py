@@ -93,7 +93,6 @@ class Plugin():
         self.modname = os.path.basename(plugin_path)
         self.path = plugin_path
         self.module_type = imp.PKG_DIRECTORY
-        print(self.module_type)
         self.multi_plugin = (self.plugin_name != self.modname)
         self.default_conf = plugin_conf
         self.manifest = plugin_manifest
@@ -125,6 +124,8 @@ class Plugin():
 
     def _load(self):
         description = ('', '', self.module_type)
+        print(self.modname)
+        print(self.path)
         mod = imp.load_module(self.modname, None, self.path, description)
         return mod
 
