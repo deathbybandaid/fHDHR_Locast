@@ -54,7 +54,7 @@ class fHDHR_HTTP_Server():
 
         self.fhdhr.logger.info("Loading HTTP HDHR Endpoints.")
         self.hdhr = fHDHR_HDHR(fhdhr)
-        self.add_endpoints(self.hdhr, "hdhr")
+        self.add_endpoints("hdhr")
 
         self.fhdhr.logger.info("Loading HTTP RMG Endpoints.")
         self.endpoints_obj["rmg"] = fHDHR_RMG(fhdhr)
