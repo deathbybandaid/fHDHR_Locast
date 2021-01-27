@@ -53,7 +53,7 @@ class fHDHR_HTTP_Server():
         self.add_endpoints("brython")
 
         self.fhdhr.logger.info("Loading HTTP HDHR Endpoints.")
-        self.hdhr = fHDHR_HDHR(fhdhr)
+        self.endpoints_obj["hdhr"] = fHDHR_HDHR(fhdhr)
         self.add_endpoints("hdhr")
 
         self.fhdhr.logger.info("Loading HTTP RMG Endpoints.")
