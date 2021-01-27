@@ -196,6 +196,7 @@ class PluginsHandler():
 
                         plugin_import_print_string = "Found %s type plugin: %s %s. " % (plugin_manifest["type"], plugin_manifest["name"], plugin_manifest["version"])
 
+                        # Warn for multiple origins
                         if plugin_manifest["type"] == "origin" and len([plugin_name for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins if plugin_manifest["type"] == "origin"]):
                             plugin_import_print_string += " ImportWarning: Only one Origin Allowed."
 
@@ -242,3 +243,4 @@ class PluginsHandler():
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
+            print(self.plugins[plugin_item.plugin_dict_name].name)
