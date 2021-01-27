@@ -244,7 +244,4 @@ class PluginsHandler():
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
 
-        for plugin_fart in list(self.plugins.keys()):
-            if self.plugins[plugin_fart].name == "fHDHR_plugin_interface_hdhr":
-                plugin_utils = self.plugins[plugin_fart].plugin_utils
-                plugin_item.Plugin_OBJ(None, plugin_utils)
+        print(list(self.plugins.keys()))
