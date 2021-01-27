@@ -58,7 +58,7 @@ class fHDHR_HTTP_Server():
             if self.fhdhr.plugins.plugins[plugin_name].type == "web":
                 method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
                 plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
-                self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(plugin_utils)
+                self.endpoints_obj[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(self.fhdhr, plugin_utils)
 
     def start(self):
         self.fhdhr.logger.info("Flask HTTP Thread Starting")
