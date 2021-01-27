@@ -98,7 +98,7 @@ class Plugin():
         self.manifest = plugin_manifest
 
         if self.multi_plugin:
-            self.plugin_dict_name = "%s/%s" % (plugin_name, self.modname)
+            self.plugin_dict_name = "%s_%s" % (plugin_name, self.modname)
         else:
             self.plugin_dict_name = plugin_name
 
@@ -232,7 +232,6 @@ class PluginsHandler():
                                                 subplugin_manifest["tagged_origin"] = plugin_manifest["name"]
 
                                             if os.path.isfile(os.path.join(subabspath, '__init__.py')):
-                                                print((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
                                                 self.found_plugins.append((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
 
                         print(plugin_import_print_string)
