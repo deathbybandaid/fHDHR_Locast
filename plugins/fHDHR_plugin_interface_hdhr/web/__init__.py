@@ -12,14 +12,17 @@ from .auto import Auto
 from .tuner import Tuner
 
 
+def setup():
+    print("hdhr")
+
+
 class Plugin_OBJ():
 
     def __init__(self, fhdhr, plugin_utils):
         self.fhdhr = fhdhr
         self.plugin_utils = plugin_utils
-        print("here")
 
-        """self.lineup_post = Lineup_Post(fhdhr)
+        self.lineup_post = Lineup_Post(fhdhr)
 
         self.device_xml = HDHR_Device_XML(fhdhr)
 
@@ -30,4 +33,4 @@ class Plugin_OBJ():
 
         self.discover_json = Discover_JSON(fhdhr)
         self.lineup_json = Lineup_JSON(fhdhr)
-        self.lineup_status_json = Lineup_Status_JSON(fhdhr)"""
+        self.lineup_status_json = Lineup_Status_JSON(fhdhr)
