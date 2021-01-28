@@ -143,8 +143,13 @@ class Tuners():
         elif method == "scan":
 
             if not origin:
-                origin = "all"
-                tuner.channel_scan(origin=origin, grabbed=False)
+                for origin in list(self.fhdhr.device.tuners.tuners.keys()):
+                    if not tuner_number:
+                        tunernum = self.fhdhr.device.tuners.first_available(origin, None)
+                    else:
+                        tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number, origin, None)
+                    tuner = self.fhdhr.device.tuners.tuners[origin][str(tunernum)]
+                    tuner.channel_scan(origin=origin, grabbed=False)
             else:
                 if not tuner_number:
                     tunernum = self.fhdhr.device.tuners.first_available(origin, None)
@@ -156,7 +161,6 @@ class Tuners():
         elif method == "status":
 
             if not origin:
-                origin = "all"
                 if not tuner_number:
                     tuner_status = self.fhdhr.device.tuners.status(origin="all")
                 else:

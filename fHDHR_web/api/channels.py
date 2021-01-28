@@ -25,13 +25,13 @@ class Channels():
         redirect_url = request.args.get('redirect', default=None, type=str)
 
         origin_methods = self.fhdhr.origins.valid_origins
-        origin = request.args.get('origin', default="all", type=str)
-        if origin not in origin_methods and origin != "all":
+        origin = request.args.get('origin', default=None, type=str)
+        if origin not in origin_methods:
             return "%s Invalid channels origin" % origin
 
         if method == "get":
             channels_info = {}
-            if origin == "all":
+            if not origin:
                 origin_list = origin_methods
             else:
                 origin_list = [origin]

@@ -54,7 +54,7 @@ class Channels():
                 found_matches.append(next_match)
         return found_matches[0]
 
-    def get_channel_dict(self, keyfind, valfind, origin="all"):
+    def get_channel_dict(self, keyfind, valfind, origin=None):
         if origin:
             origin = origin.lower()
             if keyfind == "number":
@@ -81,9 +81,9 @@ class Channels():
     def set_channel_favorite(self, keyfind, valfind, enablement, origin):
         self.get_channel_obj(keyfind, valfind, origin).set_favorite(enablement)
 
-    def get_db_channels(self, origin="all"):
+    def get_db_channels(self, origin=None):
 
-        if origin == "all":
+        if not origin:
             origins_list = list(self.list.keys())
         else:
             origins_list = origin.lower()
@@ -101,8 +101,8 @@ class Channels():
                 channel_id = channel_obj.dict["id"]
                 self.list[origin][channel_id] = channel_obj
 
-    def save_db_channels(self, origin="all"):
-        if origin == "all":
+    def save_db_channels(self, origin=None):
+        if not origin:
             origins_list = list(self.list.keys())
         else:
             origins_list = origin.lower()
@@ -114,7 +114,7 @@ class Channels():
             channel_ids = [self.list[origin][x].dict["id"] for x in list(self.list[origin].keys())]
             self.fhdhr.db.set_fhdhr_value("channels", "list", channel_ids, origin)
 
-    def get_channels(self, origin="all", forceupdate=False):
+    def get_channels(self, origin=None, forceupdate=False):
         """Pull Channels from origin.
 
         Output a list.
@@ -122,7 +122,7 @@ class Channels():
         Don't pull more often than 12 hours.
         """
 
-        if origin == "all":
+        if not origin:
             origins_list = list(self.list.keys())
         else:
             origins_list = origin.lower().lower()
