@@ -102,7 +102,7 @@ class SSDPServer():
 
         for ssdp_handler in list(self.ssdp_handling.keys()):
             if self.ssdp_handling[ssdp_handler].enabled and hasattr(self.ssdp_handling[ssdp_handler], 'on_recv'):
-                self.ssdp_handling[ssdp_handler].on_recv(headers, cmd)
+                self.ssdp_handling[ssdp_handler].on_recv(headers, cmd, list(self.ssdp_handling.keys()))
 
         if cmd[0] == 'M-SEARCH' and cmd[1] == '*':
             # SSDP discovery

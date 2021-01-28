@@ -61,12 +61,12 @@ class Plugin_OBJ():
         self.ssdp_content = data
         return data.encode("utf-8")
 
-    def on_recv(self, headers, cmd):
+    def on_recv(self, headers, cmd, ssdp_handling):
         if cmd[0] == 'NOTIFY' and cmd[1] == '*':
             try:
                 if headers["server"].startswith("fHDHR"):
                     savelocation = headers["location"].split("/device.xml")[0]
-                    for ssdp_method in list(self.ssdp_handling.keys()):
+                    for ssdp_method in ssdp_handling:
                         if savelocation.endswith("/%s" % ssdp_method):
                             savelocation = savelocation.replace("/%s" % ssdp_method, '')
                     if savelocation != self.fhdhr.api.base:
