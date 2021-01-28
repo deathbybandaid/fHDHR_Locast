@@ -31,6 +31,10 @@ class Plugin_OBJ():
         self.max_age = max_age
 
     @property
+    def enabled(self):
+        return self.fhdhr.config.dict["cluster"]["enabled"]
+
+    @property
     def notify(self):
         if self.ssdp_content:
             return self.ssdp_content.encode("utf-8")
