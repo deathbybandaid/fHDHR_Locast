@@ -48,6 +48,6 @@ class Tuners_HTML():
                     tuner_dict["method"] = tuner_status[origin][tuner]["method"]
                     tuner_dict["downloaded"] = humanized_filesize(tuner_status[origin][tuner]["downloaded"])
 
-            tuner_status_dict[origin]["status_list"].append(tuner_dict)
+                tuner_status_dict[origin]["status_list"].append(tuner_dict)
 
         return render_template('tuners.html', request=request, session=session, fhdhr=self.fhdhr, tuner_status_dict=tuner_status_dict, list=list)
