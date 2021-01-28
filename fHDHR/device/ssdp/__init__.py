@@ -5,8 +5,6 @@ import time
 import threading
 
 from .ssdp_detect import fHDHR_Detect
-from .rmg_ssdp import RMG_SSDP
-from .hdhr_ssdp import HDHR_SSDP
 
 
 class SSDPServer():
@@ -29,11 +27,17 @@ class SSDPServer():
             self.max_age = int(fhdhr.config.dict["ssdp"]["max_age"])
             self.age_time = None
 
-            self.rmg_ssdp = RMG_SSDP(fhdhr, self.broadcast_ip, self.max_age)
-            self.hdhr_ssdp = HDHR_SSDP(fhdhr, self.broadcast_ip, self.max_age)
+            self.ssdp_handling = {}
 
             self.do_alive()
             self.m_search()
+
+    def ssdp_method_selfadd(self):
+        for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
+            if self.fhdhr.plugins.plugins[plugin_name].type == "ssdp":
+                method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
+                plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
+                self.ssdp_handling[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(self.fhdhr, plugin_utils, self.broadcast_ip, self.max_age)
 
     def start(self):
         self.fhdhr.logger.info("SSDP Server Starting")
@@ -67,14 +71,7 @@ class SSDPServer():
 
     def do_notify(self, address):
 
-        notify_list = []
-
-        hdhr_notify = self.hdhr_ssdp.get()
-        notify_list.append(hdhr_notify)
-
-        if self.fhdhr.config.dict["rmg"]["enabled"]:
-            rmg_notify = self.rmg_ssdp.get()
-            notify_list.append(rmg_notify)
+        notify_list = [self.ssdp_handling[x].get() for x in list(self.ssdp_handling.keys()) if self.ssdp_handling[x].enabled]
 
         for notifydata in notify_list:
 

@@ -1,17 +1,17 @@
 
 
-class RMG_SSDP():
+class Plugin_OBJ():
 
-    def __init__(self, fhdhr, broadcast_ip, max_age):
+    def __init__(self, fhdhr, plugin_utils, broadcast_ip, max_age):
         self.fhdhr = fhdhr
 
         self.ssdp_content = None
 
         self.broadcast_ip = broadcast_ip
-        self.device_xml_path = '/rmg/device.xml'
+        self.device_xml_path = '/hdhr/device.xml'
 
         self.cable_schema = "urn:schemas-opencable-com:service:Security:1"
-        self.ota_schema = "urn:schemas-upnp-org:device-1-0"
+        self.ota_schema = "urn:schemas-upnp-org:device:MediaServer:1"
 
         if self.fhdhr.config.dict["fhdhr"]["reporting_tuner_type"].lower() == "antenna":
             self.schema = self.ota_schema
@@ -21,6 +21,10 @@ class RMG_SSDP():
             self.schema = self.ota_schema
 
         self.max_age = max_age
+
+    @property
+    def enabled(self):
+        return self.fhdhr.config.dict["hdhr"]["enabled"]
 
     def get(self):
         if self.ssdp_content:
