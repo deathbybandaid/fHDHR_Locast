@@ -38,7 +38,7 @@ class Plugin_OBJ():
         data += "\r\n"
 
         self.ssdp_content = data
-        return data.encode("utf-8")
+        return data
 
     @property
     def enabled(self):
