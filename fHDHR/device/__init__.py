@@ -24,9 +24,12 @@ class fHDHR_Device():
 
         for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
             if self.fhdhr.plugins.plugins[plugin_name].manifest["type"] == "interface":
-                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.channels = self.channels
-                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.epg = self.epg
-                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.tuners = self.tuners
-                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.images = self.images
-                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.ssdp = self.ssdp
-                self.interfaces[self.fhdhr.plugins.plugins[plugin_name].namespace] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(fhdhr, self.fhdhr.plugins.plugins[plugin_name].plugin_utils)
+                method = self.fhdhr.plugins.plugins[plugin_name].namespace
+                plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
+                plugin_utils.channels = self.channels
+                plugin_utils.epg = self.epg
+                plugin_utils.tuners = self.tuners
+                plugin_utils.images = self.images
+                plugin_utils.ssdp = self.ssdp
+                self.interfaces[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(fhdhr, plugin_utils)
+        print(self.interfaces.keys())
