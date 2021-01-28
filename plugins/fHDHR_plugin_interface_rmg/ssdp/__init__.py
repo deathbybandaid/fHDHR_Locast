@@ -47,6 +47,7 @@ class Plugin_OBJ():
     @property
     def notify(self):
         ssdp_content = []
+        return ssdp_content
         for origin in list(self.ssdp_content.keys()):
             if not self.ssdp_content[origin]:
                 self.ssdp_content[origin] = self.create_ssdp_content(origin)
