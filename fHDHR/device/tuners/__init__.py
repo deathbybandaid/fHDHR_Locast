@@ -21,7 +21,7 @@ class Tuners():
             self.fhdhr.logger.info("Creating %s tuners for %s." % (self.max_tuners, origin))
 
             for i in range(0, self.max_tuners):
-                self.tuners[origin][str(i)] = Tuner(fhdhr, i, epg)
+                self.tuners[origin][str(i)] = Tuner(fhdhr, i, epg, origin)
 
         self.alt_stream_handlers = {}
 
@@ -95,7 +95,7 @@ class Tuners():
             origins = [origin]
         all_status = {}
         for origin in origins:
-            all_status[origin] - {}
+            all_status[origin] = {}
             for tunernum in list(self.tuners[origin].keys()):
                 all_status[origin][tunernum] = self.tuners[origin][str(tunernum)].get_status()
         return all_status

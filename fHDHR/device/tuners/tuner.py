@@ -8,21 +8,22 @@ from .stream import Stream
 
 
 class Tuner():
-    def __init__(self, fhdhr, inum, epg):
+    def __init__(self, fhdhr, inum, epg, origin):
         self.fhdhr = fhdhr
 
         self.number = inum
+        self.origin = origin
         self.epg = epg
 
         self.tuner_lock = threading.Lock()
         self.set_off_status()
 
         self.chanscan_url = "/api/channels?method=scan"
-        self.close_url = "/api/tuners?method=close&tuner=%s" % str(self.number)
+        self.close_url = "/api/tuners?method=close&tuner=%s&origin=%s" % (self.number, self.origin)
 
-    def channel_scan(self, origin="all", grabbed=False):
+    def channel_scan(self, origin, grabbed=False):
         if self.tuner_lock.locked() and not grabbed:
-            self.fhdhr.logger.error("Tuner #%s is not available." % str(self.number))
+            self.fhdhr.logger.error("%s Tuner #%s is not available." % (self.origin, self.number))
             raise TunerError("804 - Tuner In Use")
 
         if self.status["status"] == "Scanning":
