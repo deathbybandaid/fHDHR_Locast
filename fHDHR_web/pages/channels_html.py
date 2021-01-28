@@ -46,4 +46,4 @@ class Channels_HTML():
         for channel in sorted_channel_list:
             sorted_chan_guide.append(channelslist[channel])
 
-        return render_template('channels.html', request=request, session=session, fhdhr=self.fhdhr, channelslist=sorted_chan_guide, channels_dict=channels_dict, origin_methods=origin_methods, list=list)
+        return render_template('channels.html', request=request, session=session, fhdhr=self.fhdhr, channelslist=sorted_chan_guide, channels_dict=channels_dict, origin=origin, origin_methods=origin_methods, list=list)
