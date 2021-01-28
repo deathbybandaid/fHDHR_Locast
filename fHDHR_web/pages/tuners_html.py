@@ -45,7 +45,7 @@ class Tuners_HTML():
                     tuner_dict["running_time"] = str(tuner_status[origin][tuner]["running_time"])
 
                 if tuner_status[tuner]["status"] in "Active":
-                    tuner_dict["method"] = tuner_status[tuner][origin]["method"]
+                    tuner_dict["method"] = tuner_status[origin][tuner]["method"]
                     tuner_dict["downloaded"] = humanized_filesize(tuner_status[origin][tuner]["downloaded"])
 
             tuner_status_dict[origin]["status_list"].append(tuner_dict)
