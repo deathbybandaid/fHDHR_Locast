@@ -3,8 +3,8 @@ import json
 
 
 class Plugins_JSON():
-    endpoints = ["/api/debug"]
-    endpoint_name = "api_debug"
+    endpoints = ["/api/plugins"]
+    endpoint_name = "api_plugins"
     endpoint_methods = ["GET", "POST"]
 
     def __init__(self, fhdhr):
