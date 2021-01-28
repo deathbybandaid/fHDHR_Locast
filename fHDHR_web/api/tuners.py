@@ -44,8 +44,11 @@ class Tuners():
 
             if origin:
 
-                if (str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)] and
-                   str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id", origin)]):
+                channel_number_list = [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]
+                channel_id_list = [str(x) for x in self.fhdhr.device.channels.get_channel_list("id", origin)]
+
+                if (str(channel_number) not in channel_number_list and
+                   str(channel_number) not in channel_id_list):
                     response = Response("Not Found", status=404)
                     response.headers["X-fHDHR-Error"] = "801 - Unknown Channel"
                     self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
