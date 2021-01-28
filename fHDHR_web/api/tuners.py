@@ -44,20 +44,13 @@ class Tuners():
 
             if origin:
 
-                channel_number_list = [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]
-                channel_id_list = [str(x) for x in self.fhdhr.device.channels.get_channel_list("id", origin)]
-
-                if (str(channel_number) not in channel_number_list and
-                   str(channel_number) not in channel_id_list):
+                if str(channel_number) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
+                    chan_obj = self.fhdhr.device.channels.get_channel_obj("number", channel_number)
+                elif str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id", origin)]:
+                    chan_obj = self.fhdhr.device.channels.get_channel_obj("id", channel_number)
+                else:
                     response = Response("Not Found", status=404)
                     response.headers["X-fHDHR-Error"] = "801 - Unknown Channel"
-                    self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
-                    abort(response)
-
-                channel_dict = self.fhdhr.device.channels.get_channel_dict("number", channel_number, origin)
-                if not channel_dict["enabled"]:
-                    response = Response("Service Unavailable", status=503)
-                    response.headers["X-fHDHR-Error"] = str("806 - Tune Failed")
                     self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
                     abort(response)
 
@@ -68,16 +61,16 @@ class Tuners():
                     response.headers["X-fHDHR-Error"] = "801 - Unknown Channel"
                     self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
                     abort(response)
-
                 chan_obj = self.fhdhr.device.channels.get_channel_obj("id", channel_number)
-                if not chan_obj.dict["enabled"]:
-                    response = Response("Service Unavailable", status=503)
-                    response.headers["X-fHDHR-Error"] = str("806 - Tune Failed")
-                    self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
-                    abort(response)
 
-                origin = chan_obj.origin
-                channel_number = chan_obj.number
+            if not chan_obj.dict["enabled"]:
+                response = Response("Service Unavailable", status=503)
+                response.headers["X-fHDHR-Error"] = str("806 - Tune Failed")
+                self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
+                abort(response)
+
+            origin = chan_obj.origin
+            channel_number = chan_obj.number
 
             duration = request.args.get('duration', default=0, type=int)
 
