@@ -22,6 +22,7 @@ class Tuners():
 
             for i in range(0, self.max_tuners):
                 self.tuners[origin][str(i)] = Tuner(fhdhr, i, epg, origin)
+        print(self.tuners.keys())
 
         self.alt_stream_handlers = {}
 
