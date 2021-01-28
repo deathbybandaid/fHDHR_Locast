@@ -26,7 +26,7 @@ class Tuners_HTML():
             tuner_status_dict[origin]["scan_count"] = 0
             tuner_status_dict[origin]["status_list"] = []
             for tuner in list(tuner_status[origin].keys()):
-                if tuner_status[tuner]["status"] == "Scanning":
+                if tuner_status[origin][tuner]["status"] == "Scanning":
                     tuner_status_dict[origin]["scan_count"] += 1
 
                 tuner_dict = {
