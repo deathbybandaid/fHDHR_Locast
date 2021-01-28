@@ -46,7 +46,7 @@ class Tuners():
 
                 if str(channel_number) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
                     chan_obj = self.fhdhr.device.channels.get_channel_obj("number", channel_number)
-                elif str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id", origin)]:
+                elif str(channel_number) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id", origin)]:
                     chan_obj = self.fhdhr.device.channels.get_channel_obj("id", channel_number)
                 else:
                     response = Response("Not Found", status=404)
@@ -56,12 +56,13 @@ class Tuners():
 
             else:
 
-                if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id")]:
+                if str(channel_number) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id")]:
+                    chan_obj = self.fhdhr.device.channels.get_channel_obj("id", channel_number)
+                else:
                     response = Response("Not Found", status=404)
                     response.headers["X-fHDHR-Error"] = "801 - Unknown Channel"
                     self.fhdhr.logger.error(response.headers["X-fHDHR-Error"])
                     abort(response)
-                chan_obj = self.fhdhr.device.channels.get_channel_obj("id", channel_number)
 
             if not chan_obj.dict["enabled"]:
                 response = Response("Service Unavailable", status=503)
