@@ -10,6 +10,12 @@
   </div>
   <br>
 
+  <p>
+    {% for origin in origin_methods %}
+      <button onclick="location.href='/channels?source={{ origin }}'" type="button">{{ origin }}</button>
+    {% endfor %}
+  </p>
+
   <div class="container">
   <table class="table-small center">
       <tbody>

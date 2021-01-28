@@ -18,7 +18,10 @@ class Channels_Editor_HTML():
 
     def get(self, *args):
 
-        origin = self.fhdhr.origins.valid_origins[0]
+        origin = request.args.get('source', default=self.fhdhr.device.epg.def_method, type=str)
+        origin_methods = self.fhdhr.origins.valid_origins
+        if origin not in origin_methods:
+            origin = origin_methods[0]
 
         channelslist = {}
         for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
@@ -37,4 +40,4 @@ class Channels_Editor_HTML():
         for channel in sorted_channel_list:
             sorted_chan_guide.append(channelslist[channel])
 
-        return render_template('channels_editor.html', request=request, session=session, fhdhr=self.fhdhr, channelslist=sorted_chan_guide, list=list)
+        return render_template('channels_editor.html', request=request, session=session, fhdhr=self.fhdhr, channelslist=sorted_chan_guide, origin_methods=origin_methods, list=list)
