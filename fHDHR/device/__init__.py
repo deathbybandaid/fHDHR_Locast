@@ -32,4 +32,3 @@ class fHDHR_Device():
                 plugin_utils.images = self.images
                 plugin_utils.ssdp = self.ssdp
                 self.interfaces[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(fhdhr, plugin_utils)
-        print(self.interfaces.keys())
