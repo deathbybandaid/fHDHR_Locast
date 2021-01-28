@@ -113,10 +113,9 @@ class SSDPServer():
             try:
                 if headers["server"].startswith("fHDHR"):
                     savelocation = headers["location"].split("/device.xml")[0]
-                    if savelocation.endswith(tuple(list(self.ssdp_handling.keys()))):
-                        for ssdp_method in list(self.ssdp_handling.keys()):
-                            if savelocation.endswith("/%s" % ssdp_method):
-                                savelocation = savelocation.replace("/%s" % ssdp_method, '')
+                    for ssdp_method in list(self.ssdp_handling.keys()):
+                        if savelocation.endswith("/%s" % ssdp_method):
+                            savelocation = savelocation.replace("/%s" % ssdp_method, '')
                     if savelocation != self.fhdhr.api.base:
                         self.detect_method.set(savelocation)
             except KeyError:
