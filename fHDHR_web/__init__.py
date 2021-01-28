@@ -78,6 +78,8 @@ class fHDHR_HTTP_Server():
         session["instance_id"] = self.instance_id
         session["route_list"] = self.route_list
 
+        session["user_agent"] = request.headers.get('User-Agent')
+
         session["is_internal_api"] = self.detect_internal_api(request)
         if session["is_internal_api"]:
             self.fhdhr.logger.debug("Client is using internal API call.")
