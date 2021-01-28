@@ -7,6 +7,7 @@ class Channels_Editor_HTML():
     endpoints = ["/channels_editor", "/channels_editor.html"]
     endpoint_name = "page_channels_editor_html"
     endpoint_access_level = 2
+    endpoint_category = "tool_pages"
     pretty_name = "Channels Editor"
 
     def __init__(self, fhdhr):

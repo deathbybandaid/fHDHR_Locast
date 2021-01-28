@@ -5,6 +5,7 @@ class Diagnostics_HTML():
     endpoints = ["/diagnostics", "/diagnostics.html"]
     endpoint_name = "page_diagnostics_html"
     endpoint_access_level = 2
+    endpoint_category = "tool_pages"
     pretty_name = "Diagnostics"
 
     def __init__(self, fhdhr):

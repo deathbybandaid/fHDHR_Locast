@@ -63,6 +63,12 @@
       <hr align="center" width="100%">
     </div>
 
+    {% for page_dict in session["route_list"]["tool_pages"] %}
+      {% if session["route_list"]["tool_pages"][page_dict]["name"] != "page_index_html" and fhdhr.config.dict["web_ui"]["access_level"] >= session["route_list"]["tool_pages"][page_dict]["endpoint_access_level"] %}
+        <button onclick="location.href='{{ session["route_list"]["tool_pages"][page_dict]["endpoints"][0] }}'" type="button">{{ session["route_list"]["tool_pages"][page_dict]["pretty_name"] }}</button>
+      {% endif %}
+    {% endfor %}
+
     {% block content %}{% endblock %}
   </body>
 </html>

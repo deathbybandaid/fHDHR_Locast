@@ -5,6 +5,7 @@ class Settings_HTML():
     endpoints = ["/settings", "/settings.html"]
     endpoint_name = "page_settings_html"
     endpoint_access_level = 1
+    endpoint_category = "tool_pages"
     pretty_name = "Settings"
 
     def __init__(self, fhdhr):

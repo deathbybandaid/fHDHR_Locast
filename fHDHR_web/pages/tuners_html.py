@@ -7,6 +7,7 @@ class Tuners_HTML():
     endpoints = ["/tuners", "/tuners.html"]
     endpoint_name = "page_streams_html"
     endpoint_access_level = 0
+    endpoint_category = "tool_pages"
     pretty_name = "Tuners"
 
     def __init__(self, fhdhr):
