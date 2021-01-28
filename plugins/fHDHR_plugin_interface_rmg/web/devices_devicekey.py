@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Devices_DeviceKey():
-    endpoints = ["/devices/<devicekey>", "/rmg/devices/<devicekey>"]
+    endpoints = ["/rmg/devices/<devicekey>"]
     endpoint_name = "rmg_devices_devicekey"
     endpoint_methods = ["GET"]
 
@@ -24,7 +24,7 @@ class RMG_Devices_DeviceKey():
         origin = self.fhdhr.origins.valid_origins[0]
 
         out = xml.etree.ElementTree.Element('MediaContainer')
-        if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+        if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
             out.set('size', "1")
             device_out = sub_el(out, 'Device',
                                 key=self.fhdhr.config.dict["main"]["uuid"],
@@ -35,7 +35,7 @@ class RMG_Devices_DeviceKey():
                                 status="alive",
                                 title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
                                 tuners=str(self.fhdhr.config.dict["fhdhr"]["tuner_count"]),
-                                uri=base_url,
+                                uri=("%s/rmg" % base_url),
                                 uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
                                 )
 

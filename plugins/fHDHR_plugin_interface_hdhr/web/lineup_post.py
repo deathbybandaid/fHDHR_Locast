@@ -4,7 +4,7 @@ from fHDHR.exceptions import TunerError
 
 
 class Lineup_Post():
-    endpoints = ["/lineup.post", "/hdhr/lineup.post"]
+    endpoints = ["/hdhr/lineup.post"]
     endpoint_name = "hdhr_lineup_post"
     endpoint_methods = ["POST"]
 
@@ -20,11 +20,13 @@ class Lineup_Post():
 
     def get(self, *args):
 
+        origin = self.source
+
         if 'scan' in list(request.args.keys()):
 
             if request.args['scan'] == 'start':
                 try:
-                    self.fhdhr.device.tuners.tuner_scan()
+                    self.fhdhr.device.tuners.tuner_scan(origin)
                 except TunerError as e:
                     self.fhdhr.logger.info(str(e))
                 return Response(status=200, mimetype='text/html')
@@ -42,8 +44,6 @@ class Lineup_Post():
 
                 channel_method = request.args['favorite'][0]
                 channel_number = request.args['favorite'][1:]
-
-                origin = self.source
 
                 if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
                     response = Response("Not Found", status=404)

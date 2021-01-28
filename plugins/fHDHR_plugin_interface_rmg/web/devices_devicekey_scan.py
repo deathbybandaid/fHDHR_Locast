@@ -4,7 +4,7 @@ import xml.etree.ElementTree
 
 
 class RMG_Devices_DeviceKey_Scan():
-    endpoints = ["/devices/<devicekey>/scan", "/rmg/devices/<devicekey>/scan"]
+    endpoints = ["/rmg/devices/<devicekey>/scan"]
     endpoint_name = "rmg_devices_devicekey_scan"
     endpoint_methods = ["GET", "POST", "DELETE"]
 
@@ -26,7 +26,7 @@ class RMG_Devices_DeviceKey_Scan():
             self.fhdhr.logger.debug("Scan Requested network:%s, source:%s, provider:%s" % (network, source, provider))
 
             out = xml.etree.ElementTree.Element('MediaContainer')
-            if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+            if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
 
                 tuner_status = self.fhdhr.device.tuners.status()
                 tuner_scanning = 0
@@ -53,7 +53,7 @@ class RMG_Devices_DeviceKey_Scan():
         elif request.method in ["DELETE"]:
 
             out = xml.etree.ElementTree.Element('MediaContainer')
-            if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+            if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
 
                 self.fhdhr.device.tuners.stop_tuner_scan()
                 out.set('status', "0")

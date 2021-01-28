@@ -71,7 +71,14 @@ class SSDPServer():
 
     def do_notify(self, address):
 
-        notify_list = [self.ssdp_handling[x].notify for x in list(self.ssdp_handling.keys()) if self.ssdp_handling[x].enabled and hasattr(self.ssdp_handling[x], 'notify')]
+        notify_list = []
+        for ssdp_handler in list(self.ssdp_handling.keys()):
+            if self.ssdp_handling[ssdp_handler].enabled and hasattr(self.ssdp_handling[ssdp_handler], 'notify'):
+                notify_data = self.ssdp_handling[ssdp_handler].notify
+                if isinstance(notify_data, list):
+                    notify_list.extend(notify_data)
+                else:
+                    notify_list.append(notify_data)
 
         for notifydata in notify_list:
 

@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Devices_Probe():
-    endpoints = ["/devices/probe", "/rmg/devices/probe"]
+    endpoints = ["/rmg/devices/probe"]
     endpoint_name = "rmg_devices_probe"
     endpoint_methods = ["GET", "POST"]
     endpoint_default_parameters = {
@@ -38,7 +38,7 @@ class RMG_Devices_Probe():
                    status="alive",
                    title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
                    tuners=str(self.fhdhr.config.dict["fhdhr"]["tuner_count"]),
-                   uri=base_url,
+                   uri=("%s" % base_url),
                    uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
                    thumb="favicon.ico",
                    interface='network'

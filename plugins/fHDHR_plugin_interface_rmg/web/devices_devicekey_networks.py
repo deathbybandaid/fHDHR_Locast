@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Devices_DeviceKey_Networks():
-    endpoints = ["/devices/<devicekey>/networks", "/rmg/devices/<devicekey>/networks"]
+    endpoints = ["/rmg/devices/<devicekey>/networks"]
     endpoint_name = "rmg_devices_devicekey_networks"
     endpoint_methods = ["GET"]
 
@@ -20,7 +20,7 @@ class RMG_Devices_DeviceKey_Networks():
         """In some cases, channel scanning is a two-step process, where the first stage consists of scanning for networks (this is called "fast scan")."""
 
         out = xml.etree.ElementTree.Element('MediaContainer')
-        if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+        if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
             out.set('size', "1")
 
             sub_el(out, 'Network',

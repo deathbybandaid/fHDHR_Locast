@@ -3,7 +3,7 @@ import urllib.parse
 
 
 class Auto():
-    endpoints = ['/auto/<channel>', '/hdhr/auto/<channel>']
+    endpoints = ['/hdhr/auto/<channel>']
     endpoint_name = "hdhr_auto"
 
     def __init__(self, fhdhr):

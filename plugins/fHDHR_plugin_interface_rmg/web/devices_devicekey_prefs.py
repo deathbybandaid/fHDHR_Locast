@@ -2,7 +2,7 @@ from flask import Response
 
 
 class RMG_Devices_DeviceKey_Prefs():
-    endpoints = ["/devices/<devicekey>/prefs", "/rmg/devices/<devicekey>/prefs"]
+    endpoints = ["/rmg/devices/<devicekey>/prefs"]
     endpoint_name = "rmg_devices_devicekey_prefs"
     endpoint_methods = ["GET", "PUT"]
 
@@ -14,5 +14,8 @@ class RMG_Devices_DeviceKey_Prefs():
 
     def get(self, devicekey, *args):
         """Prefs sent back from Plex in Key-Pair format"""
+
+        if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
+            return Response(status=200)
 
         return Response(status=200)

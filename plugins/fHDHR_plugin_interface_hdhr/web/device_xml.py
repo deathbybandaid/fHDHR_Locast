@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class HDHR_Device_XML():
-    endpoints = ["/hdhr/device.xml"]
+    endpoints = ["/hdhr", "/hdhr/", "/hdhr/device.xml"]
     endpoint_name = "hdhr_device_xml"
 
     def __init__(self, fhdhr):
@@ -29,7 +29,7 @@ class HDHR_Device_XML():
         out = xml.etree.ElementTree.Element('root')
         out.set('xmlns', "urn:schemas-upnp-org:device-1-0")
 
-        sub_el(out, 'URLBase', "%s" % base_url)
+        sub_el(out, 'URLBase', "%s/hdhr" % base_url)
 
         specVersion_out = sub_el(out, 'specVersion')
         sub_el(specVersion_out, 'major', "1")

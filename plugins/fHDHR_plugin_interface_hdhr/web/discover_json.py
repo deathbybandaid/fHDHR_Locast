@@ -3,7 +3,7 @@ import json
 
 
 class Discover_JSON():
-    endpoints = ["/discover.json", "/hdhr/discover.json"]
+    endpoints = ["/hdhr/discover.json"]
     endpoint_name = "hdhr_discover_json"
 
     def __init__(self, fhdhr):
@@ -31,8 +31,8 @@ class Discover_JSON():
                             "FirmwareVersion": self.fhdhr.config.dict["hdhr"]["reporting_firmware_ver"],
                             "DeviceID": "%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                             "DeviceAuth": self.fhdhr.config.dict["fhdhr"]["device_auth"],
-                            "BaseURL": "%s" % base_url,
-                            "LineupURL": "%s/lineup.json" % base_url
+                            "BaseURL": "%s/hdhr" % base_url,
+                            "LineupURL": "%s/hdhr/lineup.json" % base_url
                         }
         discover_json = json.dumps(jsondiscover, indent=4)
 

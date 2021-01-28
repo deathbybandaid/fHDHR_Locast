@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Devices_DeviceKey_Channels():
-    endpoints = ["/devices/<devicekey>/channels", "/rmg/devices/<devicekey>/channels"]
+    endpoints = ["/rmg/devices/<devicekey>/channels"]
     endpoint_name = "rmg_devices_devicekey_channels"
     endpoint_methods = ["GET"]
 
@@ -19,10 +19,9 @@ class RMG_Devices_DeviceKey_Channels():
     def get(self, devicekey, *args):
         """Returns the current channels."""
 
-        origin = self.fhdhr.origins.valid_origins[0]
-
         out = xml.etree.ElementTree.Element('MediaContainer')
-        if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+        if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
+            origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
             out.set('size', str(len(list(self.fhdhr.device.channels.list[origin].keys()))))
             for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
                 channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)

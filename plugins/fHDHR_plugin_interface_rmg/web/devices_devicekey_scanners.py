@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Devices_DeviceKey_Scanners():
-    endpoints = ["/devices/<devicekey>/scanners", "/rmg/devices/<devicekey>/scanners"]
+    endpoints = ["/rmg/devices/<devicekey>/scanners"]
     endpoint_name = "rmg_devices_devicekey_scanners"
     endpoint_methods = ["GET"]
 
@@ -23,7 +23,8 @@ class RMG_Devices_DeviceKey_Scanners():
         # 0 (atsc), 1 (cqam), 2 (dvb-s), 3 (iptv), 4 (virtual), 5 (dvb-t), 6 (dvb-c), 7 (isdbt)
 
         out = xml.etree.ElementTree.Element('MediaContainer')
-        if devicekey == self.fhdhr.config.dict["main"]["uuid"]:
+        if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
+            origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
             if method == "0":
                 out.set('size', "1")
                 out.set('simultaneousScanners', "1")
@@ -35,7 +36,7 @@ class RMG_Devices_DeviceKey_Scanners():
                 sub_el(scanner_out, 'Setting',
                        id="provider",
                        type="text",
-                       enumValues=self.fhdhr.config.dict["main"]["servicename"]
+                       enumValues=origin
                        )
 
         fakefile = BytesIO()

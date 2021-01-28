@@ -6,7 +6,7 @@ from fHDHR.tools import sub_el
 
 
 class RMG_Devices_Discover():
-    endpoints = ["/devices/discover", "/rmg/devices/discover"]
+    endpoints = ["/rmg/devices/discover"]
     endpoint_name = "rmg_devices_discover"
     endpoint_methods = ["GET", "POST"]
 
@@ -32,7 +32,7 @@ class RMG_Devices_Discover():
                status="alive",
                title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
                tuners=str(self.fhdhr.config.dict["fhdhr"]["tuner_count"]),
-               uri=base_url,
+               uri=("%s/rmg" % base_url),
                uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
                thumb="favicon.ico",
                interface='network'
