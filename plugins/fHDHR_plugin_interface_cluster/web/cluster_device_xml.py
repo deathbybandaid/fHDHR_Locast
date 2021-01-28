@@ -9,8 +9,9 @@ class Cluster_Device_XML():
     endpoints = ["/cluster/device.xml"]
     endpoint_name = "cluster_device_xml"
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, plugin_utils):
         self.fhdhr = fhdhr
+        self.plugin_utils = plugin_utils
 
     def __call__(self, *args):
         return self.get(*args)
