@@ -152,7 +152,7 @@ class Tuners():
                     tunernum = self.fhdhr.device.tuners.first_available(origin, None)
                 else:
                     tunernum = self.fhdhr.device.tuners.tuner_grab(tuner_number, origin, None)
-                tuner = self.fhdhr.device.tuners.tuners[str(tunernum)]
+                tuner = self.fhdhr.device.tuners.tuners[origin][str(tunernum)]
                 tuner.channel_scan(origin=origin, grabbed=True)
 
         elif method == "status":
