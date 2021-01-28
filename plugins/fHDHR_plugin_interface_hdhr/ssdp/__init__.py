@@ -26,7 +26,8 @@ class Plugin_OBJ():
     def enabled(self):
         return self.fhdhr.config.dict["hdhr"]["enabled"]
 
-    def get(self):
+    @property
+    def notify(self):
         if self.ssdp_content:
             return self.ssdp_content.encode("utf-8")
 

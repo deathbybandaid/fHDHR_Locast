@@ -3,7 +3,7 @@ import urllib.parse
 import json
 
 
-class Cluster():
+class Cluster_API():
     endpoints = ["/api/cluster"]
     endpoint_name = "api_cluster"
     endpoint_methods = ["GET", "POST"]
@@ -11,8 +11,9 @@ class Cluster():
                                     "method": "get"
                                     }
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, plugin_utils):
         self.fhdhr = fhdhr
+        self.plugin_utils = plugin_utils
 
     def __call__(self, *args):
         return self.get(*args)

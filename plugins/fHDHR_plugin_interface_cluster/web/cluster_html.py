@@ -1,6 +1,8 @@
-from flask import request, render_template, session
+from flask import request, render_template_string, session
 import urllib.parse
 from simplejson.errors import JSONDecodeError
+import pathlib
+from io import StringIO
 
 
 class Cluster_HTML():
@@ -9,14 +11,19 @@ class Cluster_HTML():
     endpoint_access_level = 1
     pretty_name = "Cluster/SSDP"
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, plugin_utils):
         self.fhdhr = fhdhr
+        self.plugin_utils = plugin_utils
         self.location_dict = {
                               "name": self.fhdhr.config.dict["fhdhr"]["friendlyname"],
                               "location": self.fhdhr.api.base,
                               "joined": "N/A",
                               "url_query": self.fhdhr.api.base_quoted
                               }
+
+        self.template_file = pathlib.Path(plugin_utils.config.dict["plugin_web_paths"][plugin_utils.namespace]["path"]).joinpath('cluster.html')
+        self.template = StringIO()
+        self.template.write(open(self.template_file).read())
 
     def __call__(self, *args):
         return self.get(*args)
@@ -52,4 +59,4 @@ class Cluster_HTML():
                                 }
                 locations_list.append(location_dict)
 
-        return render_template('cluster.html', request=request, session=session, fhdhr=self.fhdhr, locations_list=locations_list)
+        return render_template_string(self.template.getvalue(), request=request, session=session, fhdhr=self.fhdhr, locations_list=locations_list)
