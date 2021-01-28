@@ -6,7 +6,7 @@ class Plugin_OBJ():
         self.fhdhr = fhdhr
 
         self.ssdp_content = {}
-        for origin in list(self.origins.origins_dict.keys()):
+        for origin in list(self.fhdhr.origins.origins_dict.keys()):
             self.ssdp_content[origin] = None
 
         self.broadcast_ip = broadcast_ip
