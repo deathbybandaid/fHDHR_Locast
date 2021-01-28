@@ -5,7 +5,7 @@ from io import StringIO
 
 class DevTools_HTML():
     endpoints = ["/devtools", "/devtools.html"]
-    endpoint_name = "devtools_html"
+    endpoint_name = "page_devtools_html"
     endpoint_access_level = 2
     endpoint_category = "tool_pages"
     pretty_name = "Dev Tools"
