@@ -5,10 +5,6 @@ class Plugin_OBJ():
     def __init__(self, fhdhr, plugin_utils, broadcast_ip, max_age):
         self.fhdhr = fhdhr
 
-        self.ssdp_content = {}
-        for origin in list(self.fhdhr.origins.origins_dict.keys()):
-            self.ssdp_content[origin] = None
-
         self.broadcast_ip = broadcast_ip
 
         self.schema = "urn:plex-tv:service:MediaGrabber:1"
@@ -48,8 +44,6 @@ class Plugin_OBJ():
     def notify(self):
         ssdp_content = []
         for origin in list(self.ssdp_content.keys()):
-            if not self.ssdp_content[origin]:
-                data = self.create_ssdp_content(origin)
-                self.ssdp_content[origin] = data
-            ssdp_content.append(self.ssdp_content[origin])
+            data = self.create_ssdp_content(origin)
+            ssdp_content.append(data)
         return ssdp_content

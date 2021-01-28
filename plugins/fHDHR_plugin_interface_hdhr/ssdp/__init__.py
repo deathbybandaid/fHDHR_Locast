@@ -5,8 +5,6 @@ class Plugin_OBJ():
     def __init__(self, fhdhr, plugin_utils, broadcast_ip, max_age):
         self.fhdhr = fhdhr
 
-        self.ssdp_content = None
-
         self.broadcast_ip = broadcast_ip
         self.device_xml_path = '/hdhr/device.xml'
 
@@ -28,8 +26,6 @@ class Plugin_OBJ():
 
     @property
     def notify(self):
-        if self.ssdp_content:
-            return self.ssdp_content
 
         data = ''
         data_command = "NOTIFY * HTTP/1.1"
@@ -50,5 +46,4 @@ class Plugin_OBJ():
             data += "%s:%s\r\n" % (data_key, data_dict[data_key])
         data += "\r\n"
 
-        self.ssdp_content = data
         return data

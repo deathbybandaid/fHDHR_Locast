@@ -22,8 +22,6 @@ class Plugin_OBJ():
 
         self.detect_method = fHDHR_Detect(fhdhr)
 
-        self.ssdp_content = None
-
         self.broadcast_ip = broadcast_ip
         self.device_xml_path = '/cluster/device.xml'
         self.schema = "upnp:rootdevice"
@@ -36,8 +34,6 @@ class Plugin_OBJ():
 
     @property
     def notify(self):
-        if self.ssdp_content:
-            return self.ssdp_content
 
         data = ''
         data_command = "NOTIFY * HTTP/1.1"
@@ -58,7 +54,6 @@ class Plugin_OBJ():
             data += "%s:%s\r\n" % (data_key, data_dict[data_key])
         data += "\r\n"
 
-        self.ssdp_content = data
         return data
 
     def on_recv(self, headers, cmd, ssdp_handling):
