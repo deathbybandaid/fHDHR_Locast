@@ -5,6 +5,7 @@ import time
 import threading
 
 from .ssdp_detect import fHDHR_Detect
+from .fhdhr_ssdp import fHDHR_SSDP
 
 
 class SSDPServer():
@@ -27,7 +28,9 @@ class SSDPServer():
             self.max_age = int(fhdhr.config.dict["ssdp"]["max_age"])
             self.age_time = None
 
-            self.ssdp_handling = {}
+            self.ssdp_handling = {
+                                "fhdhr": fHDHR_SSDP(fhdhr, self.broadcast_ip, self.max_age)
+                                }
             self.ssdp_method_selfadd()
 
             self.do_alive()
