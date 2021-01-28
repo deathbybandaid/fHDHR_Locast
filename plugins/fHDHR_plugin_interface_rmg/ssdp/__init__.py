@@ -49,6 +49,7 @@ class Plugin_OBJ():
         ssdp_content = []
         for origin in list(self.ssdp_content.keys()):
             if not self.ssdp_content[origin]:
-                self.ssdp_content[origin] = self.create_ssdp_content(origin)
+                data = self.create_ssdp_content(origin)
+                self.ssdp_content[origin] = data
             ssdp_content.append(self.ssdp_content[origin])
         return ssdp_content
