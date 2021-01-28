@@ -12,15 +12,16 @@ class Tuners():
         self.channels = channels
 
         self.epg = epg
-        self.max_tuners = int(self.fhdhr.config.dict["fhdhr"]["tuner_count"])
 
         self.tuners = {}
         for origin in list(self.fhdhr.origins.origins_dict.keys()):
             self.tuners[origin] = {}
 
-            self.fhdhr.logger.info("Creating %s tuners for %s." % (self.max_tuners, origin))
+            max_tuners = int(self.fhdhr.origins.origins_dict[origin].tuners)
 
-            for i in range(0, self.max_tuners):
+            self.fhdhr.logger.info("Creating %s tuners for %s." % (max_tuners, origin))
+
+            for i in range(0, max_tuners):
                 self.tuners[origin][str(i)] = Tuner(fhdhr, i, epg, origin)
 
         self.alt_stream_handlers = {}

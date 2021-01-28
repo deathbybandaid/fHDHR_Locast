@@ -40,3 +40,5 @@ class Origins():
                 except fHDHR.exceptions.OriginSetupError as e:
                     self.fhdhr.logger.error(e)
                     self.origins_dict[method] = Origin_StandIN()
+                if not hasattr(self.origins_dict[method], 'tuners'):
+                    self.origins_dict[method].tuners = 4

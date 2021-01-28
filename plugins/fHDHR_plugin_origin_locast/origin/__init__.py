@@ -24,6 +24,8 @@ class Plugin_OBJ():
         self.zipcode = self.plugin_utils.config.dict["locast"]["override_zipcode"]
         self.mock_location = self.format_mock_location()
 
+        self.tuners = self.plugin_utils.config.dict["locast"]["tuners"]
+
         self.login()
 
     def get_channels(self):

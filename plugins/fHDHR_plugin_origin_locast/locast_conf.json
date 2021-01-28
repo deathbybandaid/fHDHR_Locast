@@ -27,6 +27,11 @@
                     "value": "none",
                     "config_file": true,
                     "config_web": true
+                },
+          "tuners":{
+                    "value": 3,
+                    "config_file": true,
+                    "config_web": true
                 }
   }
 }
