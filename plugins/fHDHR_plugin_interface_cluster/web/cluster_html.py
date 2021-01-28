@@ -9,6 +9,7 @@ class Cluster_HTML():
     endpoints = ["/cluster", "/cluster.html"]
     endpoint_name = "page_cluster_html"
     endpoint_access_level = 1
+    endpoint_category = "pages"
     pretty_name = "Cluster/SSDP"
 
     def __init__(self, fhdhr, plugin_utils):
