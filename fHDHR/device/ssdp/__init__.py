@@ -81,6 +81,7 @@ class SSDPServer():
                     notify_list.append(notify_data)
 
         for notifydata in notify_list:
+            notifydata = notifydata.encode("utf-8")
 
             self.fhdhr.logger.debug("Created {}".format(notifydata))
             try:

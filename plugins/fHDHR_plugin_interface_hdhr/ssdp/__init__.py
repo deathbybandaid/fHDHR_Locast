@@ -29,7 +29,7 @@ class Plugin_OBJ():
     @property
     def notify(self):
         if self.ssdp_content:
-            return self.ssdp_content.encode("utf-8")
+            return self.ssdp_content
 
         data = ''
         data_command = "NOTIFY * HTTP/1.1"
@@ -51,4 +51,4 @@ class Plugin_OBJ():
         data += "\r\n"
 
         self.ssdp_content = data
-        return data.encode("utf-8")
+        return data
