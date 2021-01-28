@@ -11,14 +11,16 @@ class SSDPServer():
         self.fhdhr = fhdhr
 
         self.ssdp_handling = {}
-        self.ssdp_method_selfadd()
+        self.methods = [x for x in list(self.fhdhr.plugins.plugins.keys()) if self.fhdhr.plugins.plugins[x].type == "ssdp"]
 
         if (self.fhdhr.config.dict["fhdhr"]["discovery_address"] and
            self.fhdhr.config.dict["ssdp"]["enabled"] and
-           len(self.ssdp_handling.keys())):
+           len(self.methods)):
 
             self.fhdhr.threads["ssdp"] = threading.Thread(target=self.run)
             self.setup_ssdp()
+
+            self.ssdp_method_selfadd()
 
             self.sock.bind((self.bind_address, 1900))
 
