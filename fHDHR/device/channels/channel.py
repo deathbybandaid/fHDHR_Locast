@@ -173,7 +173,7 @@ class Channel():
     def set_favorite(self, enablement):
         if enablement == "+":
             self.dict["favorite"] = 1
-        elif enablement == "+":
+        elif enablement == "-":
             self.dict["favorite"] = 0
         self.fhdhr.db.set_fhdhr_value(self.dict["id"], "info", self.dict, self.origin)
 
