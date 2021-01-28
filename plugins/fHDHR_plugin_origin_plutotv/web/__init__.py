@@ -1,5 +1,5 @@
 
-from .plutotv import PlutoTV_HTML
+from .plutotv_html import PlutoTV_HTML
 
 
 class Plugin_OBJ():
@@ -8,4 +8,4 @@ class Plugin_OBJ():
         self.fhdhr = fhdhr
         self.plugin_utils = plugin_utils
 
-        self.plutotv = PlutoTV_HTML(fhdhr, plugin_utils)
+        self.plutotv_html = PlutoTV_HTML(fhdhr, plugin_utils)
