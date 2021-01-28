@@ -196,6 +196,7 @@ class fHDHR_HTTP_Server():
             self.route_list[endpoint_category][endpoint_name]["endpoint_access_level"] = endpoint_access_level
             self.route_list[endpoint_category][endpoint_name]["endpoint_default_parameters"] = endpoint_default_parameters
             self.route_list[endpoint_category][endpoint_name]["pretty_name"] = pretty_name
+            self.route_list[endpoint_category][endpoint_name]["endpoint_category"] = endpoint_category
 
             for endpoint in endpoints:
                 self.add_endpoint(endpoint=endpoint,
