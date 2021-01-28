@@ -17,26 +17,26 @@ class Plugin_OBJ():
         self.login()
 
     def login(self):
-        self.fhdhr.logger.info("Logging into PlutoTV")
-        if (not self.fhdhr.config.dict["plutotv"]["username"] or not self.fhdhr.config.dict["plutotv"]["password"]):
-            self.fhdhr.logger.warning("No Username/Password set, will operate in Guest Mode.")
+        self.plugin_utils.logger.info("Logging into PlutoTV")
+        if (not self.plugin_utils.config.dict["plutotv"]["username"] or not self.plugin_utils.config.dict["plutotv"]["password"]):
+            self.plugin_utils.logger.warning("No Username/Password set, will operate in Guest Mode.")
             return True
 
         form_data = {
                       'optIn': 'true',
-                      'password': self.fhdhr.config.dict["plutotv"]["password"],
+                      'password': self.plugin_utils.config.dict["plutotv"]["password"],
                       'synced': 'false',
-                      'email': self.fhdhr.config.dict["plutotv"]["username"]
+                      'email': self.plugin_utils.config.dict["plutotv"]["username"]
                       }
         try:
-            loginreq = self.fhdhr.web.session.post(self.login_url, data=form_data)
+            loginreq = self.plugin_utils.web.session.post(self.login_url, data=form_data)
             loginresp = json.loads(loginreq.content)
             if "accessToken" not in list(loginresp.keys()):
-                self.fhdhr.logger.warning("Login Failed, will use Guest Mode.")
+                self.plugin_utils.logger.warning("Login Failed, will use Guest Mode.")
                 return True
-            self.fhdhr.logger.info("Login Success!")
+            self.plugin_utils.logger.info("Login Success!")
         except Exception as e:
-            self.fhdhr.logger.warning("Login Failed, will use Guest Mode. %s" % e)
+            self.plugin_utils.logger.warning("Login Failed, will use Guest Mode. %s" % e)
             return True
         self.userid = loginresp["_id"]
         self.token = loginresp["accessToken"]
@@ -45,7 +45,7 @@ class Plugin_OBJ():
     def get_channels(self):
 
         url = "%s/v2/channels.json" % self.base_api_url
-        urlopn = self.fhdhr.web.session.get(url)
+        urlopn = self.plugin_utils.web.session.get(url)
         pluto_chan_list = urlopn.json()
 
         channel_list = []
@@ -81,7 +81,7 @@ class Plugin_OBJ():
 
     def get_channel_stream(self, chandict, stream_args):
         url = "%s/v2/channels.json" % self.base_api_url
-        urlopn = self.fhdhr.web.session.get(url)
+        urlopn = self.plugin_utils.web.session.get(url)
         pluto_chan_list = urlopn.json()
         pluto_chandict = self.get_channel_dict_pluto(pluto_chan_list, chandict)
         if not pluto_chandict:
@@ -119,7 +119,7 @@ class Plugin_OBJ():
         paramdict["deviceMake"] = "Chrome"
         paramdict["deviceType"] = "web"
         paramdict["deviceModel"] = "Chrome"
-        paramdict["sid"] = self.fhdhr.config.dict["main"]["uuid"] + str(time.time())
+        paramdict["sid"] = self.plugin_utils.config.dict["main"]["uuid"] + str(time.time())
         paramdict["userId"] = self.origin.userid or ''
 
         paramdict["serverSideAds"] = "true"

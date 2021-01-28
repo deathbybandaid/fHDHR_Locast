@@ -26,8 +26,8 @@ class PlutoTV_HTML():
 
         if self.origin.setup_success:
             origin_status_dict = {
-                                    "Login": "Success" if self.fhdhr.origin.userid else "Guest Mode",
-                                    "Username": self.fhdhr.config.dict["plutotv"]["username"]
+                                    "Login": "Success" if self.plugin_utils.origin.userid else "Guest Mode",
+                                    "Username": self.plugin_utils.config.dict["plutotv"]["username"]
                                     }
         else:
             origin_status_dict = {"Setup": "Failed"}

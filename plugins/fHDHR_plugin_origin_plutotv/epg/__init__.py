@@ -26,7 +26,7 @@ class Plugin_OBJ():
 
         epgurl = '%s/v2/channels?start=%s.000Z&stop=%s.000Z' % (self.base_api_url, guide_time["start"], guide_time["end"])
 
-        result = self.fhdhr.web.session.get(epgurl).json()
+        result = self.plugin_utils.web.session.get(epgurl).json()
 
         for c in result:
 
