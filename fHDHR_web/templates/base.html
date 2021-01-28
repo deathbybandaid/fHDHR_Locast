@@ -63,18 +63,6 @@
       <hr align="center" width="100%">
     </div>
 
-    {% if fhdhr.config.dict["web_ui"]["cluster_bar"] %}
-      {% set locations = fhdhr.device.cluster.get_cluster_dicts_web() %}
-      {% if locations %}
-        <div>
-          {% for location in locations %}
-            <button onclick="location.href='{{ location["base_url"] }}'" type="button">{{ location["name"] }}</button>
-          {% endfor %}
-          <hr align="center" width="100%">
-        </div>
-      {% endif %}
-    {% endif %}
-
     {% block content %}{% endblock %}
   </body>
 </html>
