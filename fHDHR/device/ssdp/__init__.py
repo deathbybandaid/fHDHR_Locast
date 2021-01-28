@@ -28,6 +28,7 @@ class SSDPServer():
             self.age_time = None
 
             self.ssdp_handling = {}
+            self.ssdp_method_selfadd()
 
             self.do_alive()
             self.m_search()
