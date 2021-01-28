@@ -6,8 +6,9 @@ class Lineup_Status_JSON():
     endpoints = ["/lineup_status.json", "/hdhr/lineup_status.json"]
     endpoint_name = "hdhr_lineup_status_json"
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, source):
         self.fhdhr = fhdhr
+        self.source = source
 
     def __call__(self, *args):
         return self.get(*args)
@@ -20,9 +21,9 @@ class Lineup_Status_JSON():
             if tuner_status[tuner_number]["status"] == "Scanning":
                 tuners_scanning += 1
 
-        channel_count = 0
-        for origin in list(self.fhdhr.device.channels.list.keys()):
-            channel_count += len(list(self.fhdhr.device.channels.list[origin].keys()))
+        origin = self.source
+
+        channel_count = len(list(self.fhdhr.device.channels.list[origin].keys()))
 
         if tuners_scanning:
             jsonlineup = self.scan_in_progress()
@@ -38,9 +39,9 @@ class Lineup_Status_JSON():
 
     def scan_in_progress(self):
 
-        channel_count = 0
-        for origin in list(self.fhdhr.device.channels.list.keys()):
-            channel_count += len(list(self.fhdhr.device.channels.list[origin].keys()))
+        origin = self.source
+
+        channel_count = len(list(self.fhdhr.device.channels.list[origin].keys()))
 
         jsonlineup = {
                       "ScanInProgress": "true",

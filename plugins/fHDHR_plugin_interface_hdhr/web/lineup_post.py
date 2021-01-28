@@ -8,8 +8,9 @@ class Lineup_Post():
     endpoint_name = "hdhr_lineup_post"
     endpoint_methods = ["POST"]
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, source):
         self.fhdhr = fhdhr
+        self.source = source
 
     def __call__(self, *args):
         return self.get(*args)
@@ -39,7 +40,7 @@ class Lineup_Post():
                 channel_method = request.args['favorite'][0]
                 channel_number = request.args['favorite'][1:]
 
-                origin = self.fhdhr.origins.valid_origins[0]
+                origin = self.source
 
                 if str(channel_number) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
                     response = Response("Not Found", status=404)

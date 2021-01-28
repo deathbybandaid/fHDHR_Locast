@@ -18,15 +18,19 @@ class Plugin_OBJ():
         self.fhdhr = fhdhr
         self.plugin_utils = plugin_utils
 
-        self.lineup_post = Lineup_Post(fhdhr)
+        self.lineup_post = Lineup_Post(fhdhr, self.source)
 
-        self.device_xml = HDHR_Device_XML(fhdhr)
+        self.device_xml = HDHR_Device_XML(fhdhr, self.source)
 
-        self.auto = Auto(fhdhr)
-        self.tuner = Tuner(fhdhr)
+        self.auto = Auto(fhdhr, self.source)
+        self.tuner = Tuner(fhdhr, self.source)
 
-        self.lineup_xml = Lineup_XML(fhdhr)
+        self.lineup_xml = Lineup_XML(fhdhr, self.source)
 
-        self.discover_json = Discover_JSON(fhdhr)
-        self.lineup_json = Lineup_JSON(fhdhr)
-        self.lineup_status_json = Lineup_Status_JSON(fhdhr)
+        self.discover_json = Discover_JSON(fhdhr, self.source)
+        self.lineup_json = Lineup_JSON(fhdhr, self.source)
+        self.lineup_status_json = Lineup_Status_JSON(fhdhr, self.source)
+
+    @property
+    def source(self):
+        return self.fhdhr.config.dict["hdhr"]["source"] or self.fhdhr.origins.valid_origins[0]

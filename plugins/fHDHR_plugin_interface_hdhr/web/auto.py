@@ -6,17 +6,18 @@ class Auto():
     endpoints = ['/auto/<channel>', '/hdhr/auto/<channel>']
     endpoint_name = "hdhr_auto"
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, source):
         self.fhdhr = fhdhr
+        self.source = source
 
     def __call__(self, channel, *args):
         return self.get(channel, *args)
 
     def get(self, channel, *args):
 
-        method = request.args.get('method', default=self.fhdhr.config.dict["streaming"]["method"], type=str)
+        origin = self.source
 
-        redirect_url = "/api/tuners?method=%s" % (method)
+        redirect_url = "/api/tuners?method=%s" % (self.fhdhr.config.dict["streaming"]["method"])
 
         if channel.startswith("v"):
             channel_number = channel.replace('v', '')
@@ -31,6 +32,7 @@ class Auto():
             channel_number = channel
 
         redirect_url += "&channel=%s" % str(channel_number)
+        redirect_url += "&origin=%s" % str(origin)
 
         duration = request.args.get('duration', default=0, type=int)
         if duration:

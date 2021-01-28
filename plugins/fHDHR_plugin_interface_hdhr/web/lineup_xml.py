@@ -9,8 +9,9 @@ class Lineup_XML():
     endpoints = ["/lineup.xml", "/hdhr/lineup.xml"]
     endpoint_name = "hdhr_lineup_xml"
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, source):
         self.fhdhr = fhdhr
+        self.source = source
 
     def __call__(self, *args):
         return self.get(*args)
@@ -21,7 +22,7 @@ class Lineup_XML():
 
         show = request.args.get('show', default="all", type=str)
 
-        origin = self.fhdhr.origins.valid_origins[0]
+        origin = self.source
 
         channelslist = {}
         for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:

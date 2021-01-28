@@ -9,8 +9,9 @@ class HDHR_Device_XML():
     endpoints = ["/hdhr/device.xml"]
     endpoint_name = "hdhr_device_xml"
 
-    def __init__(self, fhdhr):
+    def __init__(self, fhdhr, source):
         self.fhdhr = fhdhr
+        self.source = source
 
     def __call__(self, *args):
         return self.get(*args)
@@ -19,6 +20,8 @@ class HDHR_Device_XML():
         """Device.xml referenced from SSDP"""
 
         base_url = request.url_root[:-1]
+
+        origin = self.source
 
         out = xml.etree.ElementTree.Element('root')
         out.set('xmlns', "urn:schemas-upnp-org:device-1-0")
@@ -41,7 +44,7 @@ class HDHR_Device_XML():
 
         sub_el(device_out, 'serialNumber')
 
-        sub_el(device_out, 'UDN', "uuid:%s" % self.fhdhr.config.dict["main"]["uuid"])
+        sub_el(device_out, 'UDN', "uuid:%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin))
 
         fakefile = BytesIO()
         fakefile.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
