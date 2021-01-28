@@ -3,7 +3,7 @@
           "enabled":{
                 "value": true,
                 "config_file": true,
-                "config_web": false
+                "config_web": true
                 }
   }
 }
