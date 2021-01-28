@@ -24,7 +24,7 @@ class fHDHR_Device():
 
         for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
             if self.fhdhr.plugins.plugins[plugin_name].manifest["type"] == "interface":
-                method = self.fhdhr.plugins.plugins[plugin_name].namespace
+                method = self.fhdhr.plugins.plugins[plugin_name].name.lower()
                 plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
                 plugin_utils.channels = self.channels
                 plugin_utils.epg = self.epg
