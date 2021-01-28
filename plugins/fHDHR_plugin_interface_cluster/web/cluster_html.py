@@ -36,11 +36,11 @@ class Cluster_HTML():
 
             locations_list.append(self.location_dict)
 
-            fhdhr_list = self.fhdhr.device.cluster.get_list()
+            fhdhr_list = self.fhdhr.device.interfaces[self.plugin_utils.namespace].get_list()
             for location in list(fhdhr_list.keys()):
 
-                if location in list(self.fhdhr.device.cluster.cluster().keys()):
-                    location_name = self.fhdhr.device.cluster.cluster()[location]["name"]
+                if location in list(self.fhdhr.device.interfaces[self.plugin_utils.namespace].cluster().keys()):
+                    location_name = self.fhdhr.device.interfaces[self.plugin_utils.namespace].cluster()[location]["name"]
                 else:
                     try:
                         location_info_url = "%s/discover.json" % location

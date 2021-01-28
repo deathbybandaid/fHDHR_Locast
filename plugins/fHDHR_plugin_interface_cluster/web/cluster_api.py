@@ -25,7 +25,7 @@ class Cluster_API():
         redirect_url = request.args.get('redirect', default=None, type=str)
 
         if method == "get":
-            jsoncluster = self.fhdhr.device.cluster.cluster()
+            jsoncluster = self.fhdhr.device.interfaces[self.plugin_utils.namespace].cluster()
             cluster_json = json.dumps(jsoncluster, indent=4)
 
             return Response(status=200,
@@ -36,17 +36,17 @@ class Cluster_API():
             self.fhdhr.device.ssdp.m_search()
 
         elif method == 'add':
-            self.fhdhr.device.cluster.add(location)
+            self.fhdhr.device.interfaces[self.plugin_utils.namespace].add(location)
         elif method == 'del':
-            self.fhdhr.device.cluster.remove(location)
+            self.fhdhr.device.interfaces[self.plugin_utils.namespace].remove(location)
 
         elif method == 'sync':
-            self.fhdhr.device.cluster.sync(location)
+            self.fhdhr.device.interfaces[self.plugin_utils.namespace].sync(location)
 
         elif method == 'leave':
-            self.fhdhr.device.cluster.leave()
+            self.fhdhr.device.interfaces[self.plugin_utils.namespace].leave()
         elif method == 'disconnect':
-            self.fhdhr.device.cluster.disconnect()
+            self.fhdhr.device.interfaces[self.plugin_utils.namespace].disconnect()
 
         elif method == 'alive':
             self.fhdhr.device.ssdp.do_alive(forcealive=True)
