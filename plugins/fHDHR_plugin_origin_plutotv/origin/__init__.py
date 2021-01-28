@@ -80,7 +80,6 @@ class Plugin_OBJ():
         return channel_list
 
     def get_channel_stream(self, chandict, stream_args):
-        print(chandict)
         url = "%s/v2/channels.json" % self.base_api_url
         urlopn = self.plugin_utils.web.session.get(url)
         pluto_chan_list = urlopn.json()
