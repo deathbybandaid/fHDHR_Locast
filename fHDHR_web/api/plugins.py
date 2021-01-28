@@ -19,7 +19,8 @@ class Plugins_JSON():
 
         for plugin in list(self.fhdhr.plugins.plugins.keys()):
             pluginsjson[plugin] = {
-                                    "name": plugin
+                                    "name": plugin,
+                                    "manifest": self.fhdhr.plugins.plugins[plugin].manifest
                                     }
 
         plugins_json = json.dumps(pluginsjson, indent=4)
