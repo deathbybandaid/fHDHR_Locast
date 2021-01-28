@@ -21,11 +21,10 @@ class RMG_Devices_DeviceKey():
 
         base_url = request.url_root[:-1]
 
-        origin = self.fhdhr.origins.valid_origins[0]
-
         out = xml.etree.ElementTree.Element('MediaContainer')
         if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
             out.set('size', "1")
+            origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
             device_out = sub_el(out, 'Device',
                                 key=self.fhdhr.config.dict["main"]["uuid"],
                                 make=self.fhdhr.config.dict["rmg"]["reporting_manufacturer"],
@@ -34,7 +33,7 @@ class RMG_Devices_DeviceKey():
                                 protocol="livetv",
                                 status="alive",
                                 title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
-                                tuners=str(self.fhdhr.config.dict["fhdhr"]["tuner_count"]),
+                                tuners=str(self.fhdhr.origins.origins_dict[origin].tuners),
                                 uri=("%s/rmg" % base_url),
                                 uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
                                 )

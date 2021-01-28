@@ -27,22 +27,23 @@ class RMG_Devices_Probe():
         uri = request.args.get('uri', default=None, type=str)
 
         out = xml.etree.ElementTree.Element('MediaContainer')
-        out.set('size', "1")
+        out.set('size', str(len(list(self.fhdhr.origins.origins_dict.keys()))))
         if uri == base_url:
-            sub_el(out, 'Device',
-                   key=self.fhdhr.config.dict["main"]["uuid"],
-                   make=self.fhdhr.config.dict["rmg"]["reporting_manufacturer"],
-                   model=self.fhdhr.config.dict["rmg"]["reporting_model"],
-                   modelNumber=self.fhdhr.config.internal["versions"]["fHDHR"],
-                   protocol="livetv",
-                   status="alive",
-                   title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
-                   tuners=str(self.fhdhr.config.dict["fhdhr"]["tuner_count"]),
-                   uri=("%s" % base_url),
-                   uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
-                   thumb="favicon.ico",
-                   interface='network'
-                   )
+            for origin in list(self.fhdhr.origins.origins_dict.keys()):
+                sub_el(out, 'Device',
+                       key=self.fhdhr.config.dict["main"]["uuid"],
+                       make=self.fhdhr.config.dict["rmg"]["reporting_manufacturer"],
+                       model=self.fhdhr.config.dict["rmg"]["reporting_model"],
+                       modelNumber=self.fhdhr.config.internal["versions"]["fHDHR"],
+                       protocol="livetv",
+                       status="alive",
+                       title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
+                       tuners=str(self.fhdhr.origins.origins_dict[origin].tuners),
+                       uri=("%s" % base_url),
+                       uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
+                       thumb="favicon.ico",
+                       interface='network'
+                       )
 
         fakefile = BytesIO()
         fakefile.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')

@@ -27,7 +27,7 @@ class Discover_JSON():
                             "Manufacturer": self.fhdhr.config.dict["hdhr"]["reporting_manufacturer"],
                             "ModelNumber": self.fhdhr.config.dict["hdhr"]["reporting_model"],
                             "FirmwareName": self.fhdhr.config.dict["hdhr"]["reporting_firmware_name"],
-                            "TunerCount": self.fhdhr.config.dict["fhdhr"]["tuner_count"],
+                            "TunerCount": self.fhdhr.origins.origins_dict[origin].tuners,
                             "FirmwareVersion": self.fhdhr.config.dict["hdhr"]["reporting_firmware_ver"],
                             "DeviceID": "%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                             "DeviceAuth": self.fhdhr.config.dict["fhdhr"]["device_auth"],
