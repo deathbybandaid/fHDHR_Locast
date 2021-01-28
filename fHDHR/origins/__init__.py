@@ -22,7 +22,6 @@ class Origins():
         self.origin_selfadd()
         for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
             if self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod"] and self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod_type"] == "origin":
-                print(self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod"])
                 self.fhdhr.plugins.plugins[plugin_name].plugin_utils.origin = self.origins_dict[self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod"].lower()]
 
     @property
