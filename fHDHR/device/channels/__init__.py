@@ -21,27 +21,21 @@ class Channels():
 
         self.get_db_channels()
 
-    def get_channel_obj(self, keyfind, valfind, origin="all"):
-        if origin == "all":
-            origins_list = list(self.list.keys())
-        else:
-            origins_list = origin.lower()
-
-        if isinstance(origins_list, str):
-            origins_list = [origins_list]
-
-        found_matches = []
-        for origin in origins_list:
+    def get_channel_obj(self, keyfind, valfind, origin=None):
+        if origin:
             if keyfind == "number":
-                next_match = next(self.list[origin][fhdhr_id] for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].number == valfind) or None
+                return next(self.list[origin][fhdhr_id] for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].number == valfind) or None
             else:
-                next_match = next(self.list[origin][fhdhr_id] for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].dict[keyfind] == valfind) or None
-            if next_match:
-                found_matches.append(next_match)
-        return found_matches[0]
+                return next(self.list[origin][fhdhr_id] for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].dict[keyfind] == valfind) or None
+        else:
+            if keyfind == "id":
+                for origin in list(self.list.keys()):
+                    if valfind in [x["id"] for x in self.get_channels(origin)]:
+                        return self.list[origin][valfind]
+        return None
 
-    def get_channel_list(self, keyfind, origin="all"):
-        if origin == "all":
+    def get_channel_list(self, keyfind, origin=None):
+        if not origin:
             origins_list = list(self.list.keys())
         else:
             origins_list = origin.lower()
@@ -55,23 +49,22 @@ class Channels():
                 next_match = [self.list[origin][x].number for x in [x["id"] for x in self.get_channels(origin)]]
             else:
                 next_match = [self.list[origin][x].dict[keyfind] for x in [x["id"] for x in self.get_channels(origin)]]
-            if next_match:
+            if len(next_match):
                 found_matches.append(next_match)
         return found_matches[0]
 
     def get_channel_dict(self, keyfind, valfind, origin="all"):
-        if origin == "all":
-            origins_list = list(self.list.keys())
+        if origin:
+            if keyfind == "number":
+                return next(self.list[origin][fhdhr_id].dict for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].number == valfind) or None
+            else:
+                return next(self.list[origin][fhdhr_id].dict for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].dict[keyfind] == valfind) or None
         else:
-            origins_list = origin.lower()
-
-        if isinstance(origins_list, str):
-            origins_list = [origins_list]
-
-        found_matches = []
-        for origin in origins_list:
-            found_matches.append(self.get_channel_obj(keyfind, valfind, origin).dict)
-        return found_matches[0]
+            if keyfind == "id":
+                for origin in list(self.list.keys()):
+                    if valfind in [x["id"] for x in self.get_channels(origin)]:
+                        return self.list[origin][valfind].dict
+        return None
 
     def set_channel_status(self, keyfind, valfind, updatedict, origin):
         self.get_channel_obj(keyfind, valfind, origin).set_status(updatedict)
