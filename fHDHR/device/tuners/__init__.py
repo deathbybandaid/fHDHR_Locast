@@ -15,7 +15,7 @@ class Tuners():
         self.max_tuners = int(self.fhdhr.config.dict["fhdhr"]["tuner_count"])
 
         self.tuners = {}
-        for origin in list(self.origins.origins_dict.keys()):
+        for origin in list(self.fhdhr.origins.origins_dict.keys()):
             self.tuners[origin] = {}
 
             self.fhdhr.logger.info("Creating %s tuners for %s." % (self.max_tuners, origin))
