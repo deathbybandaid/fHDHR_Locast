@@ -4,9 +4,9 @@
 
   <h4 style="text-align: center;">fHDHR Streams</h4>
 
-  {% for origin_dict in tuner_status_dict %}
+  {% for origin in list(tuner_status_dict.keys()) %}
 
-    <h4 style="text-align: center;">{{ origin_dict }}</h4>
+    <h4 style="text-align: center;">{{ origin }}</h4>
 
     <div class="container">
       <table class="table-medium center action-col">
@@ -34,10 +34,10 @@
 
               <td>
                 {% if tuner_dict["status"] != "Inactive" %}
-                  <button onclick="location.href='/api/tuners?method=close&tuner={{ tuner_dict["number"] }}&redirect=/tuners'" type="button">Close</button>
+                  <button onclick="location.href='/api/tuners?method=close&tuner={{ tuner_dict["number"] }}&origin={{ origin }}&redirect=/tuners'" type="button">Close</button>
                 {% endif %}
                 {% if not tuner_status_dict[origin]["scan_count"] and tuner_dict["status"] == "Inactive" %}
-                  <button onclick="location.href='/api/tuners?method=scan&tuner={{ tuner_dict["number"] }}&redirect=/tuners'" type="button">Channel Scan</button>
+                  <button onclick="location.href='/api/tuners?method=scan&tuner={{ tuner_dict["number"] }}&origin={{ origin }}&redirect=/tuners'" type="button">Channel Scan</button>
                 {% endif %}
               </td>
             </tr>
