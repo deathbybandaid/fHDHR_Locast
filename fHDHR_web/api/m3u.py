@@ -57,12 +57,14 @@ class M3U():
                     return "Channel Disabled"
             elif origin and channel != "all" and str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id")]:
                 channel_obj = self.fhdhr.device.channels.get_channel_obj("id", channel, origin)
+                fileName = "%s.m3u" % channel_obj.number
                 if channel_obj.enabled:
                     channel_items.append(channel_obj)
                 else:
                     return "Channel Disabled"
             elif not origin and channel != "all" and str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id")]:
                 channel_obj = self.fhdhr.device.channels.get_channel_obj("id", channel)
+                fileName = "%s.m3u" % channel_obj.number
                 if channel_obj.enabled:
                     channel_items.append(channel_obj)
                 else:
