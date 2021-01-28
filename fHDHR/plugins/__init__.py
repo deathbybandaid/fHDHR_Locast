@@ -206,7 +206,8 @@ class PluginsHandler():
 
                             # Single Plugin
                             if os.path.isfile(os.path.join(abspath, '__init__.py')):
-                                plugin_manifest["tagged_origin"] = None
+                                plugin_manifest["tagged_mod"] = None
+                                plugin_manifest["tagged_mod_type"] = None
                                 self.found_plugins.append((os.path.basename(filename), abspath, plugin_conf, plugin_manifest))
 
                             else:
@@ -227,9 +228,11 @@ class PluginsHandler():
                                         else:
                                             subplugin_manifest = plugin_manifest
 
-                                        subplugin_manifest["tagged_origin"] = None
-                                        if plugin_manifest["type"] == "origin" and subplugin_manifest["type"] != "origin":
-                                            subplugin_manifest["tagged_origin"] = plugin_manifest["name"]
+                                        subplugin_manifest["tagged_mod"] = None
+                                        subplugin_manifest["tagged_mod_type"] = None
+                                        if plugin_manifest["type"] != subplugin_manifest["type"]:
+                                            subplugin_manifest["tagged_mod"] = plugin_manifest["name"]
+                                            subplugin_manifest["tagged_mod_type"] = plugin_manifest["type"]
 
                                         if os.path.isfile(os.path.join(subabspath, '__init__.py')):
                                             self.found_plugins.append((os.path.basename(filename), subabspath, plugin_conf, subplugin_manifest))
@@ -243,3 +246,8 @@ class PluginsHandler():
         for plugin_name, plugin_path, plugin_conf, plugin_manifest in self.found_plugins:
             plugin_item = Plugin(self.config, self.logger, self.db, plugin_name, plugin_path, plugin_conf, plugin_manifest)
             self.plugins[plugin_item.plugin_dict_name] = plugin_item
+        for plugin_name in list(self.plugins.keys()):
+            if self.plugins[plugin_name].manifest["tagged_mod"]:
+                if self.plugins[plugin_name].manifest["tagged_mod"] not in [self.plugins[x].name.lower() for x in list(self.plugins.keys())]:
+                    self.plugins[plugin_name].manifest["tagged_mod"] = None
+                    self.plugins[plugin_name].manifest["tagged_mod_type"] = None

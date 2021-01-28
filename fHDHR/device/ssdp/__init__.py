@@ -39,6 +39,10 @@ class SSDPServer():
                 plugin_utils = self.fhdhr.plugins.plugins[plugin_name].plugin_utils
                 self.ssdp_handling[method] = self.fhdhr.plugins.plugins[plugin_name].Plugin_OBJ(self.fhdhr, plugin_utils, self.broadcast_ip, self.max_age)
 
+        for plugin_name in list(self.fhdhr.plugins.plugins.keys()):
+            if self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod"] and self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod_type"] == "interface":
+                self.fhdhr.plugins.plugins[plugin_name].plugin_utils.interface = self.ssdp_handling[self.fhdhr.plugins.plugins[plugin_name].manifest["tagged_mod"].lower()]
+
     def start(self):
         self.fhdhr.logger.info("SSDP Server Starting")
         self.fhdhr.threads["ssdp"].start()

@@ -12,6 +12,7 @@ class fHDHR_Cluster():
 
         if self.fhdhr.config.dict["fhdhr"]["discovery_address"]:
             self.startup_sync()
+            True
 
     def cluster(self):
         return self.fhdhr.db.get_fhdhr_value("cluster", "dict") or self.default_cluster()
