@@ -14,6 +14,14 @@ class Plugin_OBJ():
 
         self.base_api_url = 'https://api.pluto.tv'
 
+    def xmltimestamp_pluto(self, inputtime):
+        xmltime = inputtime.replace('Z', '+00:00')
+        xmltime = datetime.datetime.fromisoformat(xmltime).timestamp()
+        return xmltime
+
+    def duration_pluto_minutes(self, induration):
+        return ((int(induration))/1000/60)
+
     def update_epg(self):
         programguide = {}
 
