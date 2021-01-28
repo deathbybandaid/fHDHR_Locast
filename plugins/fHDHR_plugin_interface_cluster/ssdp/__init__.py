@@ -25,7 +25,7 @@ class Plugin_OBJ():
         self.ssdp_content = None
 
         self.broadcast_ip = broadcast_ip
-        self.device_xml_path = '/api/device.xml'
+        self.device_xml_path = '/cluster/device.xml'
         self.schema = "upnp:rootdevice"
 
         self.max_age = max_age

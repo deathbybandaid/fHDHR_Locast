@@ -1,5 +1,6 @@
 from .cluster_api import Cluster_API
 from .cluster_html import Cluster_HTML
+from .cluster_device_xml import Cluster_Device_XML
 
 
 class Plugin_OBJ():
@@ -10,3 +11,4 @@ class Plugin_OBJ():
 
         self.cluster_api = Cluster_API(fhdhr, plugin_utils)
         self.cluster_html = Cluster_HTML(fhdhr, plugin_utils)
+        self.cluster_device_xml = Cluster_Device_XML(fhdhr, plugin_utils)
