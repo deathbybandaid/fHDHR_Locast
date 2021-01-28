@@ -6,9 +6,12 @@ class Tuner():
     endpoints = ['/tuner<tuner_number>/<channel>', '/hdhr/tuner<tuner_number>/<channel>']
     endpoint_name = "hdhr_tuner"
 
-    def __init__(self, fhdhr, source):
+    def __init__(self, fhdhr):
         self.fhdhr = fhdhr
-        self.source = source
+
+    @property
+    def source(self):
+        return self.fhdhr.config.dict["hdhr"]["source"] or self.fhdhr.origins.valid_origins[0]
 
     def __call__(self, tuner_number, channel, *args):
         return self.get(tuner_number, channel, *args)

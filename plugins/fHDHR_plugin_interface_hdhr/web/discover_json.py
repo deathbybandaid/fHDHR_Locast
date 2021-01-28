@@ -6,9 +6,12 @@ class Discover_JSON():
     endpoints = ["/discover.json", "/hdhr/discover.json"]
     endpoint_name = "hdhr_discover_json"
 
-    def __init__(self, fhdhr, source):
+    def __init__(self, fhdhr):
         self.fhdhr = fhdhr
-        self.source = source
+
+    @property
+    def source(self):
+        return self.fhdhr.config.dict["hdhr"]["source"] or self.fhdhr.origins.valid_origins[0]
 
     def __call__(self, *args):
         return self.get(*args)

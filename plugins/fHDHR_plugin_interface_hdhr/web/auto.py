@@ -6,9 +6,12 @@ class Auto():
     endpoints = ['/auto/<channel>', '/hdhr/auto/<channel>']
     endpoint_name = "hdhr_auto"
 
-    def __init__(self, fhdhr, source):
+    def __init__(self, fhdhr):
         self.fhdhr = fhdhr
-        self.source = source
+
+    @property
+    def source(self):
+        return self.fhdhr.config.dict["hdhr"]["source"] or self.fhdhr.origins.valid_origins[0]
 
     def __call__(self, channel, *args):
         return self.get(channel, *args)
