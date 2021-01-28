@@ -26,7 +26,7 @@ class Channels_Editor_HTML():
 
             channel_dict["number"] = channel_obj.number
             channel_dict["chan_thumbnail"] = channel_obj.thumbnail
-            channel_dict["m3u_url"] = channel_obj.m3u_url
+            channel_dict["m3u_url"] = channel_obj.api_m3u_url
 
             channelslist[channel_dict["number"]] = channel_dict
 

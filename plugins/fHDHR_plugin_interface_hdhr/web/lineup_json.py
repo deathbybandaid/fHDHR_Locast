@@ -30,7 +30,14 @@ class Lineup_JSON():
         for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
             channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)
             if channel_obj.enabled or show == "found":
-                lineup_dict = channel_obj.lineup_dict
+                lineup_dict = {
+                                 'GuideNumber': channel_obj.number,
+                                 'GuideName': channel_obj.dict['name'],
+                                 'Tags': ",".join(channel_obj.dict['tags']),
+                                 'URL': '/auto/v' % channel_obj.number,
+                                 'HD': channel_obj.dict["HD"],
+                                 "Favorite": channel_obj.dict["favorite"],
+                                }
                 lineup_dict["URL"] = "%s%s" % (base_url, lineup_dict["URL"])
                 if show == "found" and channel_obj.enabled:
                     lineup_dict["Enabled"] = 1

@@ -159,43 +159,16 @@ class Channel():
         self.fhdhr.db.set_fhdhr_value(self.dict["id"], "dict", self.dict, self.origin)
 
     @property
-    def lineup_dict(self):
-        return {
-                 'GuideNumber': self.number,
-                 'GuideName': self.dict['name'],
-                 'Tags': ",".join(self.dict['tags']),
-                 'URL': self.hdhr_stream_url,
-                 'HD': self.dict["HD"],
-                 "Favorite": self.dict["favorite"],
-                }
-
-    @property
     def generic_image_url(self):
         return "/api/images?method=generate&type=channel&message=%s" % self.number
 
     @property
-    def hdhr_stream_url(self):
-        return '/auto/%s' % self.hdhr_stream_ident
-
-    @property
-    def hdhr_stream_ident(self):
-        return 'v%s' % self.number
-
-    @property
-    def rmg_stream_url(self):
-        return "/devices/%s/media/%s" % (self.fhdhr.config.dict["main"]["uuid"], self.rmg_stream_ident)
-
-    @property
-    def rmg_stream_ident(self):
-        return "id://%s" % self.number
-
-    @property
     def api_stream_url(self):
-        return '/api/tuners?method=%s&channel=%s&origin=' % (self.fhdhr.config.dict["streaming"]["method"], self.number, self.origin)
+        return '/api/tuners?method=%s&channel=%s&origin=%s' % (self.fhdhr.config.dict["streaming"]["method"], self.number, self.origin)
 
     @property
-    def m3u_url(self):
-        return '/api/m3u?method=get&channel=%s' % self.number
+    def api_m3u_url(self):
+        return '/api/m3u?method=get&channel=%s&origin=%s' % (self.dict["id"], self.origin)
 
     def set_favorite(self, enablement):
         if enablement == "+":
