@@ -20,14 +20,14 @@ class SSDPServer():
             self.fhdhr.threads["ssdp"] = threading.Thread(target=self.run)
             self.setup_ssdp()
 
-            self.ssdp_method_selfadd()
-
             self.sock.bind((self.bind_address, 1900))
 
             self.msearch_payload = self.create_msearch_payload()
 
             self.max_age = int(fhdhr.config.dict["ssdp"]["max_age"])
             self.age_time = None
+
+            self.ssdp_method_selfadd()
 
             self.do_alive()
             self.m_search()
