@@ -103,7 +103,7 @@ class Tuners():
 
     def available_tuner_count(self, origin):
         available_tuners = 0
-        for tunernum in list(self.tuners.keys()):
+        for tunernum in list(self.tuners[origin].keys()):
             if not self.tuners[origin][str(tunernum)].tuner_lock.locked():
                 available_tuners += 1
         return available_tuners
