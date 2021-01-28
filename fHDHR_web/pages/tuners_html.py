@@ -44,7 +44,7 @@ class Tuners_HTML():
                     tuner_dict["channel_number"] = tuner_status[origin][tuner]["channel"] or "N/A"
                     tuner_dict["running_time"] = str(tuner_status[origin][tuner]["running_time"])
 
-                if tuner_status[tuner]["status"] in "Active":
+                if tuner_status[origin][tuner]["status"] in "Active":
                     tuner_dict["method"] = tuner_status[origin][tuner]["method"]
                     tuner_dict["downloaded"] = humanized_filesize(tuner_status[origin][tuner]["downloaded"])
 
