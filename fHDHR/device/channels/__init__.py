@@ -23,6 +23,7 @@ class Channels():
 
     def get_channel_obj(self, keyfind, valfind, origin=None):
         if origin:
+            origin = origin.lower()
             if keyfind == "number":
                 return next(self.list[origin][fhdhr_id] for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].number == valfind) or None
             else:
@@ -55,6 +56,7 @@ class Channels():
 
     def get_channel_dict(self, keyfind, valfind, origin="all"):
         if origin:
+            origin = origin.lower()
             if keyfind == "number":
                 return next(self.list[origin][fhdhr_id].dict for fhdhr_id in [x["id"] for x in self.get_channels(origin)] if self.list[origin][fhdhr_id].number == valfind) or None
             else:
