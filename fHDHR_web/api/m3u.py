@@ -42,31 +42,26 @@ class M3U():
 
             channel_items = []
 
-            if channel == "all":
-                if not origin:
-                    return "Invalid Channel"
+            if origin and channel == "all":
                 fileName = "channels.m3u"
                 for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
                     channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)
                     if channel_obj.enabled:
                         channel_items.append(channel_obj)
-            elif not origin:
-                if str(channel) not in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id")]:
-                    channel_obj = self.fhdhr.device.channels.get_channel_obj("id", channel)
-                    if channel_obj.enabled:
-                        channel_items.append(channel_obj)
-                    else:
-                        return "Channel Disabled"
-            elif origin:
-                if str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
-                    channel_obj = self.fhdhr.device.channels.get_channel_obj("number", channel, origin)
-                    fileName = "%s.m3u" % channel_obj.number
-                    if channel_obj.enabled:
-                        channel_items.append(channel_obj)
-                    else:
-                        return "Channel Disabled"
-
-            if not len(channel_items):
+            elif origin and str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("number", origin)]:
+                channel_obj = self.fhdhr.device.channels.get_channel_obj("number", channel, origin)
+                fileName = "%s.m3u" % channel_obj.number
+                if channel_obj.enabled:
+                    channel_items.append(channel_obj)
+                else:
+                    return "Channel Disabled"
+            elif not origin and channel != "all" and str(channel) in [str(x) for x in self.fhdhr.device.channels.get_channel_list("id")]:
+                channel_obj = self.fhdhr.device.channels.get_channel_obj("id", channel)
+                if channel_obj.enabled:
+                    channel_items.append(channel_obj)
+                else:
+                    return "Channel Disabled"
+            else:
                 return "Invalid Channel"
 
             channels_info = {}
