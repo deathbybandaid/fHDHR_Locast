@@ -1,5 +1,6 @@
 from flask import request, render_template, session
 import urllib.parse
+from simplejson.errors import JSONDecodeError
 
 
 class Cluster_HTML():
@@ -40,6 +41,8 @@ class Cluster_HTML():
                         location_info = location_info_req.json()
                         location_name = location_info["FriendlyName"]
                     except self.fhdhr.web.exceptions.ConnectionError:
+                        self.fhdhr.logger.error("Unreachable: %s" % location)
+                    except JSONDecodeError:
                         self.fhdhr.logger.error("Unreachable: %s" % location)
                 location_dict = {
                                 "name": location_name,
