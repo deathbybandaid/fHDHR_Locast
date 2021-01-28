@@ -39,7 +39,7 @@ class Tuners_HTML():
                               "downloaded": "N/A",
                               }
 
-                if tuner_status[tuner]["status"] in ["Active", "Acquired", "Scanning"]:
+                if tuner_status[origin][tuner]["status"] in ["Active", "Acquired", "Scanning"]:
                     tuner_dict["origin"] = tuner_status[origin][tuner]["origin"]
                     tuner_dict["channel_number"] = tuner_status[origin][tuner]["channel"] or "N/A"
                     tuner_dict["running_time"] = str(tuner_status[origin][tuner]["running_time"])
