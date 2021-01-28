@@ -32,9 +32,9 @@ class RMG_Device_XML():
         sub_el(device_out, 'deviceType', "urn:plex-tv:device:Media:1")
 
         sub_el(device_out, 'friendlyName', self.fhdhr.config.dict["fhdhr"]["friendlyname"])
-        sub_el(device_out, 'manufacturer', self.fhdhr.config.dict["fhdhr"]["reporting_manufacturer"])
+        sub_el(device_out, 'manufacturer', self.fhdhr.config.dict["rmg"]["reporting_manufacturer"])
         sub_el(device_out, 'manufacturerURL', "https://github.com/fHDHR/%s" % self.fhdhr.config.dict["main"]["reponame"])
-        sub_el(device_out, 'modelName', self.fhdhr.config.dict["fhdhr"]["reporting_model"])
+        sub_el(device_out, 'modelName', self.fhdhr.config.dict["rmg"]["reporting_model"])
         sub_el(device_out, 'modelNumber', self.fhdhr.config.internal["versions"]["fHDHR"])
 
         sub_el(device_out, 'modelDescription', self.fhdhr.config.dict["fhdhr"]["friendlyname"])

@@ -57,7 +57,7 @@ class Lineup_Status_JSON():
         jsonlineup = {
                       "ScanInProgress": "false",
                       "ScanPossible": "true",
-                      "Source": self.fhdhr.config.dict["fhdhr"]["reporting_tuner_type"],
-                      "SourceList": [self.fhdhr.config.dict["fhdhr"]["reporting_tuner_type"]],
+                      "Source": self.fhdhr.config.dict["hdhr"]["reporting_tuner_type"],
+                      "SourceList": [self.fhdhr.config.dict["hdhr"]["reporting_tuner_type"]],
                       }
         return jsonlineup

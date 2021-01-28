@@ -24,11 +24,11 @@ class Discover_JSON():
 
         jsondiscover = {
                             "FriendlyName": self.fhdhr.config.dict["fhdhr"]["friendlyname"],
-                            "Manufacturer": self.fhdhr.config.dict["fhdhr"]["reporting_manufacturer"],
-                            "ModelNumber": self.fhdhr.config.dict["fhdhr"]["reporting_model"],
-                            "FirmwareName": self.fhdhr.config.dict["fhdhr"]["reporting_firmware_name"],
+                            "Manufacturer": self.fhdhr.config.dict["hdhr"]["reporting_manufacturer"],
+                            "ModelNumber": self.fhdhr.config.dict["hdhr"]["reporting_model"],
+                            "FirmwareName": self.fhdhr.config.dict["hdhr"]["reporting_firmware_name"],
                             "TunerCount": self.fhdhr.config.dict["fhdhr"]["tuner_count"],
-                            "FirmwareVersion": self.fhdhr.config.dict["fhdhr"]["reporting_firmware_ver"],
+                            "FirmwareVersion": self.fhdhr.config.dict["hdhr"]["reporting_firmware_ver"],
                             "DeviceID": "%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                             "DeviceAuth": self.fhdhr.config.dict["fhdhr"]["device_auth"],
                             "BaseURL": "%s" % base_url,

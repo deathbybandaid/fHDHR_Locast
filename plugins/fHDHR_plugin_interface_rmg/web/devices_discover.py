@@ -25,8 +25,8 @@ class RMG_Devices_Discover():
         out.set('size', "1")
         sub_el(out, 'Device',
                key=self.fhdhr.config.dict["main"]["uuid"],
-               make=self.fhdhr.config.dict["fhdhr"]["reporting_manufacturer"],
-               model=self.fhdhr.config.dict["fhdhr"]["reporting_model"],
+               make=self.fhdhr.config.dict["rmg"]["reporting_manufacturer"],
+               model=self.fhdhr.config.dict["rmg"]["reporting_model"],
                modelNumber=self.fhdhr.config.internal["versions"]["fHDHR"],
                protocol="livetv",
                status="alive",
