@@ -120,7 +120,7 @@ class Plugin_OBJ():
         paramdict["deviceType"] = "web"
         paramdict["deviceModel"] = "Chrome"
         paramdict["sid"] = self.plugin_utils.config.dict["main"]["uuid"] + str(time.time())
-        paramdict["userId"] = self.origin.userid or ''
+        paramdict["userId"] = self.userid or ''
 
         paramdict["serverSideAds"] = "true"
 
