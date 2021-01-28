@@ -32,7 +32,7 @@ class Lineup_Post():
                 return Response(status=200, mimetype='text/html')
 
             elif request.args['scan'] == 'abort':
-                self.fhdhr.device.tuners.stop_tuner_scan()
+                self.fhdhr.device.tuners.stop_tuner_scan(origin)
                 return Response(status=200, mimetype='text/html')
 
             else:
