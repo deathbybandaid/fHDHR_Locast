@@ -8,6 +8,7 @@ from .ssdp import SSDPServer
 class fHDHR_Device():
 
     def __init__(self, fhdhr, origins):
+        self.fhdhr = fhdhr
 
         self.channels = Channels(fhdhr, origins)
 
