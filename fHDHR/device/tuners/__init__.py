@@ -167,10 +167,14 @@ class Tuners():
         while True:
             self.fhdhr.logger.info("Opening m3u8 for reading %s" % m3u8_url)
 
-            if stream_args["stream_info"]["headers"]:
-                videoUrlM3u = m3u8.load(m3u8_url, headers=stream_args["stream_info"]["headers"])
-            else:
-                videoUrlM3u = m3u8.load(m3u8_url)
+            try:
+                if stream_args["stream_info"]["headers"]:
+                    videoUrlM3u = m3u8.load(m3u8_url, headers=stream_args["stream_info"]["headers"])
+                else:
+                    videoUrlM3u = m3u8.load(m3u8_url)
+            except Exception as e:
+                self.fhdhr.logger.info("m3u8 load error: %s" % e)
+                return m3u8_url
 
             if len(videoUrlM3u.playlists):
                 self.fhdhr.logger.info("%s m3u8 varients found" % len(videoUrlM3u.playlists))
