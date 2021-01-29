@@ -28,19 +28,27 @@ class RMG_Devices_Probe():
 
         out = xml.etree.ElementTree.Element('MediaContainer')
         out.set('size', str(len(list(self.fhdhr.origins.origins_dict.keys()))))
-        if uri == base_url:
-            for origin in list(self.fhdhr.origins.origins_dict.keys()):
+
+        for origin in list(self.fhdhr.origins.origins_dict.keys()):
+
+            if uri == "%s/rmg/%s%s" % (base_url, self.fhdhr.config.dict["main"]["uuid"], origin):
+
+                if self.fhdhr.origins.origins_dict[origin].setup_success:
+                    alive_status = "alive"
+                else:
+                    alive_status = "dead"
+
                 sub_el(out, 'Device',
-                       key=self.fhdhr.config.dict["main"]["uuid"],
+                       key="%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                        make=self.fhdhr.config.dict["rmg"]["reporting_manufacturer"],
                        model=self.fhdhr.config.dict["rmg"]["reporting_model"],
                        modelNumber=self.fhdhr.config.internal["versions"]["fHDHR"],
                        protocol="livetv",
-                       status="alive",
-                       title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
+                       status=alive_status,
+                       title="%s %s" % (self.fhdhr.config.dict["fhdhr"]["friendlyname"], origin),
                        tuners=str(self.fhdhr.origins.origins_dict[origin].tuners),
-                       uri=("%s" % base_url),
-                       uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
+                       uri="%s/rmg/%s%s" % (base_url, self.fhdhr.config.dict["main"]["uuid"], origin),
+                       uuid="device://tv.plex.grabbers.fHDHR/%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                        thumb="favicon.ico",
                        interface='network'
                        )

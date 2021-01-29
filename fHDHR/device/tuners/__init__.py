@@ -89,16 +89,16 @@ class Tuners():
     def tuner_close(self, tunernum, origin):
         self.tuners[origin][str(tunernum)].close()
 
-    def status(self, origin="all"):
-        if origin == "all":
-            origins = list(self.tuners.keys())
-        else:
-            origins = [origin]
+    def status(self, origin=None):
         all_status = {}
-        for origin in origins:
-            all_status[origin] = {}
+        if origin:
             for tunernum in list(self.tuners[origin].keys()):
-                all_status[origin][tunernum] = self.tuners[origin][str(tunernum)].get_status()
+                all_status[tunernum] = self.tuners[origin][str(tunernum)].get_status()
+        else:
+            for origin in list(self.tuners.keys()):
+                all_status[origin] = {}
+                for tunernum in list(self.tuners[origin].keys()):
+                    all_status[origin][tunernum] = self.tuners[origin][str(tunernum)].get_status()
         return all_status
 
     def available_tuner_count(self, origin):

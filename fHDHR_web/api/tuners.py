@@ -162,7 +162,7 @@ class Tuners():
 
             if not origin:
                 if not tuner_number:
-                    tuner_status = self.fhdhr.device.tuners.status(origin="all")
+                    tuner_status = self.fhdhr.device.tuners.status()
                 else:
                     tuner_status = ["Invalid Tuner %s" % tuner_number]
             else:

@@ -27,30 +27,32 @@ class Lineup_JSON():
         origin = self.source
 
         channelslist = {}
+        sorted_chan_guide = []
         for fhdhr_id in [x["id"] for x in self.fhdhr.device.channels.get_channels(origin)]:
             channel_obj = self.fhdhr.device.channels.get_channel_obj("id", fhdhr_id, origin)
-            if channel_obj.enabled or show == "found":
-                lineup_dict = {
-                                 'GuideNumber': channel_obj.number,
-                                 'GuideName': channel_obj.dict['name'],
-                                 'Tags': ",".join(channel_obj.dict['tags']),
-                                 'URL': '/hdhr/auto/v' % channel_obj.number,
-                                 'HD': channel_obj.dict["HD"],
-                                 "Favorite": channel_obj.dict["favorite"],
-                                }
-                lineup_dict["URL"] = "%s%s" % (base_url, lineup_dict["URL"])
-                if show == "found" and channel_obj.enabled:
-                    lineup_dict["Enabled"] = 1
-                elif show == "found" and not channel_obj.enabled:
-                    lineup_dict["Enabled"] = 0
-
-                channelslist[channel_obj.number] = lineup_dict
+            if channel_obj.enabled:
+                channelslist[channel_obj.number] = channel_obj
 
         # Sort the channels
         sorted_channel_list = channel_sort(list(channelslist.keys()))
-        sorted_chan_guide = []
         for channel in sorted_channel_list:
-            sorted_chan_guide.append(channelslist[channel])
+
+            channel_obj = channelslist[channel]
+            lineup_dict = {
+                             'GuideNumber': channel_obj.number,
+                             'GuideName': channel_obj.dict['name'],
+                             'Tags': ",".join(channel_obj.dict['tags']),
+                             'URL': '/hdhr/auto/v' % channel_obj.number,
+                             'HD': channel_obj.dict["HD"],
+                             "Favorite": channel_obj.dict["favorite"],
+                            }
+            lineup_dict["URL"] = "%s%s" % (base_url, lineup_dict["URL"])
+            if show == "found" and channel_obj.enabled:
+                lineup_dict["Enabled"] = 1
+            elif show == "found" and not channel_obj.enabled:
+                lineup_dict["Enabled"] = 0
+
+            sorted_chan_guide.append(lineup_dict)
 
         lineup_json = json.dumps(sorted_chan_guide, indent=4)
 

@@ -32,6 +32,10 @@ class RMG_Devices_DeviceKey_Media():
 
         if str(channel).startswith('id://'):
             channel = str(channel).replace('id://', '')
+        elif channel.startswith("triplet://"):
+            channel_tuple = channel.replace('triplet://', '').split(":")
+            self.fhdhr.logger.error("Not Implemented %s" % ":".join(channel_tuple))
+            abort(501, "Not Implemented %s" % ":".join(channel_tuple))
         redirect_url += "&channel=%s" % (channel)
 
         redirect_url += "&accessed=%s" % urllib.parse.quote(request.url)

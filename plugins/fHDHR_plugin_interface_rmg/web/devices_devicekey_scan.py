@@ -26,9 +26,11 @@ class RMG_Devices_DeviceKey_Scan():
             self.fhdhr.logger.debug("Scan Requested network:%s, source:%s, provider:%s" % (network, source, provider))
 
             out = xml.etree.ElementTree.Element('MediaContainer')
-            if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
 
-                tuner_status = self.fhdhr.device.tuners.status()
+            if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
+                origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
+
+                tuner_status = self.fhdhr.device.tuners.status(origin)
                 tuner_scanning = 0
                 for tuner in list(tuner_status.keys()):
                     if tuner_status[tuner]["status"] == "Scanning":

@@ -22,23 +22,30 @@ class RMG_Devices_DeviceKey():
         base_url = request.url_root[:-1]
 
         out = xml.etree.ElementTree.Element('MediaContainer')
+
         if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
-            out.set('size', "1")
             origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
+            out.set('size', "1")
+
+            if self.fhdhr.origins.origins_dict[origin].setup_success:
+                alive_status = "alive"
+            else:
+                alive_status = "dead"
+
             device_out = sub_el(out, 'Device',
-                                key=self.fhdhr.config.dict["main"]["uuid"],
+                                key="%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                                 make=self.fhdhr.config.dict["rmg"]["reporting_manufacturer"],
                                 model=self.fhdhr.config.dict["rmg"]["reporting_model"],
                                 modelNumber=self.fhdhr.config.internal["versions"]["fHDHR"],
                                 protocol="livetv",
-                                status="alive",
-                                title=self.fhdhr.config.dict["fhdhr"]["friendlyname"],
+                                status=alive_status,
+                                title="%s %s" % (self.fhdhr.config.dict["fhdhr"]["friendlyname"], origin),
                                 tuners=str(self.fhdhr.origins.origins_dict[origin].tuners),
-                                uri=("%s/rmg" % base_url),
-                                uuid="device://tv.plex.grabbers.fHDHR/%s" % self.fhdhr.config.dict["main"]["uuid"],
+                                uri="%s/rmg/%s%s" % (base_url, self.fhdhr.config.dict["main"]["uuid"], origin),
+                                uuid="device://tv.plex.grabbers.fHDHR/%s%s" % (self.fhdhr.config.dict["main"]["uuid"], origin),
                                 )
 
-            tuner_status = self.fhdhr.device.tuners.status()
+            tuner_status = self.fhdhr.device.tuners.status(origin)
 
             for tuner_number in list(tuner_status.keys()):
                 tuner_dict = tuner_status[tuner_number]

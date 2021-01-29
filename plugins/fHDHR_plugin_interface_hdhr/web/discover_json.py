@@ -23,7 +23,7 @@ class Discover_JSON():
         origin = self.source
 
         jsondiscover = {
-                            "FriendlyName": self.fhdhr.config.dict["fhdhr"]["friendlyname"],
+                            "FriendlyName": "%s %s" % (self.fhdhr.config.dict["fhdhr"]["friendlyname"], origin),
                             "Manufacturer": self.fhdhr.config.dict["hdhr"]["reporting_manufacturer"],
                             "ModelNumber": self.fhdhr.config.dict["hdhr"]["reporting_model"],
                             "FirmwareName": self.fhdhr.config.dict["hdhr"]["reporting_firmware_name"],

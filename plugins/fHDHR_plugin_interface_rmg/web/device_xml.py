@@ -25,6 +25,8 @@ class RMG_Device_XML():
 
         if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
             origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
+            origin_plugin_name = self.fhdhr.origins.origins_dict[origin].plugin_utils.plugin_name
+            origin_plugin_version = self.fhdhr.origins.origins_dict[origin].plugin_utils.plugin_manifest["version"]
 
             specVersion_out = sub_el(out, 'specVersion')
             sub_el(specVersion_out, 'major', "1")
@@ -34,18 +36,18 @@ class RMG_Device_XML():
 
             sub_el(device_out, 'deviceType', "urn:plex-tv:device:Media:1")
 
-            sub_el(device_out, 'friendlyName', self.fhdhr.config.dict["fhdhr"]["friendlyname"])
+            sub_el(device_out, 'friendlyName', "%s %s" % (self.fhdhr.config.dict["fhdhr"]["friendlyname"], origin))
             sub_el(device_out, 'manufacturer', self.fhdhr.config.dict["rmg"]["reporting_manufacturer"])
-            sub_el(device_out, 'manufacturerURL', "https://github.com/fHDHR/%s" % self.fhdhr.config.dict["main"]["reponame"])
+            sub_el(device_out, 'manufacturerURL', "https://github.com/fHDHR/%s" % origin_plugin_name)
             sub_el(device_out, 'modelName', self.fhdhr.config.dict["rmg"]["reporting_model"])
-            sub_el(device_out, 'modelNumber', self.fhdhr.config.internal["versions"]["fHDHR"])
+            sub_el(device_out, 'modelNumber', origin_plugin_version)
 
-            sub_el(device_out, 'modelDescription', self.fhdhr.config.dict["fhdhr"]["friendlyname"])
+            sub_el(device_out, 'modelDescription', "%s %s" % (self.fhdhr.config.dict["fhdhr"]["friendlyname"], origin))
             sub_el(device_out, 'modelURL', "https://github.com/fHDHR/%s" % self.fhdhr.config.dict["main"]["reponame"])
 
             serviceList_out = sub_el(device_out, 'serviceList')
             service_out = sub_el(serviceList_out, 'service')
-            sub_el(out, 'URLBase', "%s/rmg" % (base_url))
+            sub_el(out, 'URLBase', "%s/rmg/%s%s" % (base_url, self.fhdhr.config.dict["main"]["uuid"], origin))
             sub_el(service_out, 'serviceType', "urn:plex-tv:service:MediaGrabber:1")
             sub_el(service_out, 'serviceId', "urn:plex-tv:serviceId:MediaGrabber")
 

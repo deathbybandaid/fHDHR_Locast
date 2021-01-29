@@ -28,11 +28,15 @@ class Tuner():
             channel_number = channel.replace('v', '')
         elif channel.startswith("ch"):
             channel_freq = channel.replace('ch', '').split("-")[0]
-            subchannel = 0
+            subchannel = None
             if "-" in channel:
                 subchannel = channel.replace('ch', '').split("-")[1]
-            self.fhdhr.logger.error("Not Implemented %s-%s" % (str(channel_freq), str(subchannel)))
-            abort(501, "Not Implemented %s-%s" % (str(channel_freq), str(subchannel)))
+            if subchannel:
+                self.fhdhr.logger.error("Not Implemented %s-%s" % (channel_freq, subchannel))
+                abort(501, "Not Implemented %s-%s" % (channel_freq, subchannel))
+            else:
+                self.fhdhr.logger.error("Not Implemented %s" % (channel_freq, subchannel))
+                abort(501, "Not Implemented %s" % channel_freq)
         else:
             channel_number = channel
 

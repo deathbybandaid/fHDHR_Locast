@@ -25,6 +25,7 @@ class RMG_Devices_DeviceKey_Scanners():
         out = xml.etree.ElementTree.Element('MediaContainer')
         if devicekey.startswith(self.fhdhr.config.dict["main"]["uuid"]):
             origin = devicekey.split(self.fhdhr.config.dict["main"]["uuid"])[-1]
+
             if method == "0":
                 out.set('size', "1")
                 out.set('simultaneousScanners', "1")

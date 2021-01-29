@@ -60,10 +60,11 @@ class Plugin_OBJ():
         if cmd[0] == 'NOTIFY' and cmd[1] == '*':
             try:
                 if headers["server"].startswith("fHDHR"):
-                    savelocation = headers["location"].split("/device.xml")[0]
-                    if savelocation.endswith("/cluster"):
-                        savelocation = savelocation.replace("/cluster", '')
-                        if savelocation != self.fhdhr.api.base:
-                            self.detect_method.set(savelocation)
+                    if headers["location"].endswith("/device.xml"):
+                        savelocation = headers["location"].split("/device.xml")[0]
+                        if savelocation.endswith("/cluster"):
+                            savelocation = savelocation.replace("/cluster", '')
+                            if savelocation != self.fhdhr.api.base:
+                                self.detect_method.set(savelocation)
             except KeyError:
                 return

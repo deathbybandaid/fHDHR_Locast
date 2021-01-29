@@ -78,6 +78,8 @@ class Plugin_Utils():
         self.db = Plugin_DB(db, plugin_manifest["name"])
         self.logger = logger
         self.namespace = plugin_manifest["name"].lower()
+        self.plugin_name = plugin_name
+        self.plugin_manifest = plugin_manifest
         self.origin = None
 
 
