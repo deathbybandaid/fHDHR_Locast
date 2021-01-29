@@ -43,7 +43,7 @@ class Plugin_OBJ():
 
             for c in result:
 
-                chan_obj = self.channels.get_channel_obj("origin_id", c["id"], "locast")
+                chan_obj = self.channels.get_channel_obj("origin_id", c["id"], self.plugin_utils.namespace)
 
                 if str(chan_obj.number) not in list(programguide.keys()):
                     programguide[str(chan_obj.number)] = chan_obj.epgdict

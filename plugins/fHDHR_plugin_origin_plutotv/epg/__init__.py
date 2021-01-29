@@ -45,7 +45,7 @@ class Plugin_OBJ():
 
                 cdict = fHDHR.tools.xmldictmaker(c, ["name", "number", "_id", "timelines", "colorLogoPNG"], list_items=["timelines"])
 
-                chan_obj = self.channels.get_channel_obj("origin_id", cdict["_id"])
+                chan_obj = self.channels.get_channel_obj("origin_id", cdict["_id"], self.plugin_utils.namespace)
 
                 if str(chan_obj.dict['number']) not in list(programguide.keys()):
 
