@@ -42,6 +42,7 @@ class Plugin_OBJ():
         for result in cached_items:
 
             for c in result:
+                print(c)
 
                 chan_obj = self.channels.get_channel_obj("origin_id", c["id"], self.plugin_utils.namespace)
 
