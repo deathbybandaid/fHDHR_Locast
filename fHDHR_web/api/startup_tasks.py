@@ -27,7 +27,8 @@ class Startup_Tasks():
             updatechannels = True
 
         if updatechannels:
-            self.fhdhr.api.get(self.channel_update_url)
+            for origin in list(self.fhdhr.origins.origins_dict.keys()):
+                self.fhdhr.api.get("%s&origin=%s" % (self.channel_update_url, origin))
 
         # Hit EPG Update API
         for epg_method in self.fhdhr.device.epg.epg_methods:
